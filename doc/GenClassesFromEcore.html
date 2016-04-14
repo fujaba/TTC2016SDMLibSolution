@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/de/unikassel/ttc2016/classmodel/GenClassesFromEcore.java' type='text/x-java'>GenClassesFromEcore</a></p>
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"ClassModel"
+      },
+      {
+         "typ":"node",
+         "id":"Class"
+      },
+      {
+         "typ":"node",
+         "id":"Attribute"
+      },
+      {
+         "typ":"node",
+         "id":"Method"
+      },
+      {
+         "typ":"node",
+         "id":"Feature"
+      },
+      {
+         "typ":"node",
+         "id":"NamedElement",
+         "attributes":[
+            "name : String"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"edge",
+         "source":{
+            "id":"ClassModel",
+            "cardinality":"one",
+            "property":"classmodel"
+         },
+         "target":{
+            "id":"NamedElement",
+            "cardinality":"one",
+            "property":"namedelement"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Class",
+            "cardinality":"one",
+            "property":"class"
+         },
+         "target":{
+            "id":"NamedElement",
+            "cardinality":"one",
+            "property":"namedelement"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Attribute",
+            "cardinality":"one",
+            "property":"attribute"
+         },
+         "target":{
+            "id":"Feature",
+            "cardinality":"one",
+            "property":"feature"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Method",
+            "cardinality":"one",
+            "property":"method"
+         },
+         "target":{
+            "id":"Feature",
+            "cardinality":"one",
+            "property":"feature"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"Feature",
+            "cardinality":"one",
+            "property":"feature"
+         },
+         "target":{
+            "id":"Attribute",
+            "cardinality":"one",
+            "property":"attribute"
+         }
+      },
+      {
+         "typ":"edge",
+         "source":{
+            "id":"NamedElement",
+            "cardinality":"one",
+            "property":"namedelement"
+         },
+         "target":{
+            "id":"ClassModel",
+            "cardinality":"one",
+            "property":"classmodel"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"ClassModel"},
+         "target":{"id":"NamedElement"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Class"},
+         "target":{"id":"NamedElement"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Attribute"},
+         "target":{"id":"Feature"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Method"},
+         "target":{"id":"Feature"}
+      },
+      {
+         "typ":"generalisation",
+         "source":{"id":"Feature"},
+         "target":{"id":"NamedElement"}
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasGenClassesFromEcoreClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+
+</body>
+</html>
