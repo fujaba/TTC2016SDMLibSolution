@@ -1,0 +1,13 @@
+\begin{thebibliography}{1}
+
+\bibitem{ttc2015-model_execution}
+{TTC2015 The Model Execution Case}.
+\newblock
+  https://code.google.com/a/eclipselabs.org/p/moliz/source/browse/?repo=ttc2015,
+  2015.
+
+\bibitem{sdmlib}
+{Story Driven Modeling Library}.
+\newblock http://sdmlib.org/, 2014.
+
+\end{thebibliography}

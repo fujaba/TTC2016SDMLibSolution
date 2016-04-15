@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="623.51562"
+   height="233"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="Activity.run.svg">
+  <metadata
+     id="metadata98">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     id="namedview96"
+     showgrid="false"
+     inkscape:zoom="2.1840874"
+     inkscape:cx="325.01244"
+     inkscape:cy="98.151076"
+     inkscape:window-x="1272"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2"
+     fit-margin-top="1"
+     fit-margin-right="1"
+     fit-margin-bottom="1"
+     fit-margin-left="1" />
+  <defs
+     id="defs4">
+    <filter
+       id="drop-shadow">
+      <feGaussianBlur
+         in="SourceAlpha"
+         result="blur-out"
+         stdDeviation="2"
+         id="feGaussianBlur7" />
+      <feOffset
+         in="blur-out"
+         dx="2"
+         dy="2"
+         id="feOffset9"
+         result="result1" />
+      <feBlend
+         in="SourceGraphic"
+         mode="normal"
+         id="feBlend11"
+         in2="result1" />
+    </filter>
+    <linearGradient
+       id="reflect"
+       x1="0"
+       x2="0"
+       y1="0.5"
+       y2="0"
+       spreadMethod="reflect">
+      <stop
+         offset="0%"
+         style="stop-color: rgb(170, 170, 170);"
+         id="stop14" />
+      <stop
+         offset="100%"
+         style="stop-color: rgb(238, 238, 238);"
+         id="stop16" />
+    </linearGradient>
+    <linearGradient
+       id="classelement"
+       x1="0"
+       x2="1"
+       y1="1"
+       y2="0">
+      <stop
+         offset="0"
+         style="stop-color: rgb(255, 255, 255);"
+         id="stop19" />
+      <stop
+         offset="1"
+         style="stop-color: rgb(211, 211, 211);"
+         id="stop21" />
+    </linearGradient>
+  </defs>
+  <text
+     width="110.703125"
+     x="91.60527"
+     y="-46.249031"
+     id="text69-3-2"
+     transform="matrix(0.07061084,0.99750394,-0.99750394,0.07061084,0,0)">&lt;&lt; create&gt;&gt;</text>
+  <g
+     id="g23"
+     transform="translate(-8.5,-48.5)">
+    <rect
+       width="124.92188"
+       height="90"
+       x="10"
+       y="50"
+       class="draggable"
+       id="rect25"
+       style="fill:#add8e6;stroke:#000000" />
+    <text
+       x="20"
+       y="70"
+       width="104.921875"
+       id="text27">a1 : ActivityPO</text>
+    <line
+       x1="10"
+       y1="80"
+       x2="134.92188"
+       y2="80"
+       id="line29"
+       style="stroke:#000000" />
+    <text
+       width="124.921875"
+       x="20"
+       y="100"
+       id="text31">&lt;&lt; start &gt;&gt;</text>
+    <text
+       width="124.921875"
+       x="20"
+       y="120"
+       id="text33">&lt;&lt; bound&gt;&gt;</text>
+  </g>
+  <g
+     id="g35"
+     transform="translate(-8.5,-48.5)">
+    <rect
+       width="163.17188"
+       height="60"
+       x="225"
+       y="85"
+       class="draggable"
+       id="rect37"
+       style="fill:#add8e6;stroke:#000000" />
+    <text
+       x="235"
+       y="105"
+       width="143.171875"
+       id="text39">a2 : ActivityNodePO</text>
+    <line
+       x1="225"
+       y1="115"
+       x2="388.17188"
+       y2="115"
+       id="line41"
+       style="stroke:#000000" />
+  </g>
+  <g
+     id="g43"
+     transform="translate(-8.5,-48.5)">
+    <rect
+       width="144.51562"
+       height="60"
+       x="486"
+       y="106"
+       class="draggable"
+       id="rect45"
+       style="fill:#add8e6;stroke:#000000" />
+    <text
+       x="496"
+       y="126"
+       width="124.515625"
+       id="text47">i3 : InitialNodePO</text>
+    <line
+       x1="486"
+       y1="136"
+       x2="630.51562"
+       y2="136"
+       id="line49"
+       style="stroke:#000000" />
+  </g>
+  <g
+     id="g61"
+     transform="translate(-8.5,-44.5)">
+    <rect
+       width="110.70312"
+       height="65"
+       x="22"
+       y="211"
+       class="draggable"
+       id="rect63"
+       style="fill:#add8e6;stroke:#000000" />
+    <text
+       x="32"
+       y="231"
+       width="90.703125"
+       id="text65">t4 : TracePO</text>
+    <line
+       x1="22"
+       y1="241"
+       x2="132.70312"
+       y2="241"
+       id="line67"
+       style="stroke:#000000" />
+    <text
+       width="110.703125"
+       x="32"
+       y="261"
+       id="text69">&lt;&lt; create&gt;&gt;</text>
+  </g>
+  <line
+     x1="126.5"
+     y1="51.5"
+     x2="216.5"
+     y2="59.5"
+     id="line71"
+     style="stroke:#000000" />
+  <text
+     x="130.72963"
+     y="39.550789"
+     id="a1 : ActivityPO"
+     class="draggable"
+     transform="matrix(0.99569344,0.09270691,-0.09270691,0.99569344,0,0)" />
+  <text
+     x="176.53152"
+     y="35.286266"
+     id="a2 : ActivityNodePO"
+     class="draggable"
+     transform="matrix(0.99569344,0.09270691,-0.09270691,0.99569344,0,0)">nodes</text>
+  <line
+     x1="379.5"
+     y1="73.5"
+     x2="477.5"
+     y2="81.5"
+     id="line75"
+     style="stroke:#000000" />
+  <text
+     x="384.38199"
+     y="40.90205"
+     id="text77"
+     class="draggable"
+     transform="matrix(0.99636447,0.08519299,-0.08519299,0.99636447,0,0)" />
+  <text
+     x="409.12073"
+     y="36.779491"
+     id="i3 : InitialNodePO"
+     class="draggable"
+     transform="matrix(0.99636447,0.08519299,-0.08519299,0.99636447,0,0)">instanceof</text>
+  <line
+     x1="66.5"
+     y1="91.5"
+     x2="68.5"
+     y2="162.5"
+     id="line80"
+     style="stroke:#000000" />
+  <text
+     x="88.440781"
+     y="-70.517578"
+     id="text82"
+     class="draggable"
+     transform="matrix(-0.04463218,0.99900349,-0.99900349,-0.04463218,0,0)" />
+  <text
+     x="123.8707"
+     y="-64.92173"
+     id="t4 : TracePO"
+     class="draggable"
+     transform="matrix(0.05751515,0.99834463,-0.99834463,0.05751515,0,0)">trace</text>
+  <line
+     x1="126.5"
+     y1="83.5"
+     x2="284.5"
+     y2="179.5"
+     id="line85"
+     style="stroke:#000000" />
+  <text
+     x="151.56308"
+     y="1.7693667"
+     id="text87"
+     class="draggable"
+     transform="matrix(0.84095291,0.54110831,-0.54110831,0.84095291,0,0)" />
+  <text
+     x="275.99323"
+     y="-8.1363268"
+     id="t5 : TokenPO"
+     class="draggable"
+     transform="matrix(0.84095291,0.54110831,-0.54110831,0.84095291,0,0)">token</text>
+  <line
+     x1="395.5"
+     y1="179.5"
+     x2="499.5"
+     y2="117.5"
+     id="line90"
+     style="stroke:#000000" />
+  <text
+     x="238.66862"
+     y="362.87433"
+     id="text92"
+     class="draggable"
+     transform="matrix(0.8456794,-0.53369125,0.53369125,0.8456794,0,0)" />
+  <text
+     x="250.79137"
+     y="378.96347"
+     id="text94"
+     class="draggable"
+     transform="matrix(0.8456794,-0.53369125,0.53369125,0.8456794,0,0)">currentElements</text>
+  <g
+     id="g51"
+     transform="translate(-8.5,-62.5)">
+    <rect
+       width="114.26562"
+       height="65"
+       x="291"
+       y="228"
+       class="draggable"
+       id="rect53"
+       style="fill:#add8e6;stroke:#000000" />
+    <text
+       x="301"
+       y="248"
+       width="94.265625"
+       id="text55">t5 : TokenPO</text>
+    <line
+       x1="291"
+       y1="258"
+       x2="405.26562"
+       y2="258"
+       id="line57"
+       style="stroke:#000000" />
+    <text
+       width="114.265625"
+       x="301"
+       y="278"
+       id="text59">&lt;&lt; create&gt;&gt;</text>
+  </g>
+  <text
+     width="110.703125"
+     x="244.78868"
+     y="7.642592"
+     id="text69-3"
+     transform="matrix(0.83299358,0.55328266,-0.55328266,0.83299358,0,0)">&lt;&lt; create&gt;&gt;</text>
+  <text
+     width="110.703125"
+     x="243.51688"
+     y="366.04559"
+     id="text69-1"
+     transform="matrix(0.83357427,-0.5524074,0.5524074,0.83357427,0,0)">&lt;&lt; create&gt;&gt;</text>
+</svg>

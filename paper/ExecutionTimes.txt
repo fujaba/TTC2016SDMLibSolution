@@ -1,0 +1,253 @@
+
+
+29.04.2015 14:13 
+First run Debug battery
+model/testperformance_variant1.ad time (nanos): 195.549.204
+
+
+29.04.2015 14:18 
+Direct run warm up 1000 battery
+model/testperformance_variant1.ad time (nanos):  14.642.092
+
+
+29.04.2015 14:22 
+Direct run warm up 10000 battery
+model/testperformance_variant1.ad time (nanos):  15.613.740
+
+
+29.04.2015 14:28 
+Direct run no warm up battery
+model/testperformance_variant1.ad time (nanos): 183.111.415
+
+
+29.04.2015 14:32 
+Debug no warm up battery
+model/testperformance_variant1.ad time (nanos): 390.413.173
+model/testperformance_variant1.ad time (nanos): 183.489.834
+
+
+29.04.2015 14:36 
+Direct Run no warm up battery 3 measurements
+model/testperformance_variant1.ad time (nanos): 165.903.925
+model/testperformance_variant1.ad time (nanos):  63.424.683
+model/testperformance_variant1.ad time (nanos):  62.749.072
+
+
+29.04.2015 14:38 
+Direct Run no warm up battery 5 measurements
+model/testperformance_variant1.ad time (nanos): 193466936
+model/testperformance_variant1.ad time (nanos): 48269049
+model/testperformance_variant1.ad time (nanos): 86224154
+model/testperformance_variant1.ad time (nanos): 83657216
+model/testperformance_variant1.ad time (nanos): 73801378
+
+
+29.04.2015 14:39 
+Direct Run 1000 warm up battery 5 measurements
+model/testperformance_variant1.ad time (nanos): 16.770.171
+model/testperformance_variant1.ad time (nanos): 16.865.256
+model/testperformance_variant1.ad time (nanos): 15.957.127
+model/testperformance_variant1.ad time (nanos): 15.983.305
+model/testperformance_variant1.ad time (nanos): 16.281.267
+
+
+29.04.2015 14:49 
+Direct Run 1000 warm up battery 5 measurements formatted output
+model/testperformance_variant1.ad time (nanos):  15,566,774
+model/testperformance_variant1.ad time (nanos):  17,273,703
+model/testperformance_variant1.ad time (nanos):  20,781,492
+model/testperformance_variant1.ad time (nanos):  18,735,410
+model/testperformance_variant1.ad time (nanos):  17,275,627
+
+
+29.04.2015 17:25 
+Debug 1000 warm up full power 5 measurements formatted output
+Iterator caching
+model/testperformance_variant1.ad time (nanos):  13,977,259
+model/testperformance_variant1.ad time (nanos):  13,777,078
+model/testperformance_variant1.ad time (nanos):  13,507,989
+model/testperformance_variant1.ad time (nanos):  15,052,848
+model/testperformance_variant1.ad time (nanos):  14,264,443
+NoOfIteratorRequests: 4030043 NoOfReuses: 3024038
+
+
+29.04.2015 17:30 
+Direct Run 1000 warm up full power 5 measurements formatted output
+Iterator caching
+model/testperformance_variant1.ad time (nanos):  13,756,676
+model/testperformance_variant1.ad time (nanos):  13,984,574
+model/testperformance_variant1.ad time (nanos):  13,759,370
+model/testperformance_variant1.ad time (nanos):  15,179,116
+model/testperformance_variant1.ad time (nanos):  16,510,320
+NoOfIteratorRequests: 4030043 NoOfReuses: 3024038
+
+
+29.04.2015 17:35 
+Direct Run 1000 warm up battery 5 measurements formatted output
+Iterator caching
+model/testperformance_variant1.ad time (nanos):  14,346,825
+model/testperformance_variant1.ad time (nanos):  16,069,537
+model/testperformance_variant1.ad time (nanos):  14,672,888
+model/testperformance_variant1.ad time (nanos):  15,103,278
+model/testperformance_variant1.ad time (nanos):  15,865,121
+NoOfIteratorRequests: 4030043 NoOfReuses: 3024038
+
+
+
+30.04.2015 11:55 
+Direct Run 1000 warm up full power 5 measurements formatted output
+No Iterator caching
+model/testperformance_variant2.ad time (nanos):  17,746,438
+model/testperformance_variant2.ad time (nanos):  18,141,796
+model/testperformance_variant2.ad time (nanos):  18,888,240
+model/testperformance_variant2.ad time (nanos):  18,293,472
+model/testperformance_variant2.ad time (nanos):  19,332,874
+
+
+30.04.2015 12:00 
+Direct Run 1000 warm up full power 5 measurements formatted output
+With Iterator caching
+model/testperformance_variant2.ad time (nanos):  15,859,347
+model/testperformance_variant2.ad time (nanos):  16,625,424
+model/testperformance_variant2.ad time (nanos):  16,672,004
+model/testperformance_variant2.ad time (nanos):  17,369,559
+model/testperformance_variant2.ad time (nanos):  16,035,660
+NoOfIteratorRequests: 4335562 NoOfReuses: 3228052
+
+
+30.04.2015 12:00 
+Direct Run 1000 warm up full power 5 measurements formatted output
+With Iterator caching, optimized OpaqueAction by one statement
+..........
+model/testperformance_variant2.ad time (nanos):  16,044,130
+model/testperformance_variant2.ad time (nanos):  15,021,281
+model/testperformance_variant2.ad time (nanos):  14,872,300
+model/testperformance_variant2.ad time (nanos):  14,960,071
+model/testperformance_variant2.ad time (nanos):  15,310,388
+NoOfIteratorRequests: 4335562 NoOfReuses: 3228052
+
+
+30.04.2015 13:00 
+Direct Run 1000 warm up full power 5 measurements formatted output
+With Iterator caching, optimized OpaqueAction by one statement, tried token uni directional, did not work, reverted to previous.
+..........
+model/testperformance_variant2.ad time (nanos):  15,065,167
+model/testperformance_variant2.ad time (nanos):  15,025,515
+model/testperformance_variant2.ad time (nanos):  15,602,575
+model/testperformance_variant2.ad time (nanos):  14,881,924
+model/testperformance_variant2.ad time (nanos):  14,234,415
+NoOfIteratorRequests: 4335562 NoOfReuses: 3228052
+
+
+30.04.2015 14:00 
+Direct Run 1000 warm up full power 5 measurements formatted output
+With Iterator caching, optimized OpaqueAction by one statement, 
+Fixed Problem with EmfIdMap
+..........
+model/testperformance_variant3_1.ad time (nanos):  11,694,425
+model/testperformance_variant3_1.ad time (nanos):  15,246,870
+model/testperformance_variant3_1.ad time (nanos):  12,105,951
+model/testperformance_variant3_1.ad time (nanos):  12,667,999
+model/testperformance_variant3_1.ad time (nanos):  12,502,464
+NoOfIteratorRequests: 4335562 NoOfReuses: 3228052
+
+
+30.04.2015 14:00 
+Direct Run 1000 warm up full power 5 measurements formatted output
+With Iterator caching, optimized OpaqueAction by one statement, 
+Fixed Problem with EmfIdMap
+Changed ActivityNodeSet to ArrayList allowing dublicate entries
+..........
+model/testperformance_variant3_2.ad time (nanos):  15,192,590
+model/testperformance_variant3_2.ad time (nanos):  15,954,817
+model/testperformance_variant3_2.ad time (nanos):  15,336,566
+model/testperformance_variant3_2.ad time (nanos):  15,819,696
+model/testperformance_variant3_2.ad time (nanos):  15,121,371
+NoOfIteratorRequests: 4024011 NoOfReuses: 3019011
+
+
+
+30.04.2015 14:00 
+Direct Run 1000 warm up full power 5 measurements formatted output
+With Iterator caching, optimized OpaqueAction by one statement, 
+Fixed Problem with EmfIdMap
+Changed ActivityNodeSet to ArrayList allowing dublicate entries
+Just rerunning all tests
+..........
+model/testperformance_variant1.ad time (nanos):  10,228,868
+model/testperformance_variant1.ad time (nanos):   9,595,989
+model/testperformance_variant1.ad time (nanos):  10,162,655
+model/testperformance_variant1.ad time (nanos):  10,116,459
+model/testperformance_variant1.ad time (nanos):   9,871,622
+NoOfIteratorRequests: 4027028 NoOfReuses: 3021023
+..........
+model/testperformance_variant2.ad time (nanos):   8,581,224
+model/testperformance_variant2.ad time (nanos):  11,075,404
+model/testperformance_variant2.ad time (nanos):   8,559,281
+model/testperformance_variant2.ad time (nanos):   8,644,358
+model/testperformance_variant2.ad time (nanos):   9,374,635
+NoOfIteratorRequests: 8359686 NoOfReuses: 6246160
+..........
+model/testperformance_variant3_1.ad time (nanos):   9,384,258
+model/testperformance_variant3_1.ad time (nanos):   9,913,969
+model/testperformance_variant3_1.ad time (nanos):   9,355,386
+model/testperformance_variant3_1.ad time (nanos):   8,915,758
+model/testperformance_variant3_1.ad time (nanos):   9,375,789
+NoOfIteratorRequests: 12692372 NoOfReuses: 9471322
+..........
+model/testperformance_variant3_2.ad time (nanos):  14,250,968
+model/testperformance_variant3_2.ad time (nanos):  15,072,096
+model/testperformance_variant3_2.ad time (nanos):  13,302,034
+model/testperformance_variant3_2.ad time (nanos):  13,751,286
+model/testperformance_variant3_2.ad time (nanos):  13,881,018
+NoOfIteratorRequests: 16716538 NoOfReuses: 12490473
+..........
+model/test1.ad time (nanos):      73,143
+model/test1.ad time (nanos):      70,448
+model/test1.ad time (nanos):      62,749
+model/test1.ad time (nanos):      98,551
+model/test1.ad time (nanos):      67,754
+NoOfIteratorRequests: 16727766 NoOfReuses: 12499674
+..........
+model/test2.ad time (nanos):     170,154
+model/test2.ad time (nanos):     162,840
+model/test2.ad time (nanos):     153,985
+model/test2.ad time (nanos):     208,650
+model/test2.ad time (nanos):     391,123
+NoOfIteratorRequests: 16753045 NoOfReuses: 12518908
+..........
+model/test3.ad time (nanos):     100,090
+model/test3.ad time (nanos):      93,931
+model/test3.ad time (nanos):      92,007
+model/test3.ad time (nanos):      91,236
+model/test3.ad time (nanos):      90,851
+NoOfIteratorRequests: 16772314 NoOfReuses: 12534139
+..........
+model/test4.ad time (nanos):      75,068
+model/test4.ad time (nanos):      81,612
+model/test4.ad time (nanos):      80,842
+model/test4.ad time (nanos):      80,842
+model/test4.ad time (nanos):     112,024
+NoOfIteratorRequests: 16795617 NoOfReuses: 12552398
+..........
+model/test5.ad time (nanos):      80,842
+model/test5.ad time (nanos):      81,227
+model/test5.ad time (nanos):      81,997
+model/test5.ad time (nanos):      81,612
+model/test5.ad time (nanos):     117,799
+NoOfIteratorRequests: 16807856 NoOfReuses: 12562609
+..........
+model/test6.ad time (nanos):     655,208
+model/test6.ad time (nanos):     707,948
+model/test6.ad time (nanos):     438,859
+model/test6.ad time (nanos):     660,983
+model/test6.ad time (nanos):   1,363,926
+NoOfIteratorRequests: 16862318 NoOfReuses: 12603986
+..........
+model/test6.ad time (nanos):     283,718
+model/test6.ad time (nanos):     199,796
+model/test6.ad time (nanos):     161,300
+model/test6.ad time (nanos):     205,185
+model/test6.ad time (nanos):     333,379
+NoOfIteratorRequests: 16890694 NoOfReuses: 12626307
+
