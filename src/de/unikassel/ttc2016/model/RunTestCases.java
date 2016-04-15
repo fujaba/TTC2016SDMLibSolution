@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import org.sdmlib.serialization.xml.EmfIdMap;
 import org.sdmlib.storyboards.StoryPage;
 
+import de.unikassel.ttc2016.Metric;
 import de.unikassel.ttc2016.model.util.ClassModelCreator;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.xml.XMLEntity;
@@ -55,6 +56,13 @@ public class RunTestCases
             
             System.out.println(f.getName());
          }
+         
+         Metric metric = new Metric();
+         
+         double currentMax = metric.calc(model);
+         
+         System.out.println("Current max: " + currentMax);
+        
       }
       catch (IOException e)
       {

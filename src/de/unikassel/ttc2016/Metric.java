@@ -11,11 +11,11 @@ public class Metric
    public double calc(ClassModel classModel)
    {
 
-      if (classModel.getClasses().size() >= 42)
+      if (classModel.getClasses().size() >= 420)
       {
          return 0;
       }
 
-      return classModel.getClasses().size() / 42;
+      return classModel.getClasses().size() / 42d;
    }
 }
