@@ -41,6 +41,15 @@ public class RunTestCases
          Object root = idMap.decode(text);
          
          story.addObjectDiagram(root);
+         
+         ClassModel model = (ClassModel) root;
+         
+         for (Feature f : model.getFeatures())
+         {
+            NamedElement newClass = new Class().withName("Class4" + f.getName());
+            
+            System.out.println(f.getName());
+         }
       }
       catch (IOException e)
       {
