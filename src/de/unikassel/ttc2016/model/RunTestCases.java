@@ -9,6 +9,9 @@ import org.sdmlib.storyboards.StoryPage;
 
 import de.unikassel.ttc2016.Metric;
 import de.unikassel.ttc2016.model.util.ClassModelCreator;
+import de.unikassel.ttc2016.model.util.ClassModelPO;
+import de.unikassel.ttc2016.model.util.ClassPO;
+import de.unikassel.ttc2016.model.util.FeaturePO;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.xml.XMLEntity;
 
@@ -45,17 +48,9 @@ public class RunTestCases
          
          ClassModel model = (ClassModel) root;
          
-         for (Feature f : model.getFeatures())
-         {
-            Class newClass = new Class();
-            newClass.withName("Class4" + f.getName());
-            
-            newClass.withEncapsulates(f);
-            
-            model.withClasses(newClass);
-            
-            System.out.println(f.getName());
-         }
+         addInitialClasses(model);
+         
+         System.out.println(model.getClasses().size());
          
          Metric metric = new Metric();
          
@@ -71,5 +66,22 @@ public class RunTestCases
       }
       
       story.dumpHTML();
+   }
+
+   private ClassModelPO addInitialClasses(ClassModel model)
+   {
+      ClassModelPO classModelPO = new ClassModelPO(model);
+      
+      FeaturePO featurePO = classModelPO.filterFeatures();
+      
+      featurePO.startCreate();
+      
+      ClassPO newClassPO = classModelPO.filterClasses();
+      newClassPO.filterEncapsulates(featurePO);
+      newClassPO.filter(c -> c.withName("Class4"+featurePO.getName()) != null);
+      featurePO.endCreate();
+      featurePO.allMatches();
+      
+      return classModelPO;
    }
 }

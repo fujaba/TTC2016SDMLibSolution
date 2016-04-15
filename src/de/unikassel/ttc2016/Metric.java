@@ -6,7 +6,8 @@ public class Metric
 {
    /**
     * @param classModel
-    * @return heavy calculated things
+    * @return heavy calculated 
+    *         things
     */
    public double calc(ClassModel classModel)
    {
