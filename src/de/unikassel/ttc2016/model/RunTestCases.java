@@ -46,7 +46,12 @@ public class RunTestCases
          
          for (Feature f : model.getFeatures())
          {
-            NamedElement newClass = new Class().withName("Class4" + f.getName());
+            Class newClass = new Class();
+            newClass.withName("Class4" + f.getName());
+            
+            newClass.withEncapsulates(f);
+            
+            model.withClasses(newClass);
             
             System.out.println(f.getName());
          }
