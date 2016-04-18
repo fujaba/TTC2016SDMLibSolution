@@ -1,7 +1,12 @@
 package de.unikassel.ttc2016;
 
-import de.unikassel.ttc2016.model.*;
 //needs explicit import
+import de.unikassel.ttc2016.model.ClassModel;
+import de.unikassel.ttc2016.model.Feature;
+import de.unikassel.ttc2016.model.Method;
+import de.unikassel.ttc2016.model.util.AttributeSet;
+import de.unikassel.ttc2016.model.util.MethodSet;
+import de.unikassel.ttc2016.model.Attribute;
 import de.unikassel.ttc2016.model.Class;
 
 public class Metric
@@ -11,7 +16,7 @@ public class Metric
 	 * @return heavy calculated 
 	 *         things
 	 */
-	public double calc(ClassModel classModel)
+	public double calc2(ClassModel classModel)
 	{
 		return cRAIndex(classModel);
 	}
@@ -142,4 +147,118 @@ public class Metric
 
 
 
+
+   /**
+    * @param classModel
+    * @return heavy calculated 
+    *         things
+    */
+   public double calc(ClassModel classModel)
+   {
+
+      if (classModel.getClasses().size() >= 420)
+      {
+         return 0;
+      }
+
+      return classModel.getClasses().size() / 42d;
+   }
+
+   public double computeFitness(ClassModel model)
+   {
+      double result = cohesionRatio(model) - couplingRatio(model);
+      
+      return result;
+   }
+
+   private double cohesionRatio(ClassModel model)
+   {
+      double sum = 0;
+      
+      for(Class c : model.getClasses())
+      {
+         int mc = c.getEncapsulates().indexOf(new MethodSet());
+         int ac = c.getEncapsulates().indexOf(new AttributeSet());
+         
+         if (mc*ac != 0)
+         {
+            sum += MAI(c,c) / (mc * ac);
+         }
+         
+         if (mc * (mc-1) != 0)
+         {
+            sum += MMI(c,c) / (mc * (mc-1));
+         }
+      }
+      
+      return sum;
+   }
+
+   private double MMI(Class c1, Class c2)
+   {
+      double result = 0;
+      
+      for (Method m1 : c1.getEncapsulates().instanceOf(new MethodSet()))
+      {
+         for (Method m2 : c2.getEncapsulates().instanceOf(new MethodSet()))
+         {
+            if (m1.getFunctionalDependency().contains(m2))
+            {
+               result++;
+            }
+         }
+      }   
+      
+      return result;
+   }
+
+   private double MAI(Class c1, Class c2)
+   {
+      double result = 0;
+      
+      for (Method m : c1.getEncapsulates().instanceOf(new MethodSet()))
+      {
+         for (Attribute a : c2.getEncapsulates().instanceOf(new AttributeSet()))
+         {
+            if (m.getDataDependency().contains(a))
+            {
+               result++;
+            }
+         }
+      }
+      
+      return result;
+   }
+
+   private double couplingRatio(ClassModel model)
+   {
+      double sum = 0;
+      
+      for(Class c1 : model.getClasses())
+      {
+         for(Class c2 : model.getClasses())
+         {
+            if (c1 == c2)
+            {
+               continue;
+            }
+            
+            int mc1 = c1.getEncapsulates().indexOf(new MethodSet());
+            int mc2 = c2.getEncapsulates().indexOf(new MethodSet());
+            int ac2 = c2.getEncapsulates().indexOf(new AttributeSet());
+
+            if (mc1*ac2 != 0)
+            {
+               sum += MAI(c1,c2) / (mc1 * ac2);
+            }
+
+            if (mc1 * (mc2-1) != 0)
+            {
+               sum += MMI(c1,c2) / (mc1 * (mc2-1));
+            }
+         }
+      }
+      
+      return sum;
+   }
 }

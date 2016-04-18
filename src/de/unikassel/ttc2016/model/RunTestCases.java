@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.xml.EmfIdMap;
 import org.sdmlib.storyboards.StoryPage;
 
+import at.ac.tuwien.big.momot.examples.modularization.cra.eval.CRAIndexCalculator;
 import de.unikassel.ttc2016.Metric;
 import de.unikassel.ttc2016.model.util.ClassModelCreator;
 import de.unikassel.ttc2016.model.util.ClassModelPO;
@@ -54,7 +56,12 @@ public class RunTestCases
          
          Metric metric = new Metric();
          
+         double craValue = metric.computeFitness(model);
+         
          double currentMax = metric.calc(model);
+         
+         
+         
          
          System.out.println("Current max: " + currentMax);
         
