@@ -24,7 +24,10 @@ public class RunTestCases
 		RunTestCases runner = new RunTestCases();
 
 		runner.runCase("input_models/TTC_InputRDG_A.xmi");
-
+		runner.runCase("input_models/TTC_InputRDG_B.xmi");
+		runner.runCase("input_models/TTC_InputRDG_C.xmi");
+		runner.runCase("input_models/TTC_InputRDG_D.xmi");
+		runner.runCase("input_models/TTC_InputRDG_E.xmi");
 	}
 
 	/**
