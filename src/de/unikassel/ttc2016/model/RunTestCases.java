@@ -19,76 +19,75 @@ import de.uniks.networkparser.xml.XMLEntity;
 
 public class RunTestCases
 {
-   public static void main(String[] args)
-   {
-      RunTestCases runner = new RunTestCases();
-      
-      runner.runCase("input_models/TTC_InputRDG_A.xmi");
-      
-   }
+	public static void main(String[] args)
+	{
+		RunTestCases runner = new RunTestCases();
 
-     /**
-    * 
-    * @see <a href='../../../../../doc/runCase.html'>runCase.html</a>
- */
-   public void runCase(String caseFile)
-   {
-      StoryPage story = new StoryPage();
+		runner.runCase("input_models/TTC_InputRDG_A.xmi");
 
-      EmfIdMap idMap = (EmfIdMap) new EmfIdMap("g").with(ClassModelCreator.createIdMap("g"));
-      
-      byte[] allBytes;
-      try
-      {
-         allBytes = Files.readAllBytes(Paths.get(caseFile));
+	}
 
-         String text = new String(allBytes);
-         
-         Object root = idMap.decode(text);
-         
-         story.addObjectDiagram(root);
-         
-         ClassModel model = (ClassModel) root;
-         
-         addInitialClasses(model);
-         
-         System.out.println(model.getClasses().size());
-         
-         Metric metric = new Metric();
-         
-         double craValue = metric.computeFitness(model);
-         
-         double currentMax = metric.calc(model);
-         
-         
-         
-         
-         System.out.println("Current max: " + currentMax);
-        
-      }
-      catch (IOException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      
-      story.dumpHTML();
-   }
+	/**
+	 * 
+	 * @see <a href='../../../../../doc/runCase.html'>runCase.html</a>
+	 */
+	public void runCase(String caseFile)
+	{
+		StoryPage story = new StoryPage();
 
-   private ClassModelPO addInitialClasses(ClassModel model)
-   {
-      ClassModelPO classModelPO = new ClassModelPO(model);
-      
-      FeaturePO featurePO = classModelPO.filterFeatures();
-      
-      featurePO.startCreate();
-      
-      ClassPO newClassPO = classModelPO.filterClasses();
-      newClassPO.filterEncapsulates(featurePO);
-      newClassPO.filter(c -> c.withName("Class4"+featurePO.getName()) != null);
-      featurePO.endCreate();
-      featurePO.allMatches();
-      
-      return classModelPO;
-   }
+		EmfIdMap idMap = (EmfIdMap) new EmfIdMap("g").with(ClassModelCreator.createIdMap("g"));
+
+		byte[] allBytes;
+		try
+		{
+			allBytes = Files.readAllBytes(Paths.get(caseFile));
+
+			String text = new String(allBytes);
+
+			Object root = idMap.decode(text);
+
+			story.addObjectDiagram(root);
+
+			ClassModel model = (ClassModel) root;
+
+			addInitialClasses(model);
+
+			System.out.println(model.getClasses().size());
+
+			Metric metric = new Metric();
+
+			double craValue = metric.computeFitness(model);
+			double craIndex = metric.cRAIndex(model);
+
+			if(craValue != craIndex){
+				System.out.println("Albert says: " + craValue + " while Lennert says: " + craIndex);
+			}else{
+				System.out.println("Current max: " + craValue);
+			}
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		story.dumpHTML();
+	}
+
+	private ClassModelPO addInitialClasses(ClassModel model)
+	{
+		ClassModelPO classModelPO = new ClassModelPO(model);
+
+		FeaturePO featurePO = classModelPO.filterFeatures();
+
+		featurePO.startCreate();
+
+		ClassPO newClassPO = classModelPO.filterClasses();
+		newClassPO.filterEncapsulates(featurePO);
+		newClassPO.filter(c -> c.withName("Class4"+featurePO.getName()) != null);
+		featurePO.endCreate();
+		featurePO.allMatches();
+
+		return classModelPO;
+	}
 }
