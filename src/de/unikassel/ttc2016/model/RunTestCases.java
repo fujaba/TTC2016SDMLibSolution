@@ -13,7 +13,9 @@ import de.unikassel.ttc2016.Metric;
 import de.unikassel.ttc2016.model.util.ClassModelCreator;
 import de.unikassel.ttc2016.model.util.ClassModelPO;
 import de.unikassel.ttc2016.model.util.ClassPO;
+import de.unikassel.ttc2016.model.util.ClassSet;
 import de.unikassel.ttc2016.model.util.FeaturePO;
+import de.unikassel.ttc2016.model.util.FeatureSet;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.xml.XMLEntity;
 
@@ -23,11 +25,11 @@ public class RunTestCases
 	{
 		RunTestCases runner = new RunTestCases();
 
-		runner.runCase("input_models/TTC_InputRDG_A.xmi");
+//		runner.runCase("input_models/TTC_InputRDG_A.xmi");
 		runner.runCase("input_models/TTC_InputRDG_B.xmi");
-		runner.runCase("input_models/TTC_InputRDG_C.xmi");
-		runner.runCase("input_models/TTC_InputRDG_D.xmi");
-		runner.runCase("input_models/TTC_InputRDG_E.xmi");
+//		runner.runCase("input_models/TTC_InputRDG_C.xmi");
+//		runner.runCase("input_models/TTC_InputRDG_D.xmi");
+//		runner.runCase("input_models/TTC_InputRDG_E.xmi");
 	}
 
 	/**
@@ -57,24 +59,29 @@ public class RunTestCases
 
 			System.out.println("This test case consists of " + model.getClasses().size() + " classes.");
 
-			Metric metric = new Metric();
+			printMetrics(model);
 
-			double craValue = metric.computeFitness(model);
-			double craIndex = metric.cRAIndex(model);
+			reduceClassesWhileMetricSucks(model);
 
-			if(craValue != craIndex){
-				System.out.println("Albert says: " + craValue + " while Lennert says: " + craIndex);
-			}else{
-				System.out.println("Current max: " + craValue);
-			}
+			printMetrics(model);
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		story.dumpHTML();
+	}
+
+	private void printMetrics(ClassModel model) {
+		double craValue = Metric.computeFitness(model);
+		double craIndex = Metric.cRAIndex(model);
+
+		if(craValue != craIndex){
+			System.out.println("Albert says: " + craValue + " while Lennert says: " + craIndex);
+		}else{
+			System.out.println("Current max: " + craValue);
+		}
 	}
 
 	private ClassModelPO addInitialClasses(ClassModel model)
@@ -92,5 +99,45 @@ public class RunTestCases
 		featurePO.allMatches();
 
 		return classModelPO;
+	}
+
+	private void reduceClassesWhileMetricSucks(ClassModel model)
+	{
+		double current = Metric.cRAIndex(model);
+
+
+		while(current < 3){
+			reduceClasses(model);
+			
+			current = Metric.cRAIndex(model);
+		}
+	}
+
+	private void reduceClasses(ClassModel model) {
+		ClassSet visitedClasses = new ClassSet();
+
+		for (Class ci : model.getClasses()) {
+			visitedClasses.add(ci);
+			for (Class cj : model.getClasses()){
+				if(ci != cj && !visitedClasses.contains(cj)){
+					//pair of classes
+					double cohesion = Metric.calcRatio(ci, ci);
+					double coupling = Metric.calcRatio(ci, cj);
+
+					//TODO choose more wisely
+					if(cohesion < coupling){
+						Class joinedClass = model.createClasses();
+						FeatureSet encapsulatesCi = ci.getEncapsulates();
+						FeatureSet encapsulatesCj = cj.getEncapsulates();
+						joinedClass.withEncapsulates(encapsulatesCi.toArray(new Feature[encapsulatesCi.size()]));
+						joinedClass.withEncapsulates(encapsulatesCj.toArray(new Feature[encapsulatesCj.size()]));
+						joinedClass.setName(ci.getName() + " JOINED " + cj.getName());
+						System.out.println(joinedClass.getName());
+						ci.removeYou();
+						cj.removeYou();
+					}
+				}
+			}
+		}
 	}
 }

@@ -12,11 +12,11 @@ import de.unikassel.ttc2016.model.Class;
 
 public class Metric
 {
-	public double cRAIndex(ClassModel classModel){
+	public static double cRAIndex(ClassModel classModel){
 		return calcCohesianRatio(classModel) - calcCouplingRatio(classModel);
 	}
 
-	private double calcCohesianRatio(ClassModel classModel) {
+	private static double calcCohesianRatio(ClassModel classModel) {
 
 		double sum = 0;
 
@@ -27,7 +27,7 @@ public class Metric
 		return sum;
 	}
 
-	private double calcCouplingRatio(ClassModel classModel){
+	private static double calcCouplingRatio(ClassModel classModel){
 
 		double sum = 0;
 		
@@ -45,7 +45,7 @@ public class Metric
 		return sum;
 	}
 	
-	private double calcRatio(Class ci, Class cj){
+	public static double calcRatio(Class ci, Class cj){
 
 		double result = 0;
 
@@ -77,7 +77,7 @@ public class Metric
 		return result;
 	}
 
-	private int calcM(Class c) {
+	private static int calcM(Class c) {
 		int count = 0;
 		for(Feature f : c.getEncapsulates()){
 			if (f instanceof Method) count++;
@@ -85,7 +85,7 @@ public class Metric
 		return count;
 	}
 
-	private int calcA(Class c) {
+	private static int calcA(Class c) {
 		int count = 0;
 		for(Feature f : c.getEncapsulates()){
 			if (f instanceof Attribute) count++;
@@ -95,7 +95,7 @@ public class Metric
 
 	//TODO solve DMM DMA MAI and MMI via join of FeatureSets and resulting size
 
-	private double calcMMI(Class ci, Class cj){
+	private static double calcMMI(Class ci, Class cj){
 
 		double sum = 0;
 
@@ -114,7 +114,7 @@ public class Metric
 		return sum;
 	}
 
-	private double calcMAI(Class ci, Class cj){
+	private static double calcMAI(Class ci, Class cj){
 
 		double sum = 0;
 
@@ -133,7 +133,7 @@ public class Metric
 		return sum;
 	}
 
-	private int calcDMA(Method mi, Attribute aj){
+	private static int calcDMA(Method mi, Attribute aj){
 		if(mi.getDataDependency().contains(aj)){
 			return 1;
 		}else{
@@ -141,7 +141,7 @@ public class Metric
 		}
 	}
 
-	private int calcDMM(Method mi, Method mj){
+	private static int calcDMM(Method mi, Method mj){
 		//TODO discuss whether this is the right implementation
 		if(mi.getFunctionalDependency().contains(mj) ||
 				mi.getFunctionalDependencyTransitive().contains(mj)){
@@ -153,14 +153,14 @@ public class Metric
 
 
 	//second implementation
-	public double computeFitness(ClassModel model)
+	public static double computeFitness(ClassModel model)
 	{
 		double result = cohesionRatio(model) - couplingRatio(model);
 
 		return result;
 	}
 
-	private double cohesionRatio(ClassModel model)
+	private static double cohesionRatio(ClassModel model)
 	{
 		double sum = 0;
 
@@ -183,7 +183,7 @@ public class Metric
 		return sum;
 	}
 
-	private double MMI(Class c1, Class c2)
+	private static double MMI(Class c1, Class c2)
 	{
 		double result = 0;
 
@@ -201,7 +201,7 @@ public class Metric
 		return result;
 	}
 
-	private double MAI(Class c1, Class c2)
+	private static double MAI(Class c1, Class c2)
 	{
 		double result = 0;
 
@@ -219,7 +219,7 @@ public class Metric
 		return result;
 	}
 
-	private double couplingRatio(ClassModel model)
+	private static double couplingRatio(ClassModel model)
 	{
 		double sum = 0;
 
