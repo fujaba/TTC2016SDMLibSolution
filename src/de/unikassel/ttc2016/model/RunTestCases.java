@@ -55,7 +55,7 @@ public class RunTestCases
 
 			addInitialClasses(model);
 
-			System.out.println(model.getClasses().size());
+			System.out.println("This test case consists of " + model.getClasses().size() + " classes.");
 
 			Metric metric = new Metric();
 

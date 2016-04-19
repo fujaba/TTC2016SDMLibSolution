@@ -5,6 +5,7 @@ import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.Feature;
 import de.unikassel.ttc2016.model.Method;
 import de.unikassel.ttc2016.model.util.AttributeSet;
+import de.unikassel.ttc2016.model.util.ClassSet;
 import de.unikassel.ttc2016.model.util.MethodSet;
 import de.unikassel.ttc2016.model.Attribute;
 import de.unikassel.ttc2016.model.Class;
@@ -29,22 +30,24 @@ public class Metric
 	private double calcCouplingRatio(ClassModel classModel){
 
 		double sum = 0;
+		
+		ClassSet visitedClasses = new ClassSet();
 
 		for (Class ci : classModel.getClasses()) {
+			visitedClasses.add(ci);
 			for (Class cj : classModel.getClasses()){
-				if(ci != cj){
+				if(ci != cj && !visitedClasses.contains(cj)){
 					sum += calcRatio(ci, cj);
 				}
 			}
 		}
-
+		
 		return sum;
 	}
-
+	
 	private double calcRatio(Class ci, Class cj){
 
 		double result = 0;
-
 
 		//TODO replace these calls and functions with lambda expressions
 		int mci = calcM(ci);
