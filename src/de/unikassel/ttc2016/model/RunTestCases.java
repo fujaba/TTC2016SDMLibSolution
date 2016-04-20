@@ -8,7 +8,6 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.serialization.xml.EmfIdMap;
 import org.sdmlib.storyboards.StoryPage;
 
-import at.ac.tuwien.big.momot.examples.modularization.cra.eval.CRAIndexCalculator;
 import de.unikassel.ttc2016.Metric;
 import de.unikassel.ttc2016.model.util.ClassModelCreator;
 import de.unikassel.ttc2016.model.util.ClassModelPO;
