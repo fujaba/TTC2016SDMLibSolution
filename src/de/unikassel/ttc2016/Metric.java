@@ -34,9 +34,9 @@ public class Metric
 		ClassSet visitedClasses = new ClassSet();
 
 		for (Class ci : classModel.getClasses()) {
-			visitedClasses.add(ci);
+			// visitedClasses.add(ci);
 			for (Class cj : classModel.getClasses()){
-				if(ci != cj && !visitedClasses.contains(cj)){
+				if(ci != cj) { // && !visitedClasses.contains(cj)){
 					sum += calcRatio(ci, cj);
 				}
 			}
@@ -166,8 +166,8 @@ public class Metric
 
 		for(Class c : model.getClasses())
 		{
-			int mc = c.getEncapsulates().indexOf(new MethodSet());
-			int ac = c.getEncapsulates().indexOf(new AttributeSet());
+			int mc = c.getEncapsulates().instanceOf(new MethodSet()).size();
+			int ac = c.getEncapsulates().instanceOf(new AttributeSet()).size();
 
 			if (mc*ac != 0)
 			{
@@ -232,9 +232,9 @@ public class Metric
 					continue;
 				}
 
-				int mc1 = c1.getEncapsulates().indexOf(new MethodSet());
-				int mc2 = c2.getEncapsulates().indexOf(new MethodSet());
-				int ac2 = c2.getEncapsulates().indexOf(new AttributeSet());
+				int mc1 = c1.getEncapsulates().instanceOf(new MethodSet()).size();
+				int mc2 = c2.getEncapsulates().instanceOf(new MethodSet()).size();
+				int ac2 = c2.getEncapsulates().instanceOf(new AttributeSet()).size();
 
 				if (mc1*ac2 != 0)
 				{

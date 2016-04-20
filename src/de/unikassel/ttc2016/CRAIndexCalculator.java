@@ -33,7 +33,7 @@ public class CRAIndexCalculator
 	    System.out.println("------------------------------------------\n");
 	}
 	
-	public static void printOptimalityInfo(ClassModel model) {
+	public static double printOptimalityInfo(ClassModel model) {
 		double cohesion = calculateCohesion(model);
 	    double coupling = calculateCoupling(model);
 	    double craindex = cohesion - coupling;
@@ -44,6 +44,8 @@ public class CRAIndexCalculator
 	    System.out.println("The aggregated coupling ratio is: " + coupling);
 	    System.out.println("This makes a CRA-Index of: " + craindex);
 	    System.out.println("------------------------------------------\n");
+	    
+	    return craindex;
 	}
 	
 	private static void printCorrectnessInfo(ClassModel model) {	  
@@ -111,7 +113,7 @@ public class CRAIndexCalculator
 		return cohesionRatio;
 	}
 	
-	static double calculateCRAIndex(ClassModel model) {
+	public static double calculateCRAIndex(ClassModel model) {
 		return calculateCohesion(model) - calculateCoupling(model);
 	}
 	
@@ -189,15 +191,15 @@ public class CRAIndexCalculator
 		return mmi;
 	}
 	
-	public static void evaluateModel(ClassModel model) {
+	public static double evaluateModel(ClassModel model) {
 		if(model == null) {
 			System.err.println("No correct model loaded... abort.");
-			return;
+			return Double.NaN;
 		}
 	    
 		printGeneralInfo(model);
 		printCorrectnessInfo(model);
-	    printOptimalityInfo(model);
+	   return printOptimalityInfo(model);
 	}
 	
 }

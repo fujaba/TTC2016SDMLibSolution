@@ -54,9 +54,9 @@ public class GenClassesFromEcore
       Clazz methodClass = model.createClazz("Method")
       .withSuperClazz(featureClass);
 
-      methodClass.withBidirectional(attributeClass, "dataDependency", Cardinality.MANY, "method", Cardinality.ONE);
+      methodClass.withBidirectional(attributeClass, "dataDependency", Cardinality.MANY, "methods", Cardinality.MANY);
 
-      methodClass.withBidirectional(methodClass, "functionalDependency", Cardinality.MANY, "method", Cardinality.ONE);
+      methodClass.withBidirectional(methodClass, "functionalDependency", Cardinality.MANY, "usedByMethods", Cardinality.MANY);
      
       // model.getGenerator().insertModelCreationCodeHere("src");
       

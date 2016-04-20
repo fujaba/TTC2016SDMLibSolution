@@ -44,7 +44,7 @@
    ],
    "edges":[
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"ClassModel",
             "cardinality":"one",
@@ -57,37 +57,24 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"UNDIRECTIONAL",
          "source":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         },
-         "target":{
             "id":"Class",
             "cardinality":"many",
             "property":"classes"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
+         },
+         "target":{
             "id":"ClassModel",
             "cardinality":"one",
             "property":"classmodel"
-         },
-         "target":{
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
             "id":"Feature",
             "cardinality":"many",
             "property":"features"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Class",
-            "cardinality":"many",
-            "property":"classes"
          },
          "target":{
             "id":"ClassModel",
@@ -96,7 +83,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Class",
             "cardinality":"one",
@@ -109,7 +96,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Class",
             "cardinality":"one",
@@ -122,7 +109,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Attribute",
             "cardinality":"one",
@@ -135,7 +122,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"UNDIRECTIONAL",
          "source":{
             "id":"Attribute",
             "cardinality":"many",
@@ -148,7 +135,7 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Method",
             "cardinality":"one",
@@ -161,20 +148,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Method",
-            "cardinality":"one",
-            "property":"method"
-         },
-         "target":{
-            "id":"Attribute",
-            "cardinality":"many",
-            "property":"dataDependency"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"UNDIRECTIONAL",
          "source":{
             "id":"Method",
             "cardinality":"many",
@@ -187,59 +161,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Feature",
-            "cardinality":"many",
-            "property":"features"
-         },
-         "target":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Feature",
-            "cardinality":"many",
-            "property":"encapsulates"
-         },
-         "target":{
-            "id":"Class",
-            "cardinality":"one",
-            "property":"isEncapsulatedBy"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Feature",
-            "cardinality":"one",
-            "property":"feature"
-         },
-         "target":{
-            "id":"Attribute",
-            "cardinality":"one",
-            "property":"attribute"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Feature",
-            "cardinality":"one",
-            "property":"feature"
-         },
-         "target":{
-            "id":"Method",
-            "cardinality":"one",
-            "property":"method"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Feature",
             "cardinality":"one",
@@ -250,70 +172,6 @@
             "cardinality":"one",
             "property":"namedelement"
          }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"NamedElement",
-            "cardinality":"one",
-            "property":"namedelement"
-         },
-         "target":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"NamedElement",
-            "cardinality":"one",
-            "property":"namedelement"
-         },
-         "target":{
-            "id":"Class",
-            "cardinality":"one",
-            "property":"class"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"NamedElement",
-            "cardinality":"one",
-            "property":"namedelement"
-         },
-         "target":{
-            "id":"Feature",
-            "cardinality":"one",
-            "property":"feature"
-         }
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"ClassModel"},
-         "target":{"id":"NamedElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Class"},
-         "target":{"id":"NamedElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Attribute"},
-         "target":{"id":"Feature"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Method"},
-         "target":{"id":"Feature"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Feature"},
-         "target":{"id":"NamedElement"}
       }
    ]
 }   ;
@@ -353,46 +211,7 @@
    ],
    "edges":[
       {
-         "typ":"edge",
-         "source":{
-            "id":"NamedElement",
-            "cardinality":"one",
-            "property":"namedelement"
-         },
-         "target":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"NamedElement",
-            "cardinality":"one",
-            "property":"namedelement"
-         },
-         "target":{
-            "id":"Class",
-            "cardinality":"one",
-            "property":"class"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"NamedElement",
-            "cardinality":"one",
-            "property":"namedelement"
-         },
-         "target":{
-            "id":"Feature",
-            "cardinality":"one",
-            "property":"feature"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"ClassModel",
             "cardinality":"one",
@@ -405,33 +224,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         },
-         "target":{
-            "id":"Class",
-            "cardinality":"many",
-            "property":"classes"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         },
-         "target":{
-            "id":"Feature",
-            "cardinality":"many",
-            "property":"features"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Class",
             "cardinality":"one",
@@ -444,33 +237,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Class",
-            "cardinality":"many",
-            "property":"classes"
-         },
-         "target":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Class",
-            "cardinality":"one",
-            "property":"isEncapsulatedBy"
-         },
-         "target":{
-            "id":"Feature",
-            "cardinality":"many",
-            "property":"encapsulates"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Feature",
             "cardinality":"one",
@@ -483,59 +250,46 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
-            "id":"Feature",
-            "cardinality":"many",
-            "property":"features"
-         },
-         "target":{
             "id":"ClassModel",
             "cardinality":"one",
             "property":"classmodel"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Feature",
-            "cardinality":"many",
-            "property":"encapsulates"
          },
          "target":{
             "id":"Class",
+            "cardinality":"many",
+            "property":"classes"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"ClassModel",
+            "cardinality":"one",
+            "property":"classmodel"
+         },
+         "target":{
+            "id":"Feature",
+            "cardinality":"many",
+            "property":"features"
+         }
+      },
+      {
+         "typ":"ASSOCIATION",
+         "source":{
+            "id":"Class",
             "cardinality":"one",
             "property":"isEncapsulatedBy"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
-            "id":"Feature",
-            "cardinality":"one",
-            "property":"feature"
          },
          "target":{
-            "id":"Attribute",
-            "cardinality":"one",
-            "property":"attribute"
-         }
-      },
-      {
-         "typ":"edge",
-         "source":{
             "id":"Feature",
-            "cardinality":"one",
-            "property":"feature"
-         },
-         "target":{
-            "id":"Method",
-            "cardinality":"one",
-            "property":"method"
+            "cardinality":"many",
+            "property":"encapsulates"
          }
       },
       {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Attribute",
             "cardinality":"one",
@@ -548,20 +302,7 @@
          }
       },
       {
-         "typ":"edge",
-         "source":{
-            "id":"Attribute",
-            "cardinality":"many",
-            "property":"dataDependency"
-         },
-         "target":{
-            "id":"Method",
-            "cardinality":"one",
-            "property":"method"
-         }
-      },
-      {
-         "typ":"edge",
+         "typ":"GENERALISATION",
          "source":{
             "id":"Method",
             "cardinality":"one",
@@ -574,20 +315,20 @@
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
-            "id":"Method",
-            "cardinality":"one",
-            "property":"method"
-         },
-         "target":{
             "id":"Attribute",
             "cardinality":"many",
             "property":"dataDependency"
+         },
+         "target":{
+            "id":"Method",
+            "cardinality":"many",
+            "property":"methods"
          }
       },
       {
-         "typ":"edge",
+         "typ":"ASSOCIATION",
          "source":{
             "id":"Method",
             "cardinality":"many",
@@ -595,34 +336,9 @@
          },
          "target":{
             "id":"Method",
-            "cardinality":"one",
-            "property":"method"
+            "cardinality":"many",
+            "property":"usedByMethods"
          }
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"ClassModel"},
-         "target":{"id":"NamedElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Class"},
-         "target":{"id":"NamedElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Feature"},
-         "target":{"id":"NamedElement"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Attribute"},
-         "target":{"id":"Feature"}
-      },
-      {
-         "typ":"generalisation",
-         "source":{"id":"Method"},
-         "target":{"id":"Feature"}
       }
    ]
 }   ;
