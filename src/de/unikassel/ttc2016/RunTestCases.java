@@ -1,4 +1,4 @@
-package de.unikassel.ttc2016.classmodel;
+package de.unikassel.ttc2016;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.TreeMap;
 
+import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
@@ -13,8 +14,6 @@ import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
 import org.sdmlib.serialization.xml.EmfIdMap;
 import org.sdmlib.storyboards.StoryPage;
 
-import de.unikassel.ttc2016.CRAIndexCalculator;
-import de.unikassel.ttc2016.Metric;
 import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.Feature;
@@ -37,8 +36,8 @@ public class RunTestCases
 	{
 		RunTestCases runner = new RunTestCases();
 
-//		runner.runCase("input_models/TTC_InputRDG_A.xmi");
-		runner.runCase("input_models/TTC_InputRDG_B.xmi");
+		runner.runCase("input_models/TTC_InputRDG_A.xmi");
+      runner.runCase("input_models/TTC_InputRDG_B.xmi");
 //		runner.runCase("input_models/TTC_InputRDG_C.xmi");
 //		runner.runCase("input_models/TTC_InputRDG_D.xmi");
 //		runner.runCase("input_models/TTC_InputRDG_E.xmi");
@@ -47,7 +46,8 @@ public class RunTestCases
 	/**
 	 * 
 	 * @see <a href='../../../../../doc/runCase.html'>runCase.html</a>
-	 */
+	 * @see <a href='../../../../doc/runCase.html'>runCase.html</a>
+ */
 	public void runCase(String caseFile)
 	{
 		StoryPage story = new StoryPage();
@@ -79,7 +79,7 @@ public class RunTestCases
 
 			HashMap<ReachableState, Double> treeMap = new HashMap<ReachableState, Double>();
 			
-			double best = Double.MIN_VALUE;
+			double best = Double.NEGATIVE_INFINITY;
 			ReachableState bestState = null;
 			for (ReachableState state : reachabilityGraph.getStates())
 			{
@@ -115,7 +115,7 @@ public class RunTestCases
 
 	private ClassModelPO expandReachabilityGraph(ClassModel model)
    {
-	   IdMap idMap = ClassModelCreator.createIdMap("s");
+	   IdMap idMap = new SDMLibIdMap("s").with(ClassModelCreator.createIdMap("s"));
       idMap.with(ReachabilityGraphCreator.createIdMap("rg"));
       
       ReachableState startState = new ReachableState().withGraphRoot(model);
