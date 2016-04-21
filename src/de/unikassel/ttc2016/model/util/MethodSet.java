@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 lra
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -32,6 +32,8 @@ import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.util.ClassSet;
 import de.unikassel.ttc2016.model.Class;
 import java.util.Collections;
+import de.unikassel.ttc2016.model.util.AttributeSet;
+import de.unikassel.ttc2016.model.Attribute;
 import de.unikassel.ttc2016.model.util.MethodSet;
 
 public class MethodSet extends SDMSet<Method>
@@ -291,6 +293,86 @@ public class MethodSet extends SDMSet<Method>
       for (Method obj : this)
       {
          obj.withIsEncapsulatedBy(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Method objects and collect a set of the Attribute objects reached via dataDependency. 
+    * 
+    * @return Set of Attribute objects reachable via dataDependency
+    */
+   public AttributeSet getDataDependency()
+   {
+      AttributeSet result = new AttributeSet();
+      
+      for (Method obj : this)
+      {
+         result.with(obj.getDataDependency());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Method objects and collect all contained objects with reference dataDependency pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as dataDependency neighbor of the collected results. 
+    * 
+    * @return Set of Attribute objects referring to value via dataDependency
+    */
+   public MethodSet filterDataDependency(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      MethodSet answer = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if ( ! Collections.disjoint(neighbors, obj.getDataDependency()))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Method object passed as parameter to the DataDependency attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their DataDependency attributes.
+    */
+   public MethodSet withDataDependency(Attribute value)
+   {
+      for (Method obj : this)
+      {
+         obj.withDataDependency(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and remove the Method object passed as parameter from the DataDependency attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now without the old neighbor.
+    */
+   public MethodSet withoutDataDependency(Attribute value)
+   {
+      for (Method obj : this)
+      {
+         obj.withoutDataDependency(value);
       }
       
       return this;

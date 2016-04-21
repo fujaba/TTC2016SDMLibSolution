@@ -9,6 +9,9 @@ import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.util.MethodPO;
 import de.unikassel.ttc2016.model.util.ClassPO;
 import de.unikassel.ttc2016.model.Class;
+import de.unikassel.ttc2016.model.util.AttributePO;
+import de.unikassel.ttc2016.model.Attribute;
+import de.unikassel.ttc2016.model.util.AttributeSet;
 import de.unikassel.ttc2016.model.util.MethodSet;
 
 public class MethodPO extends PatternObject<MethodPO, Method>
@@ -158,6 +161,40 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       if (this.getPattern().getHasMatch())
       {
          return ((Feature) this.getCurrentMatch()).getIsEncapsulatedBy();
+      }
+      return null;
+   }
+
+   public AttributePO filterDataDependency()
+   {
+      AttributePO result = new AttributePO(new Attribute[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Method.PROPERTY_DATADEPENDENCY, result);
+      
+      return result;
+   }
+
+   public AttributePO createDataDependency()
+   {
+      return this.startCreate().filterDataDependency().endCreate();
+   }
+
+   public MethodPO filterDataDependency(AttributePO tgt)
+   {
+      return hasLinkConstraint(tgt, Method.PROPERTY_DATADEPENDENCY);
+   }
+
+   public MethodPO createDataDependency(AttributePO tgt)
+   {
+      return this.startCreate().filterDataDependency(tgt).endCreate();
+   }
+
+   public AttributeSet getDataDependency()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Method) this.getCurrentMatch()).getDataDependency();
       }
       return null;
    }

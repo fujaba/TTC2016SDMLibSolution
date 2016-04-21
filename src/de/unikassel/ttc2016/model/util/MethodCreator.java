@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 lra
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -28,6 +28,7 @@ import de.unikassel.ttc2016.model.NamedElement;
 import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.Feature;
 import de.unikassel.ttc2016.model.Class;
+import de.unikassel.ttc2016.model.Attribute;
 
 public class MethodCreator implements SendableEntityCreator
 {
@@ -36,6 +37,7 @@ public class MethodCreator implements SendableEntityCreator
       NamedElement.PROPERTY_NAME,
       Feature.PROPERTY_CLASSMODEL,
       Feature.PROPERTY_ISENCAPSULATEDBY,
+      Method.PROPERTY_DATADEPENDENCY,
       Method.PROPERTY_USEDBYMETHODS,
       Method.PROPERTY_FUNCTIONALDEPENDENCY,
    };
@@ -78,6 +80,11 @@ public class MethodCreator implements SendableEntityCreator
          return ((Method) target).getIsEncapsulatedBy();
       }
 
+      if (Method.PROPERTY_DATADEPENDENCY.equalsIgnoreCase(attribute))
+      {
+         return ((Method) target).getDataDependency();
+      }
+
       if (Method.PROPERTY_USEDBYMETHODS.equalsIgnoreCase(attribute))
       {
          return ((Method) target).getUsedByMethods();
@@ -114,6 +121,18 @@ public class MethodCreator implements SendableEntityCreator
       if (Method.PROPERTY_ISENCAPSULATEDBY.equalsIgnoreCase(attrName))
       {
          ((Method) target).setIsEncapsulatedBy((Class) value);
+         return true;
+      }
+
+      if (Method.PROPERTY_DATADEPENDENCY.equalsIgnoreCase(attrName))
+      {
+         ((Method) target).withDataDependency((Attribute) value);
+         return true;
+      }
+      
+      if ((Method.PROPERTY_DATADEPENDENCY + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Method) target).withoutDataDependency((Attribute) value);
          return true;
       }
 

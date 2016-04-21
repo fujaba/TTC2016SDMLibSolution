@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 lra
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,6 +25,7 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.NamedElement;
+import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.Feature;
 
 public class ClassCreator implements SendableEntityCreator
@@ -32,6 +33,7 @@ public class ClassCreator implements SendableEntityCreator
    private final String[] properties = new String[]
    {
       NamedElement.PROPERTY_NAME,
+      Class.PROPERTY_CLASSMODEL,
       Class.PROPERTY_ENCAPSULATES,
    };
    
@@ -63,6 +65,11 @@ public class ClassCreator implements SendableEntityCreator
          return ((NamedElement) target).getName();
       }
 
+      if (Class.PROPERTY_CLASSMODEL.equalsIgnoreCase(attribute))
+      {
+         return ((Class) target).getClassmodel();
+      }
+
       if (Class.PROPERTY_ENCAPSULATES.equalsIgnoreCase(attribute))
       {
          return ((Class) target).getEncapsulates();
@@ -83,6 +90,12 @@ public class ClassCreator implements SendableEntityCreator
       if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
+      }
+
+      if (Class.PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
+      {
+         ((Class) target).setClassmodel((ClassModel) value);
+         return true;
       }
 
       if (Class.PROPERTY_ENCAPSULATES.equalsIgnoreCase(attrName))

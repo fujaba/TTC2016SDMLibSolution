@@ -3,9 +3,11 @@ package de.unikassel.ttc2016.model.util;
 import org.sdmlib.models.pattern.PatternObject;
 import de.unikassel.ttc2016.model.Class;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import de.unikassel.ttc2016.model.util.ClassModelPO;
+import de.unikassel.ttc2016.model.ClassModel;
+import de.unikassel.ttc2016.model.util.ClassPO;
 import de.unikassel.ttc2016.model.util.FeaturePO;
 import de.unikassel.ttc2016.model.Feature;
-import de.unikassel.ttc2016.model.util.ClassPO;
 import de.unikassel.ttc2016.model.util.FeatureSet;
 
 public class ClassPO extends PatternObject<ClassPO, Class>
@@ -91,6 +93,40 @@ public class ClassPO extends PatternObject<ClassPO, Class>
       return this;
    }
    
+   public ClassModelPO filterClassmodel()
+   {
+      ClassModelPO result = new ClassModelPO(new ClassModel[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Class.PROPERTY_CLASSMODEL, result);
+      
+      return result;
+   }
+
+   public ClassModelPO createClassmodel()
+   {
+      return this.startCreate().filterClassmodel().endCreate();
+   }
+
+   public ClassPO filterClassmodel(ClassModelPO tgt)
+   {
+      return hasLinkConstraint(tgt, Class.PROPERTY_CLASSMODEL);
+   }
+
+   public ClassPO createClassmodel(ClassModelPO tgt)
+   {
+      return this.startCreate().filterClassmodel(tgt).endCreate();
+   }
+
+   public ClassModel getClassmodel()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Class) this.getCurrentMatch()).getClassmodel();
+      }
+      return null;
+   }
+
    public FeaturePO filterEncapsulates()
    {
       FeaturePO result = new FeaturePO(new Feature[]{});

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 lra
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -27,6 +27,8 @@ import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
 import org.sdmlib.models.modelsets.StringList;
 import org.sdmlib.models.modelsets.ObjectSet;
+import de.unikassel.ttc2016.model.util.ClassModelSet;
+import de.unikassel.ttc2016.model.ClassModel;
 import java.util.Collections;
 import de.unikassel.ttc2016.model.util.FeatureSet;
 import de.unikassel.ttc2016.model.Feature;
@@ -158,6 +160,71 @@ public class ClassSet extends SDMSet<Class>
       for (Class obj : this)
       {
          obj.setName(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Class objects and collect a set of the ClassModel objects reached via classmodel. 
+    * 
+    * @return Set of ClassModel objects reachable via classmodel
+    */
+   public ClassModelSet getClassmodel()
+   {
+      ClassModelSet result = new ClassModelSet();
+      
+      for (Class obj : this)
+      {
+         result.with(obj.getClassmodel());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Class objects and collect all contained objects with reference classmodel pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as classmodel neighbor of the collected results. 
+    * 
+    * @return Set of ClassModel objects referring to value via classmodel
+    */
+   public ClassSet filterClassmodel(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      ClassSet answer = new ClassSet();
+      
+      for (Class obj : this)
+      {
+         if (neighbors.contains(obj.getClassmodel()) || (neighbors.isEmpty() && obj.getClassmodel() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Class object passed as parameter to the Classmodel attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their Classmodel attributes.
+    */
+   public ClassSet withClassmodel(ClassModel value)
+   {
+      for (Class obj : this)
+      {
+         obj.withClassmodel(value);
       }
       
       return this;

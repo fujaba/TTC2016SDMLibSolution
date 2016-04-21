@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 lra
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,12 +25,16 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
 import de.unikassel.ttc2016.model.Feature;
 import de.unikassel.ttc2016.model.NamedElement;
+import de.unikassel.ttc2016.model.ClassModel;
+import de.unikassel.ttc2016.model.Class;
 
 public class FeatureCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
       NamedElement.PROPERTY_NAME,
+      Feature.PROPERTY_CLASSMODEL,
+      Feature.PROPERTY_ISENCAPSULATEDBY,
    };
    
    @Override
@@ -60,6 +64,16 @@ public class FeatureCreator implements SendableEntityCreator
       {
          return ((NamedElement) target).getName();
       }
+
+      if (Feature.PROPERTY_CLASSMODEL.equalsIgnoreCase(attribute))
+      {
+         return ((Feature) target).getClassmodel();
+      }
+
+      if (Feature.PROPERTY_ISENCAPSULATEDBY.equalsIgnoreCase(attribute))
+      {
+         return ((Feature) target).getIsEncapsulatedBy();
+      }
       
       return null;
    }
@@ -76,6 +90,18 @@ public class FeatureCreator implements SendableEntityCreator
       if (IdMap.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
+      }
+
+      if (Feature.PROPERTY_CLASSMODEL.equalsIgnoreCase(attrName))
+      {
+         ((Feature) target).setClassmodel((ClassModel) value);
+         return true;
+      }
+
+      if (Feature.PROPERTY_ISENCAPSULATEDBY.equalsIgnoreCase(attrName))
+      {
+         ((Feature) target).setIsEncapsulatedBy((Class) value);
+         return true;
       }
       
       return false;

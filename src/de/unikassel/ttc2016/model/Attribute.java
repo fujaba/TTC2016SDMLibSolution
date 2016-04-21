@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 lra
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -26,11 +26,8 @@ import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.util.MethodSet;
 import de.unikassel.ttc2016.model.Method;
-   /**
-    * 
-    * @see <a href='../../../../../src/de/unikassel/ttc2016/classmodel/GenClassesFromEcore.java'>GenClassesFromEcore.java</a>
- */
-   public  class Attribute extends Feature
+
+public  class Attribute extends Feature
 {
 
    

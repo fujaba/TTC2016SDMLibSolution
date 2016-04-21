@@ -1,13 +1,19 @@
 package de.unikassel.ttc2016.classmodel;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.tools.EMFTool;
 
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.GraphList;
 
 
 
@@ -15,11 +21,16 @@ public class GenClassesFromEcore
 {
      /**
     * 
-    * @see <a href='../../../../../doc/GenClassesFromEcore.html'>GenClassesFromEcore.html</a>
+    * @throws IOException 
+     * @see <a href='../../../../../doc/GenClassesFromEcore.html'>GenClassesFromEcore.html</a>
  */
-   public static void main(String[] args)
+   public static void main(String[] args) throws IOException
    {
       StoryPage story = new StoryPage();
+      
+      IdMap map = new IdMap();
+      String content = new String(Files.readAllBytes(new File("./input_models/architectureCRA.ecore").toPath()));
+      GraphList modelNEW = (GraphList) map.decodeEMF(content);
       
       EMFTool emfTool = new EMFTool();
       

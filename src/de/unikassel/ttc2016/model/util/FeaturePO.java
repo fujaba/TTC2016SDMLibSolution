@@ -3,6 +3,11 @@ package de.unikassel.ttc2016.model.util;
 import org.sdmlib.models.pattern.PatternObject;
 import de.unikassel.ttc2016.model.Feature;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import de.unikassel.ttc2016.model.util.ClassModelPO;
+import de.unikassel.ttc2016.model.ClassModel;
+import de.unikassel.ttc2016.model.util.FeaturePO;
+import de.unikassel.ttc2016.model.util.ClassPO;
+import de.unikassel.ttc2016.model.Class;
 
 public class FeaturePO extends PatternObject<FeaturePO, Feature>
 {
@@ -87,4 +92,72 @@ public class FeaturePO extends PatternObject<FeaturePO, Feature>
       return this;
    }
    
+   public ClassModelPO filterClassmodel()
+   {
+      ClassModelPO result = new ClassModelPO(new ClassModel[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Feature.PROPERTY_CLASSMODEL, result);
+      
+      return result;
+   }
+
+   public ClassModelPO createClassmodel()
+   {
+      return this.startCreate().filterClassmodel().endCreate();
+   }
+
+   public FeaturePO filterClassmodel(ClassModelPO tgt)
+   {
+      return hasLinkConstraint(tgt, Feature.PROPERTY_CLASSMODEL);
+   }
+
+   public FeaturePO createClassmodel(ClassModelPO tgt)
+   {
+      return this.startCreate().filterClassmodel(tgt).endCreate();
+   }
+
+   public ClassModel getClassmodel()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Feature) this.getCurrentMatch()).getClassmodel();
+      }
+      return null;
+   }
+
+   public ClassPO filterIsEncapsulatedBy()
+   {
+      ClassPO result = new ClassPO(new Class[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Feature.PROPERTY_ISENCAPSULATEDBY, result);
+      
+      return result;
+   }
+
+   public ClassPO createIsEncapsulatedBy()
+   {
+      return this.startCreate().filterIsEncapsulatedBy().endCreate();
+   }
+
+   public FeaturePO filterIsEncapsulatedBy(ClassPO tgt)
+   {
+      return hasLinkConstraint(tgt, Feature.PROPERTY_ISENCAPSULATEDBY);
+   }
+
+   public FeaturePO createIsEncapsulatedBy(ClassPO tgt)
+   {
+      return this.startCreate().filterIsEncapsulatedBy(tgt).endCreate();
+   }
+
+   public Class getIsEncapsulatedBy()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Feature) this.getCurrentMatch()).getIsEncapsulatedBy();
+      }
+      return null;
+   }
+
 }

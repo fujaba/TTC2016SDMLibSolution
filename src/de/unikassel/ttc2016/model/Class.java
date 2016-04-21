@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2016 lra
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,15 +22,13 @@
 package de.unikassel.ttc2016.model;
 
 import de.unikassel.ttc2016.model.NamedElement;
+import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.Attribute;
 import de.unikassel.ttc2016.model.Method;
 import de.unikassel.ttc2016.model.util.FeatureSet;
 import de.unikassel.ttc2016.model.Feature;
-   /**
-    * 
-    * @see <a href='../../../../../src/de/unikassel/ttc2016/classmodel/GenClassesFromEcore.java'>GenClassesFromEcore.java</a>
- */
-   public  class Class extends NamedElement
+
+public  class Class extends NamedElement
 {
 
    
@@ -42,6 +40,7 @@ import de.unikassel.ttc2016.model.Feature;
    
       super.removeYou();
 
+      setClassmodel(null);
       withoutEncapsulates(this.getEncapsulates().toArray(new Feature[this.getEncapsulates().size()]));
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -56,6 +55,65 @@ import de.unikassel.ttc2016.model.Feature;
       return result.substring(1);
    }
 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Class ----------------------------------- ClassModel
+    *              classes                   classmodel
+    * </pre>
+    */
+   
+   public static final String PROPERTY_CLASSMODEL = "classmodel";
+
+   private ClassModel classmodel = null;
+
+   public ClassModel getClassmodel()
+   {
+      return this.classmodel;
+   }
+
+   public boolean setClassmodel(ClassModel value)
+   {
+      boolean changed = false;
+      
+      if (this.classmodel != value)
+      {
+         ClassModel oldValue = this.classmodel;
+         
+         if (this.classmodel != null)
+         {
+            this.classmodel = null;
+            oldValue.withoutClasses(this);
+         }
+         
+         this.classmodel = value;
+         
+         if (value != null)
+         {
+            value.withClasses(this);
+         }
+         
+         getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSMODEL, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Class withClassmodel(ClassModel value)
+   {
+      setClassmodel(value);
+      return this;
+   } 
+
+   public ClassModel createClassmodel()
+   {
+      ClassModel value = new ClassModel();
+      withClassmodel(value);
+      return value;
+   } 
 
    
    /********************************************************************
