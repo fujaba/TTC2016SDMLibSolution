@@ -23,12 +23,15 @@ package de.unikassel.ttc2016.model.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
+
+import org.sdmlib.serialization.EntityFactory;
+
 import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.NamedElement;
 import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.Feature;
 
-public class ClassCreator implements SendableEntityCreator
+public class ClassCreator extends EntityFactory
 {
    private final String[] properties = new String[]
    {

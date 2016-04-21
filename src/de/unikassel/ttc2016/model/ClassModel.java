@@ -28,8 +28,11 @@ import de.unikassel.ttc2016.model.Attribute;
 import de.unikassel.ttc2016.model.Method;
 import de.unikassel.ttc2016.model.util.FeatureSet;
 import de.unikassel.ttc2016.model.Feature;
-
-public  class ClassModel extends NamedElement
+   /**
+    * 
+    * @see <a href='../../../../../src/de/unikassel/ttc2016/RunTestCases.java'>RunTestCases.java</a>
+ */
+   public  class ClassModel extends NamedElement
 {
 
    
