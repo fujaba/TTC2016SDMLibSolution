@@ -2,7 +2,11 @@ package de.unikassel.ttc2016;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.junit.Test;
@@ -37,13 +41,45 @@ public class RunTestCases
    {
       RunTestCases runner = new RunTestCases();
 
-      runner.runCase("input_models/TTC_InputRDG_Small1.xmi");
-      runner.runCase("input_models/TTC_InputRDG_Paper.xmi");
-      runner.runCase("input_models/TTC_InputRDG_A.xmi");
+      // runner.runCase("input_models/TTC_InputRDG_Small1.xmi");
+      // runner.runCase("input_models/TTC_InputRDG_Paper.xmi");
+      // runner.runCase("input_models/TTC_InputRDG_A.xmi");
       // runner.runCase("input_models/TTC_InputRDG_B.xmi");
       // runner.runCase("input_models/TTC_InputRDG_C.xmi");
       // runner.runCase("input_models/TTC_InputRDG_D.xmi");
       // runner.runCase("input_models/TTC_InputRDG_E.xmi");
+      logTime();
+   }
+
+   private static void logTime()
+   {
+      RunTestCases runner = new RunTestCases();
+
+      long currentTimeMillis = System.currentTimeMillis();
+
+      runner.runCase("input_models/TTC_InputRDG_A.xmi");
+
+      long runtime = System.currentTimeMillis() - currentTimeMillis;
+
+      Path path = Paths.get("timelog.dat");
+
+      String timeStamp = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date());
+      timeStamp += ";" + System.getProperty("user.name");
+      timeStamp += ";" + runtime;
+
+      /// Users/lra/workspaces/git/TTC2016SDMLibSolution/.git/refs/heads/master
+
+      try
+      {
+         timeStamp += ";" + new String(Files.readAllBytes(Paths.get(".git/refs/heads/master")));
+
+         Files.write(path, timeStamp.getBytes(), StandardOpenOption.APPEND);
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+
    }
 
    /**
@@ -159,10 +195,9 @@ public class RunTestCases
       for (ReachableState tgt : state.getRuleapplications().getTgt())
       {
          double tgtCra = cra(tgt);
-         if (tgtCra > cra)
+         if (tgtCra >= cra)
          {
             double deepTgtCra = getBetterCraFromState(tgt);
-            // System.out.println(cra + " " + tgtCra + " " + deepTgtCra);
             if (bestSubCra < deepTgtCra)
             {
                bestSubCra = deepTgtCra;
