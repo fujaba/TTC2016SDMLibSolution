@@ -120,31 +120,9 @@ public class RunTestCases
 
 			System.out.println("This test case consists of " + model.getClasses().size() + " features.");
 
-			String reachabiltiyGraphDump = expandReachabilityGraph(model);
+			expandReachabilityGraph(model);
 			
-			story.add(reachabiltiyGraphDump);;
-			
-			HashMap<ReachableState, Double> treeMap = new HashMap<ReachableState, Double>();
-			
-			double best = Double.NEGATIVE_INFINITY;
-			ReachableState bestState = null;
-			for (ReachableState state : reachabilityGraph.getStates())
-			{
-			   ClassModel stateroot = (ClassModel) state.getGraphRoot();
-			   double index = CRAIndexCalculator.calculateCRAIndex(stateroot);
-			   
-			   if (index > best)
-			   {
-			      best = index;
-			      bestState = state;
-			   }
-			   
-			   treeMap.put(state, index);
-			}
-
-			story.addObjectDiagram(bestState.getGraphRoot());
-			
-			printMetrics((ClassModel) bestState.getGraphRoot());
+			evaluateStates();
 		}
 		catch (IOException e)
 		{
@@ -154,7 +132,30 @@ public class RunTestCases
 		story.dumpHTML();
 	}
 
-	private String expandReachabilityGraph(ClassModel model)
+	private void evaluateStates() {
+		HashMap<ReachableState, Double> treeMap = new HashMap<ReachableState, Double>();
+		
+		double best = Double.NEGATIVE_INFINITY;
+		ReachableState bestState = null;
+		
+		for (ReachableState state : reachabilityGraph.getStates())
+		{
+		   ClassModel stateroot = (ClassModel) state.getGraphRoot();
+		   double index = CRAIndexCalculator.calculateCRAIndex(stateroot);
+		   
+		   if (index > best)
+		   {
+		      best = index;
+		      bestState = state;
+		   }
+		   
+		   treeMap.put(state, index);
+		}
+
+		printMetrics((ClassModel) bestState.getGraphRoot());
+	}
+
+	private void expandReachabilityGraph(ClassModel model)
    {
 	   IdMap idMap = new SDMLibIdMap("s").with(ClassModelCreator.createIdMap("s"));
       idMap.with(ReachabilityGraphCreator.createIdMap("rg"));
@@ -172,10 +173,6 @@ public class RunTestCases
       reachabilityGraph.addToRules(rule2PO.getPattern().withName("mergemethod"));
       
       reachabilityGraph.explore();
-      
-      // String dumpDiagram = reachabilityGraph.dumpDiagram("reachabilityGraph");
-      
-      return "Hello";
    }
 
    private ClassModelPO mergeDataDependencyRule()
