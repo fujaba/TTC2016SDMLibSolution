@@ -37,14 +37,15 @@ import de.uniks.networkparser.xml.XMLEntity;
 public class RunTestCases
 {
 	private ReachabilityGraph reachabilityGraph;
+	private ReachableState startState;
 
    public static void main(String[] args)
 	{
 		RunTestCases runner = new RunTestCases();
 
 //		runner.runCase("input_models/TTC_InputRDG_Small1.xmi");
-    runner.runCase("input_models/TTC_InputRDG_Paper.xmi");
-//    runner.runCase("input_models/TTC_InputRDG_A.xmi");
+      runner.runCase("input_models/TTC_InputRDG_Paper.xmi");
+//      runner.runCase("input_models/TTC_InputRDG_A.xmi");
 //      runner.runCase("input_models/TTC_InputRDG_B.xmi");
 //		runner.runCase("input_models/TTC_InputRDG_C.xmi");
 //		runner.runCase("input_models/TTC_InputRDG_D.xmi");
@@ -123,6 +124,13 @@ public class RunTestCases
 			expandReachabilityGraph(model);
 			
 			evaluateStates();
+			
+			System.out.println("Only improving paths through rg gives cra: " + searchBetterCraStatesOnly());
+			
+			//String dumpDiagram = reachabilityGraph.dumpDiagram("rgDiagram");
+			
+			story.add("Reachability Graph:");
+			//story.add(dumpDiagram);
 		}
 		catch (IOException e)
 		{
@@ -130,6 +138,30 @@ public class RunTestCases
 		}
 
 		story.dumpHTML();
+	}
+
+	private double searchBetterCraStatesOnly() {
+		double result = getBetterCraFromState(startState);
+		return result;
+	}
+
+	private double getBetterCraFromState(ReachableState state) {
+		double cra = cra(state);
+		double localCra = Double.NEGATIVE_INFINITY;
+		for (ReachableState tgt : state.getRuleapplications().getTgt()) {
+			double tgtCra = cra(tgt);
+			if(tgtCra > cra){
+				double deepTgtCra = getBetterCraFromState(tgt);
+				if(localCra < deepTgtCra){
+					localCra = deepTgtCra;
+				}
+			}
+		}
+		return Math.max(cra, localCra);
+	}
+
+	private double cra(ReachableState state){
+		return CRAIndexCalculator.calculateCRAIndex((ClassModel) state.getGraphRoot());
 	}
 
 	private void evaluateStates() {
@@ -160,7 +192,7 @@ public class RunTestCases
 	   IdMap idMap = new SDMLibIdMap("s").with(ClassModelCreator.createIdMap("s"));
       idMap.with(ReachabilityGraphCreator.createIdMap("rg"));
       
-      ReachableState startState = new ReachableState().withGraphRoot(model);
+      startState = new ReachableState().withGraphRoot(model);
       reachabilityGraph = new ReachabilityGraph().withMasterMap(idMap)
             .withStates(startState).withTodo(startState);
       
