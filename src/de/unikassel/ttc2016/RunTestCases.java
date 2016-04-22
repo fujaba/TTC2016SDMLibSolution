@@ -118,16 +118,12 @@ public class RunTestCases
 
 			addInitialClasses(model);
 
-			System.out.println("This test case consists of " + model.getClasses().size() + " classes.");
-
-			printMetrics(model);
+			System.out.println("This test case consists of " + model.getClasses().size() + " features.");
 
 			String reachabiltiyGraphDump = expandReachabilityGraph(model);
 			
 			story.add(reachabiltiyGraphDump);;
 			
-			// reduceClassesWhileMetricSucks(model);
-
 			HashMap<ReachableState, Double> treeMap = new HashMap<ReachableState, Double>();
 			
 			double best = Double.NEGATIVE_INFINITY;
@@ -148,13 +144,7 @@ public class RunTestCases
 
 			story.addObjectDiagram(bestState.getGraphRoot());
 			
-			System.out.println("No of graphs:" + reachabilityGraph.getStates().size());
 			printMetrics((ClassModel) bestState.getGraphRoot());
-			System.out.println("CRA Index:" + best);
-         
-			
-			
-			// reachabilityGraph.d
 		}
 		catch (IOException e)
 		{
@@ -237,10 +227,10 @@ public class RunTestCases
 		double craIndex = Metric.cRAIndex(model);
 		double viennaIndex = CRAIndexCalculator.evaluateModel(model);
 
-		if(craValue != Double.NaN ){
-			System.out.println("Albert says: " + craValue + " while Lennert says: " + craIndex);
+		if(craValue == craIndex && craIndex == viennaIndex ){
+			//everyone agrees
 		}else{
-			System.out.println("Current max: " + craValue);
+			System.out.println("A: " + craValue + " L: " + craIndex + " V: " + viennaIndex);
 		}
 	}
 
@@ -259,45 +249,5 @@ public class RunTestCases
 		featurePO.allMatches();
 
 		return classModelPO;
-	}
-
-	private void reduceClassesWhileMetricSucks(ClassModel model)
-	{
-		double current = Metric.cRAIndex(model);
-
-
-		while(current < 3){
-			reduceClasses(model);
-			
-			current = Metric.cRAIndex(model);
-		}
-	}
-
-	private void reduceClasses(ClassModel model) {
-		ClassSet visitedClasses = new ClassSet();
-
-		for (Class ci : model.getClasses()) {
-			visitedClasses.add(ci);
-			for (Class cj : model.getClasses()){
-				if(ci != cj && !visitedClasses.contains(cj)){
-					//pair of classes
-					double cohesion = Metric.calcRatio(ci, ci);
-					double coupling = Metric.calcRatio(ci, cj);
-
-					//TODO choose more wisely
-					if(cohesion < coupling){
-						Class joinedClass = model.createClasses();
-						FeatureSet encapsulatesCi = ci.getEncapsulates();
-						FeatureSet encapsulatesCj = cj.getEncapsulates();
-						joinedClass.withEncapsulates(encapsulatesCi.toArray(new Feature[encapsulatesCi.size()]));
-						joinedClass.withEncapsulates(encapsulatesCj.toArray(new Feature[encapsulatesCj.size()]));
-						joinedClass.setName(ci.getName() + " JOINED " + cj.getName());
-						System.out.println(joinedClass.getName());
-						ci.removeYou();
-						cj.removeYou();
-					}
-				}
-			}
-		}
 	}
 }

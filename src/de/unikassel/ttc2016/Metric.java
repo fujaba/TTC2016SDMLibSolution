@@ -5,7 +5,6 @@ import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.Feature;
 import de.unikassel.ttc2016.model.Method;
 import de.unikassel.ttc2016.model.util.AttributeSet;
-import de.unikassel.ttc2016.model.util.ClassSet;
 import de.unikassel.ttc2016.model.util.MethodSet;
 import de.unikassel.ttc2016.model.Attribute;
 import de.unikassel.ttc2016.model.Class;
@@ -31,12 +30,9 @@ public class Metric
 
 		double sum = 0;
 		
-		ClassSet visitedClasses = new ClassSet();
-
 		for (Class ci : classModel.getClasses()) {
-			// visitedClasses.add(ci);
 			for (Class cj : classModel.getClasses()){
-				if(ci != cj) { // && !visitedClasses.contains(cj)){
+				if(ci != cj) {
 					sum += calcRatio(ci, cj);
 				}
 			}
@@ -49,7 +45,6 @@ public class Metric
 
 		double result = 0;
 
-		//TODO replace these calls and functions with lambda expressions
 		int mci = calcM(ci);
 		int mcj = calcM(cj);
 		int aci = calcA(ci);
@@ -57,7 +52,6 @@ public class Metric
 
 		double den1 = Math.abs(mci) * Math.abs(acj);
 		double den2 = mci * (mcj - 1);
-		//not sure if there is actually a cross product in the formula
 		double num1 = calcMAI(ci, cj);
 		double num2 = calcMMI(ci, cj);
 		
@@ -92,8 +86,6 @@ public class Metric
 		}
 		return count;
 	}
-
-	//TODO solve DMM DMA MAI and MMI via join of FeatureSets and resulting size
 
 	private static double calcMMI(Class ci, Class cj){
 
@@ -142,15 +134,12 @@ public class Metric
 	}
 
 	private static int calcDMM(Method mi, Method mj){
-		//TODO discuss whether this is the right implementation
-		if(mi.getFunctionalDependency().contains(mj) ||
-				mi.getFunctionalDependencyTransitive().contains(mj)){
+		if(mi.getFunctionalDependency().contains(mj)){
 			return 1;
 		}else{
 			return 0;
 		}
 	}
-
 
 	//second implementation
 	public static double computeFitness(ClassModel model)
