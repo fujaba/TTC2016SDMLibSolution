@@ -11,10 +11,12 @@ import java.util.HashMap;
 
 import org.junit.Test;
 import org.sdmlib.models.SDMLibIdMap;
+import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
+import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.serialization.xml.EmfIdMap;
 import org.sdmlib.storyboards.StoryPage;
 
@@ -57,7 +59,7 @@ public class RunTestCases
 
       long currentTimeMillis = System.currentTimeMillis();
 
-      runner.runCase("input_models/TTC_InputRDG_A.xmi");
+      runner.runCase("input_models/TTC_InputRDG_Small1.xmi");
 
       long runtime = System.currentTimeMillis() - currentTimeMillis;
 
@@ -153,6 +155,53 @@ public class RunTestCases
 
          evaluateStates();
 
+         ObjectSet elems = new ObjectSet();
+         
+         ReachableState firstState = reachabilityGraph.getStates().first();
+         
+         elems.with(firstState);
+         ReachableStateSet newStates = new ReachableStateSet().with(firstState);
+         do {
+            RuleApplicationSet ruleapplications = newStates.getRuleapplications();
+            elems.addAll(ruleapplications);
+
+            newStates = ruleapplications.getTgt();
+            elems.addAll(newStates);
+         }
+         while ( ! newStates.isEmpty());
+
+         story.addObjectDiagramOnlyWith(elems);
+         
+         story.add("Expand only best state:");
+         
+         
+         elems = new ObjectSet();
+         
+         firstState = reachabilityGraph.getStates().first();
+         newStates = new ReachableStateSet().with(firstState);
+         
+         elems.add(firstState);
+         RuleApplicationSet ruleapplications = firstState.getRuleapplications();
+         elems.addAll(ruleapplications);
+         newStates = ruleapplications.getTgt();
+         elems.addAll(newStates);
+         
+         while( ! newStates.isEmpty())
+         {
+            // find best newState
+            double max = newStates.getMetricValue().max();
+            newStates = newStates.filterMetricValue(max);
+            ReachableState expandState = newStates.first();
+            
+            ruleapplications = expandState.getRuleapplications();
+            elems.addAll(ruleapplications);
+            newStates = ruleapplications.getTgt();
+            elems.addAll(newStates);
+         }
+         
+         story.addObjectDiagramOnlyWith(elems);
+         
+         
          System.out.println("Only improving paths through rg gives cra: " + searchBetterCraStatesOnly());
          System.out.println("ENDTEST\n");
 
@@ -215,7 +264,7 @@ public class RunTestCases
    private void evaluateStates()
    {
       HashMap<ReachableState, Double> treeMap = new HashMap<ReachableState, Double>();
-
+      
       double best = Double.NEGATIVE_INFINITY;
       ReachableState bestState = null;
 
@@ -223,6 +272,7 @@ public class RunTestCases
       {
          ClassModel stateroot = (ClassModel) state.getGraphRoot();
          double index = CRAIndexCalculator.calculateCRAIndex(stateroot);
+         state.withMetricValue(index);
 
          if (index > best)
          {
