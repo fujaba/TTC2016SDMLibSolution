@@ -59,7 +59,7 @@ public class RunTestCases
 
       long currentTimeMillis = System.currentTimeMillis();
 
-      runner.runCase("input_models/TTC_InputRDG_Small1.xmi");
+      runner.runCase("input_models/TTC_InputRDG_A.xmi");
 
       long runtime = System.currentTimeMillis() - currentTimeMillis;
 
