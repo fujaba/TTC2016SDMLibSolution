@@ -17,7 +17,6 @@ import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
-import org.sdmlib.serialization.xml.EmfIdMap;
 import org.sdmlib.storyboards.StoryPage;
 
 import de.unikassel.ttc2016.model.Attribute;
@@ -132,7 +131,7 @@ public class RunTestCases
    {
       StoryPage story = new StoryPage();
 
-      EmfIdMap idMap = (EmfIdMap) new EmfIdMap("g").with(ClassModelCreator.createIdMap("g"));
+      IdMap idMap = ClassModelCreator.createIdMap("g");
 
       byte[] allBytes;
       try

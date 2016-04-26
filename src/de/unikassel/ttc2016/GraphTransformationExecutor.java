@@ -4,18 +4,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.sdmlib.serialization.xml.EmfIdMap;
 import org.sdmlib.storyboards.StoryPage;
 
-import de.unikassel.ttc2016.Metric;
-import de.unikassel.ttc2016.model.*;
 import de.unikassel.ttc2016.model.Class;
+import de.unikassel.ttc2016.model.ClassModel;
+import de.unikassel.ttc2016.model.Feature;
 import de.unikassel.ttc2016.model.util.ClassModelCreator;
 import de.unikassel.ttc2016.model.util.ClassModelPO;
 import de.unikassel.ttc2016.model.util.ClassPO;
 import de.unikassel.ttc2016.model.util.ClassSet;
 import de.unikassel.ttc2016.model.util.FeaturePO;
 import de.unikassel.ttc2016.model.util.FeatureSet;
+import de.uniks.networkparser.IdMap;
 
 public class GraphTransformationExecutor {
 
@@ -38,8 +38,7 @@ public class GraphTransformationExecutor {
 		public void runCase(String caseFile)
 		{
 			StoryPage story = new StoryPage();
-
-			EmfIdMap idMap = (EmfIdMap) new EmfIdMap("g").with(ClassModelCreator.createIdMap("g"));
+			IdMap map = ClassModelCreator.createIdMap("g");
 
 			byte[] allBytes;
 			try
@@ -48,7 +47,7 @@ public class GraphTransformationExecutor {
 
 				String text = new String(allBytes);
 
-				Object root = idMap.decode(text);
+				Object root = map.decode(text);
 
 				story.addObjectDiagram(root);
 

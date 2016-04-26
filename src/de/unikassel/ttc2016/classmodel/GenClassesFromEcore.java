@@ -6,14 +6,12 @@ import java.nio.file.Files;
 
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.StoryPage;
-import org.sdmlib.tools.EMFTool;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.graph.GraphList;
 
 
 
@@ -30,11 +28,10 @@ public class GenClassesFromEcore
       
       IdMap map = new IdMap();
       String content = new String(Files.readAllBytes(new File("./input_models/architectureCRA.ecore").toPath()));
-      GraphList modelNEW = (GraphList) map.decodeEMF(content);
+      ClassModel ecoreModel = new ClassModel("de.unikassel.ttc2016.model");
+//      GraphList ecoreModel = (Cla) map.decodeEMF(content);
+      map.decodeEMF(content, ecoreModel);
       
-      EMFTool emfTool = new EMFTool();
-      
-      ClassModel ecoreModel = emfTool.ecoreModelToClassModel("de.unikassel.ttc2016.model", "./input_models/architectureCRA.ecore");
       
       story.addStep("Derive Class Model from ECORE");
       story.addClassDiagram(ecoreModel);
