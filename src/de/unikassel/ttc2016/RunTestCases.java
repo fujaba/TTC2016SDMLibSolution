@@ -40,6 +40,7 @@ public class RunTestCases
    private ReachableState startState;
    private int numEvaluatedStatesForDepthSearch;
    private ReachableStateSet evaluated;
+   private ReachableState bestState;
 
    public static void main(String[] args)
    {
@@ -52,16 +53,21 @@ public class RunTestCases
       // runner.runCase("input_models/TTC_InputRDG_C.xmi");
       // runner.runCase("input_models/TTC_InputRDG_D.xmi");
       // runner.runCase("input_models/TTC_InputRDG_E.xmi");
-      logTime();
+      logTime("input_models/TTC_InputRDG_Small1.xmi");
+      logTime("input_models/TTC_InputRDG_A.xmi");
+      logTime("input_models/TTC_InputRDG_B.xmi");
+      logTime("input_models/TTC_InputRDG_C.xmi");
+      logTime("input_models/TTC_InputRDG_D.xmi");
+      logTime("input_models/TTC_InputRDG_E.xmi");
    }
 
-   private static void logTime()
+   private static void logTime(String caseFileName)
    {
       RunTestCases runner = new RunTestCases();
 
       long currentTimeMillis = System.currentTimeMillis();
 
-      runner.runCase("input_models/TTC_InputRDG_Small1.xmi");
+      runner.runCase(caseFileName);
 
       long runtime = System.currentTimeMillis() - currentTimeMillis;
 
@@ -70,6 +76,7 @@ public class RunTestCases
       String timeStamp = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date());
       timeStamp += ";" + System.getProperty("user.name");
       timeStamp += ";" + runtime;
+      timeStamp += ";" + caseFileName;
 
       /// Users/lra/workspaces/git/TTC2016SDMLibSolution/.git/refs/heads/master
 
@@ -130,6 +137,11 @@ public class RunTestCases
     * @see <a href='../../../../../doc/runCase.html'>runCase.html</a>
     * @see <a href='../../../../doc/runCase.html'>runCase.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_A.html'>TTC_InputRDG_A.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_Small1.html'>TTC_InputRDG_Small1.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_B.html'>TTC_InputRDG_B.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_C.html'>TTC_InputRDG_C.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_D.html'>TTC_InputRDG_D.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_E.html'>TTC_InputRDG_E.html</a>
  */
    public void runCase(String caseFile)
    {
@@ -160,32 +172,29 @@ public class RunTestCases
 
          expandReachabilityGraph(model);
 
-         // evaluateStates();
+         evaluateStates();
 
          story.add("Expand only best state:");
          
          ObjectSet elems = new ObjectSet();
          
-         ReachableState firstState = reachabilityGraph.getStates().first();
-         ReachableStateSet newStates = new ReachableStateSet().with(firstState);
+         ReachableState currentState = bestState;
          
-         elems.add(firstState);
-         RuleApplicationSet ruleapplications = firstState.getRuleapplications();
-         elems.addAll(ruleapplications);
-         newStates = ruleapplications.getTgt();
-         elems.addAll(newStates);
+         System.out.println("Best state is : " + bestState);
+         ReachableStateSet newStates = new ReachableStateSet().with(bestState);
          
+         // search backward
          while( ! newStates.isEmpty())
          {
-            // find best newState
-            double max = newStates.getMetricValue().max();
-            newStates = newStates.filterMetricValue(max);
-            ReachableState expandState = newStates.first();
-            
-            ruleapplications = expandState.getRuleapplications();
-            elems.addAll(ruleapplications);
-            newStates = ruleapplications.getTgt();
+            // add newStates to elems
             elems.addAll(newStates);
+            
+            // compute previous states
+            RuleApplicationSet ruleapplications = newStates.getResultOf();
+            
+            elems.addAll(ruleapplications);
+            
+            newStates = ruleapplications.getSrc();
          }
          
          story.addObjectDiagramOnlyWith(elems);
@@ -252,26 +261,13 @@ public class RunTestCases
 
    private void evaluateStates()
    {
-      HashMap<ReachableState, Double> treeMap = new HashMap<ReachableState, Double>();
-      
       double best = Double.NEGATIVE_INFINITY;
-      ReachableState bestState = null;
+      bestState = null;
 
-      for (ReachableState state : reachabilityGraph.getStates())
-      {
-         ClassModel stateroot = (ClassModel) state.getGraphRoot();
-         double index = CRAIndexCalculator.calculateCRAIndex(stateroot);
-         state.withMetricValue(index);
-
-         if (index > best)
-         {
-            best = index;
-            bestState = state;
-         }
-
-         treeMap.put(state, index);
-      }
-
+      best = reachabilityGraph.getStates().getMetricValue().max();
+      
+      bestState = reachabilityGraph.getStates().filterMetricValue(best).first();
+      
       printMetrics((ClassModel) bestState.getGraphRoot());
    }
 
@@ -292,7 +288,7 @@ public class RunTestCases
       ClassModelPO rule2PO = mergeMethodDependencyRule();
       reachabilityGraph.addToRules(rule2PO.getPattern().withName("mergemethod"));
 
-      reachabilityGraph.explore();
+      reachabilityGraph.explore(400);
    }
 
    private ClassModelPO mergeDataDependencyRule()
