@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+<script src="includes/dagre.min.js"></script>
+<script src="includes/drawer.js"></script>
+<script src="includes/graph.js"></script>
+</head><body>
+<p>Storyboard <a href='.././src/de/unikassel/ttc2016/RunTestCases.java' type='text/x-java'>TTC_InputRDG_Small1</a></p>
+<p>Expand only best state:</p>
+<script>
+   var json = {
+   "typ":"objectdiagram",
+   "style":null,
+   "nodes":[
+      {
+         "typ":"clazz",
+         "id":"R1 : ReachableState",
+         "attributes":[
+            "number=1",
+            "metricValue=-3.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R2 : RuleApplication",
+         "attributes":[
+            "description=mergedata"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R3 : ReachableState",
+         "attributes":[
+            "number=2",
+            "metricValue=-1.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R4 : RuleApplication",
+         "attributes":[
+            "description=mergedata"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R5 : ReachableState",
+         "attributes":[
+            "number=10",
+            "metricValue=-1.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R6 : RuleApplication",
+         "attributes":[
+            "description=mergedata"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R7 : ReachableState",
+         "attributes":[
+            "number=14",
+            "metricValue=-1.0"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R8 : RuleApplication",
+         "attributes":[
+            "description=mergemethod"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R9 : ReachableState",
+         "attributes":[
+            "number=17",
+            "metricValue=-2.5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R10 : RuleApplication",
+         "attributes":[
+            "description=mergemethod"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R11 : ReachableState",
+         "attributes":[
+            "number=20",
+            "metricValue=-2.5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R12 : RuleApplication",
+         "attributes":[
+            "description=mergemethod"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R13 : ReachableState",
+         "attributes":[
+            "number=22",
+            "metricValue=-2.5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R14 : RuleApplication",
+         "attributes":[
+            "description=mergedata"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R15 : ReachableState",
+         "attributes":[
+            "number=3",
+            "metricValue=-0.5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R16 : RuleApplication",
+         "attributes":[
+            "description=mergedata"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R17 : ReachableState",
+         "attributes":[
+            "number=6",
+            "metricValue=-0.5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R18 : RuleApplication",
+         "attributes":[
+            "description=mergemethod"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R19 : ReachableState",
+         "attributes":[
+            "number=7",
+            "metricValue=-0.5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R20 : RuleApplication",
+         "attributes":[
+            "description=mergemethod"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R21 : ReachableState",
+         "attributes":[
+            "number=9",
+            "metricValue=-0.5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R22 : RuleApplication",
+         "attributes":[
+            "description=mergemethod"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R23 : RuleApplication",
+         "attributes":[
+            "description=mergedata"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R24 : ReachableState",
+         "attributes":[
+            "number=4",
+            "metricValue=1.5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R25 : RuleApplication",
+         "attributes":[
+            "description=mergemethod"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R26 : ReachableState",
+         "attributes":[
+            "number=5",
+            "metricValue=1.5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R27 : RuleApplication",
+         "attributes":[
+            "description=mergemethod"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R1 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R2 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R3 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R2 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R1 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R4 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R5 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R4 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R1 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R6 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R7 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R6 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R1 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R8 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R9 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R8 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R1 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R10 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R11 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R10 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R1 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R12 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R13 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R12 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R3 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R14 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R15 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R14 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R3 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R16 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R17 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R16 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R3 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R18 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R19 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R18 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R3 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R20 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R21 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R20 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R3 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R22 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R17 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R22 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R15 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R23 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R24 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R23 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R15 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R25 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R26 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R25 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R15 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R27 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R24 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R27 : RuleApplication"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasTTC_InputRDG_Small12", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<p>Reachability Graph:</p>
+
+</body>
+</html>

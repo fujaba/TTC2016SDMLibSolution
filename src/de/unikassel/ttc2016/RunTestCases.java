@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.HashMap;
 
 import org.junit.Test;
+import org.sdmlib.CGUtil;
+import org.sdmlib.StrUtil;
 import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.ReachabilityGraph;
@@ -59,7 +61,7 @@ public class RunTestCases
 
       long currentTimeMillis = System.currentTimeMillis();
 
-      runner.runCase("input_models/TTC_InputRDG_A.xmi");
+      runner.runCase("input_models/TTC_InputRDG_Small1.xmi");
 
       long runtime = System.currentTimeMillis() - currentTimeMillis;
 
@@ -127,10 +129,15 @@ public class RunTestCases
     * 
     * @see <a href='../../../../../doc/runCase.html'>runCase.html</a>
     * @see <a href='../../../../doc/runCase.html'>runCase.html</a>
-    */
+    * @see <a href='../../../../doc/TTC_InputRDG_A.html'>TTC_InputRDG_A.html</a>
+ */
    public void runCase(String caseFile)
    {
       StoryPage story = new StoryPage();
+      int pos = caseFile.lastIndexOf('/');
+      String storyName = caseFile.substring(pos+1);
+      storyName = CGUtil.packageName(storyName);
+      story.getStoryboard().setName(storyName);
 
       EmfIdMap idMap = (EmfIdMap) new EmfIdMap("g").with(ClassModelCreator.createIdMap("g"));
 
@@ -153,32 +160,14 @@ public class RunTestCases
 
          expandReachabilityGraph(model);
 
-         evaluateStates();
+         // evaluateStates();
 
+         story.add("Expand only best state:");
+         
          ObjectSet elems = new ObjectSet();
          
          ReachableState firstState = reachabilityGraph.getStates().first();
-         
-         elems.with(firstState);
          ReachableStateSet newStates = new ReachableStateSet().with(firstState);
-         do {
-            RuleApplicationSet ruleapplications = newStates.getRuleapplications();
-            elems.addAll(ruleapplications);
-
-            newStates = ruleapplications.getTgt();
-            elems.addAll(newStates);
-         }
-         while ( ! newStates.isEmpty());
-
-         story.addObjectDiagramOnlyWith(elems);
-         
-         story.add("Expand only best state:");
-         
-         
-         elems = new ObjectSet();
-         
-         firstState = reachabilityGraph.getStates().first();
-         newStates = new ReachableStateSet().with(firstState);
          
          elems.add(firstState);
          RuleApplicationSet ruleapplications = firstState.getRuleapplications();
@@ -293,6 +282,7 @@ public class RunTestCases
 
       startState = new ReachableState().withGraphRoot(model);
       reachabilityGraph = new ReachabilityGraph().withMasterMap(idMap).withStates(startState).withTodo(startState);
+      reachabilityGraph.setMetric(o -> CRAIndexCalculator.calculateCRAIndex((ClassModel) o));
 
       // merge rule
       ClassModelPO classModelPO = mergeDataDependencyRule();
