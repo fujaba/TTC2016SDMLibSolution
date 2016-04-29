@@ -20,7 +20,7 @@
          "id":"R1 : ReachableState",
          "attributes":[
             "number=0",
-            "metricValue=-295.5"
+            "metricValue=-292.50000000000006"
          ]
       },
       {
@@ -33,6 +33,21 @@
       {
          "typ":"clazz",
          "id":"R3 : ReachableState",
+         "attributes":[
+            "number=2",
+            "metricValue=-295.5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R4 : RuleApplication",
+         "attributes":[
+            "description=mergemethod"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R5 : ReachableState",
          "attributes":[
             "number=1",
             "metricValue=-298.0"
@@ -64,6 +79,32 @@
             "cardinality":"one",
             "property":"ruleapplication",
             "id":"R2 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R5 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R4 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R3 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R4 : RuleApplication"
          }
       }
    ]

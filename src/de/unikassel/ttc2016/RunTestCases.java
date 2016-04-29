@@ -39,6 +39,7 @@ public class RunTestCases
    private int numEvaluatedStatesForDepthSearch;
    private ReachableStateSet evaluated;
    private ReachableState bestState;
+   private static double best;
 
    public static void main(String[] args)
    {
@@ -82,6 +83,7 @@ public class RunTestCases
       String timeStamp = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date());
       timeStamp += ";" + System.getProperty("user.name");
       timeStamp += ";" + runtime;
+      timeStamp += ";" + best;
       timeStamp += ";" + caseFileName;
 
       try
@@ -283,7 +285,7 @@ public class RunTestCases
 
    private void evaluateStates()
    {
-      double best = Double.NEGATIVE_INFINITY;
+      best = Double.NEGATIVE_INFINITY;
       bestState = null;
 
       best = reachabilityGraph.getStates().getMetricValue().max();
@@ -310,7 +312,7 @@ public class RunTestCases
       ClassModelPO rule2PO = mergeMethodDependencyRule();
       reachabilityGraph.addToRules(rule2PO.getPattern().withName("mergemethod"));
 
-      reachabilityGraph.explore();
+      reachabilityGraph.explore(2000);
    }
 
    private ClassModelPO mergeDataDependencyRule()
