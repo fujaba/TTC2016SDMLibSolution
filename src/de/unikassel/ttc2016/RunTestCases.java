@@ -7,11 +7,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 import org.junit.Test;
 import org.sdmlib.CGUtil;
-import org.sdmlib.StrUtil;
 import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.ReachabilityGraph;
@@ -53,16 +51,24 @@ public class RunTestCases
       // runner.runCase("input_models/TTC_InputRDG_C.xmi");
       // runner.runCase("input_models/TTC_InputRDG_D.xmi");
       // runner.runCase("input_models/TTC_InputRDG_E.xmi");
-      logTime("input_models/TTC_InputRDG_Small1.xmi");
-      logTime("input_models/TTC_InputRDG_A.xmi");
-      logTime("input_models/TTC_InputRDG_B.xmi");
-      logTime("input_models/TTC_InputRDG_C.xmi");
-      logTime("input_models/TTC_InputRDG_D.xmi");
-      logTime("input_models/TTC_InputRDG_E.xmi");
+      // logTime("input_models/TTC_InputRDG_Small1.xmi");
+      logTime("input_models/TTC_InputRDG_A.xmi"); // MOMot has 4 classes with
+                                                  // CRA of 3.0
+      logTime("input_models/TTC_InputRDG_B.xmi"); // MOMot has 7 classes with
+                                                  // CRA of 1.125
+      logTime("input_models/TTC_InputRDG_C.xmi"); // MOMot has 12 classes with
+                                                  // CRA of -5.635714285714286
+      logTime("input_models/TTC_InputRDG_D.xmi"); // MOMot has 20 classes with
+                                                  // CRA of -23.63380952380952
+      logTime("input_models/TTC_InputRDG_E.xmi"); // MOMot has 47 classes with
+                                                  // CRA of -69.65545274170275
    }
 
    private static void logTime(String caseFileName)
    {
+      System.out.println("################################################\n" + caseFileName + "\n"
+         + "################################################");
+
       RunTestCases runner = new RunTestCases();
 
       long currentTimeMillis = System.currentTimeMillis();
@@ -77,8 +83,6 @@ public class RunTestCases
       timeStamp += ";" + System.getProperty("user.name");
       timeStamp += ";" + runtime;
       timeStamp += ";" + caseFileName;
-
-      /// Users/lra/workspaces/git/TTC2016SDMLibSolution/.git/refs/heads/master
 
       try
       {
@@ -137,17 +141,18 @@ public class RunTestCases
     * @see <a href='../../../../../doc/runCase.html'>runCase.html</a>
     * @see <a href='../../../../doc/runCase.html'>runCase.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_A.html'>TTC_InputRDG_A.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_Small1.html'>TTC_InputRDG_Small1.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_B.html'>TTC_InputRDG_B.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_C.html'>TTC_InputRDG_C.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_D.html'>TTC_InputRDG_D.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_E.html'>TTC_InputRDG_E.html</a>
- */
+    * @see <a href='../../../../doc/TTC_InputRDG_Small1.html'>
+    *      TTC_InputRDG_Small1.html</a>
+    * @see <a href='../../../../doc/TTC_InputRDG_B.html'>TTC_InputRDG_B.html</a>
+    * @see <a href='../../../../doc/TTC_InputRDG_C.html'>TTC_InputRDG_C.html</a>
+    * @see <a href='../../../../doc/TTC_InputRDG_D.html'>TTC_InputRDG_D.html</a>
+    * @see <a href='../../../../doc/TTC_InputRDG_E.html'>TTC_InputRDG_E.html</a>
+    */
    public void runCase(String caseFile)
    {
       StoryPage story = new StoryPage();
       int pos = caseFile.lastIndexOf('/');
-      String storyName = caseFile.substring(pos+1);
+      String storyName = caseFile.substring(pos + 1);
       storyName = CGUtil.packageName(storyName);
       story.getStoryboard().setName(storyName);
 
@@ -175,31 +180,30 @@ public class RunTestCases
          evaluateStates();
 
          story.add("Expand only best state:");
-         
+
          ObjectSet elems = new ObjectSet();
-         
+
          ReachableState currentState = bestState;
-         
+
          System.out.println("Best state is : " + bestState);
          ReachableStateSet newStates = new ReachableStateSet().with(bestState);
-         
+
          // search backward
-         while( ! newStates.isEmpty())
+         while (!newStates.isEmpty())
          {
             // add newStates to elems
             elems.addAll(newStates);
-            
+
             // compute previous states
             RuleApplicationSet ruleapplications = newStates.getResultOf();
-            
+
             elems.addAll(ruleapplications);
-            
+
             newStates = ruleapplications.getSrc();
          }
-         
+
          story.addObjectDiagramOnlyWith(elems);
-         
-         
+
          System.out.println("Only improving paths through rg gives cra: " + searchBetterCraStatesOnly());
          System.out.println("ENDTEST\n");
 
@@ -207,6 +211,24 @@ public class RunTestCases
 
          story.add("Reachability Graph:");
          // story.add(dumpDiagram);
+
+         // check if we did better previously
+         Path path = Paths.get(caseFile.split("/")[1] + ".cra");
+         double craFromFile = Double.MIN_VALUE;
+         if (Files.isReadable(path))
+         {
+            craFromFile = Double.valueOf(new String(Files.readAllBytes(path)));
+         }
+         if (craFromFile <= bestState.getMetricValue())
+         {
+            System.out.println("Found a better or even result, writing to file.");
+            Files.write(path, String.valueOf(bestState.getMetricValue()).getBytes(), StandardOpenOption.CREATE);
+         }
+         else
+         {
+            System.out.println("CRA FOR BEST RESULT IS WORSE THAN PREVIOUSLY! (" + craFromFile + " vs "
+               + bestState.getMetricValue() + ")");
+         }
       }
       catch (IOException e)
       {
@@ -265,9 +287,9 @@ public class RunTestCases
       bestState = null;
 
       best = reachabilityGraph.getStates().getMetricValue().max();
-      
+
       bestState = reachabilityGraph.getStates().filterMetricValue(best).first();
-      
+
       printMetrics((ClassModel) bestState.getGraphRoot());
    }
 
@@ -341,11 +363,7 @@ public class RunTestCases
       double craIndex = Metric.cRAIndex(model);
       double viennaIndex = CRAIndexCalculator.evaluateModel(model);
 
-      if (craValue == craIndex && craIndex == viennaIndex)
-      {
-         // everyone agrees
-      }
-      else
+      if (!(craValue == craIndex && craIndex == viennaIndex))
       {
          System.out.println("A: " + craValue + " L: " + craIndex + " V: " + viennaIndex);
       }

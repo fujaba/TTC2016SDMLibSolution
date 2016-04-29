@@ -20,7 +20,7 @@
          "id":"R1 : ReachableState",
          "attributes":[
             "number=0",
-            "metricValue=-31.833333333333332"
+            "metricValue=-39.83333333333333"
          ]
       },
       {
@@ -34,8 +34,8 @@
          "typ":"clazz",
          "id":"R3 : ReachableState",
          "attributes":[
-            "number=5",
-            "metricValue=-35.599999999999994"
+            "number=3",
+            "metricValue=-43.333333333333336"
          ]
       },
       {
@@ -47,44 +47,7 @@
       },
       {
          "typ":"clazz",
-         "id":"R5 : RuleApplication",
-         "attributes":[
-            "description=mergemethod"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R6 : ReachableState",
-         "attributes":[
-            "number=4",
-            "metricValue=-39.83333333333333"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R7 : RuleApplication",
-         "attributes":[
-            "description=mergemethod"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R8 : ReachableState",
-         "attributes":[
-            "number=3",
-            "metricValue=-43.333333333333336"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R9 : RuleApplication",
-         "attributes":[
-            "description=mergemethod"
-         ]
-      },
-      {
-         "typ":"clazz",
-         "id":"R10 : ReachableState",
+         "id":"R5 : ReachableState",
          "attributes":[
             "number=2",
             "metricValue=-47.0"
@@ -92,14 +55,14 @@
       },
       {
          "typ":"clazz",
-         "id":"R11 : RuleApplication",
+         "id":"R6 : RuleApplication",
          "attributes":[
             "description=mergemethod"
          ]
       },
       {
          "typ":"clazz",
-         "id":"R12 : ReachableState",
+         "id":"R7 : ReachableState",
          "attributes":[
             "number=1",
             "metricValue=-50.0"
@@ -138,7 +101,7 @@
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"R3 : ReachableState"
+            "id":"R5 : ReachableState"
          },
          "target":{
             "cardinality":"one",
@@ -151,7 +114,7 @@
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"R1 : ReachableState"
+            "id":"R3 : ReachableState"
          },
          "target":{
             "cardinality":"one",
@@ -164,12 +127,12 @@
          "source":{
             "cardinality":"one",
             "property":"src",
-            "id":"R6 : ReachableState"
+            "id":"R7 : ReachableState"
          },
          "target":{
             "cardinality":"one",
             "property":"ruleapplication",
-            "id":"R5 : RuleApplication"
+            "id":"R6 : RuleApplication"
          }
       },
       {
@@ -177,90 +140,12 @@
          "source":{
             "cardinality":"one",
             "property":"tgt",
-            "id":"R3 : ReachableState"
+            "id":"R5 : ReachableState"
          },
          "target":{
             "cardinality":"one",
             "property":"ruleapplication",
-            "id":"R5 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"R8 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R7 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"R6 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R7 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"R10 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R9 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"R8 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R9 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"src",
-            "id":"R12 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R11 : RuleApplication"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "cardinality":"one",
-            "property":"tgt",
-            "id":"R10 : ReachableState"
-         },
-         "target":{
-            "cardinality":"one",
-            "property":"ruleapplication",
-            "id":"R11 : RuleApplication"
+            "id":"R6 : RuleApplication"
          }
       }
    ]
