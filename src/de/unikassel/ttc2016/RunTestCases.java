@@ -310,7 +310,7 @@ public class RunTestCases
       ClassModelPO rule2PO = mergeMethodDependencyRule();
       reachabilityGraph.addToRules(rule2PO.getPattern().withName("mergemethod"));
 
-      reachabilityGraph.explore(400);
+      reachabilityGraph.explore();
    }
 
    private ClassModelPO mergeDataDependencyRule()
