@@ -20,7 +20,7 @@
          "id":"R1 : ReachableState",
          "attributes":[
             "number=0",
-            "metricValue=-292.50000000000006"
+            "metricValue=-284.65000000000003"
          ]
       },
       {
@@ -34,8 +34,8 @@
          "typ":"clazz",
          "id":"R3 : ReachableState",
          "attributes":[
-            "number=2",
-            "metricValue=-295.5"
+            "number=4",
+            "metricValue=-288.9166666666667"
          ]
       },
       {
@@ -48,6 +48,36 @@
       {
          "typ":"clazz",
          "id":"R5 : ReachableState",
+         "attributes":[
+            "number=3",
+            "metricValue=-292.50000000000006"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R6 : RuleApplication",
+         "attributes":[
+            "description=mergemethod"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R7 : ReachableState",
+         "attributes":[
+            "number=2",
+            "metricValue=-295.5"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R8 : RuleApplication",
+         "attributes":[
+            "description=mergemethod"
+         ]
+      },
+      {
+         "typ":"clazz",
+         "id":"R9 : ReachableState",
          "attributes":[
             "number=1",
             "metricValue=-298.0"
@@ -105,6 +135,58 @@
             "cardinality":"one",
             "property":"ruleapplication",
             "id":"R4 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R7 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R6 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R5 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R6 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"src",
+            "id":"R9 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R8 : RuleApplication"
+         }
+      },
+      {
+         "typ":"UNDIRECTIONAL",
+         "source":{
+            "cardinality":"one",
+            "property":"tgt",
+            "id":"R7 : ReachableState"
+         },
+         "target":{
+            "cardinality":"one",
+            "property":"ruleapplication",
+            "id":"R8 : RuleApplication"
          }
       }
    ]
