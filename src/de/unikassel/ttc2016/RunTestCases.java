@@ -40,9 +40,16 @@ public class RunTestCases
    private ReachableStateSet evaluated;
    private ReachableState bestState;
    private static double best;
-
+   private static long exploreDepth = 1000;
+   
    public static void main(String[] args)
    {
+      
+      if (args != null && args.length > 0)
+      {
+         exploreDepth = Long.parseLong(args[0]);
+      }
+      
       RunTestCases runner = new RunTestCases();
 
       // runner.runCase("input_models/TTC_InputRDG_Small1.xmi");
@@ -84,6 +91,7 @@ public class RunTestCases
       timeStamp += ";" + System.getProperty("user.name");
       timeStamp += ";" + runtime;
       timeStamp += ";" + best;
+      timeStamp += ";" + exploreDepth;
       timeStamp += ";" + caseFileName;
 
       try
@@ -143,8 +151,7 @@ public class RunTestCases
     * @see <a href='../../../../../doc/runCase.html'>runCase.html</a>
     * @see <a href='../../../../doc/runCase.html'>runCase.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_A.html'>TTC_InputRDG_A.html</a>
-    * @see <a href='../../../../doc/TTC_InputRDG_Small1.html'>
-    *      TTC_InputRDG_Small1.html</a>
+    * @see <a href='../../../../doc/TTC_InputRDG_Small1.html'>TTC_InputRDG_Small1.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_B.html'>TTC_InputRDG_B.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_C.html'>TTC_InputRDG_C.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_D.html'>TTC_InputRDG_D.html</a>
@@ -180,7 +187,10 @@ public class RunTestCases
          expandReachabilityGraph(model);
 
          evaluateStates();
-
+         
+         System.out.println("Reachability graph has " + reachabilityGraph.getStates().size() 
+            + " reachable states and " + reachabilityGraph.getTodo().size() + " states still to be expanded");
+         
          story.add("Expand only best state:");
 
          ObjectSet elems = new ObjectSet();
@@ -302,7 +312,7 @@ public class RunTestCases
 
       startState = new ReachableState().withGraphRoot(model);
       reachabilityGraph = new ReachabilityGraph().withMasterMap(idMap).withStates(startState).withTodo(startState);
-      reachabilityGraph.setMetric(o -> CRAIndexCalculator.calculateCRAIndex((ClassModel) o));
+      reachabilityGraph.setMetric(graphRootObject -> CRAIndexCalculator.calculateCRAIndex((ClassModel) graphRootObject));
 
       // merge rule
       ClassModelPO classModelPO = mergeDataDependencyRule();
@@ -312,7 +322,7 @@ public class RunTestCases
       ClassModelPO rule2PO = mergeMethodDependencyRule();
       reachabilityGraph.addToRules(rule2PO.getPattern().withName("mergemethod"));
 
-      reachabilityGraph.explore(2000);
+      reachabilityGraph.explore(exploreDepth);
    }
 
    private ClassModelPO mergeDataDependencyRule()
