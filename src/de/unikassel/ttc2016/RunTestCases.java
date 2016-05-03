@@ -39,7 +39,7 @@ public class RunTestCases
    private ReachableState startState;
    private int numEvaluatedStatesForDepthSearch;
    private ReachableStateSet evaluated;
-   private ReachableState bestState;
+   private static ReachableState bestState;
    private static double best;
    private static long exploreDepth = 1000;
 
@@ -78,6 +78,8 @@ public class RunTestCases
       timeStamp += ";" + runtime;
       timeStamp += ";" + best;
       timeStamp += ";" + exploreDepth;
+      ClassModel graphRoot = (ClassModel) bestState.getGraphRoot();
+      timeStamp += ";" + graphRoot.getClasses().size();
       timeStamp += ";" + caseFileName;
 
       try
