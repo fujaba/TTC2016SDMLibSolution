@@ -41,9 +41,16 @@ public class RunTestCases
    private ReachableStateSet evaluated;
    private ReachableState bestState;
    private static double best;
+   private static long exploreDepth = 1000;
 
    public static void main(String[] args)
    {
+
+      if (args != null && args.length > 0)
+      {
+         exploreDepth = Long.parseLong(args[0]);
+      }
+
       RunTestCases runner = new RunTestCases();
 
       runner.logTime("input_models/TTC_InputRDG_A.xmi");
@@ -70,6 +77,7 @@ public class RunTestCases
       timeStamp += ";" + System.getProperty("user.name");
       timeStamp += ";" + runtime;
       timeStamp += ";" + best;
+      timeStamp += ";" + exploreDepth;
       timeStamp += ";" + caseFileName;
 
       try
@@ -167,6 +175,9 @@ public class RunTestCases
          expandReachabilityGraph(model);
 
          evaluateStates();
+
+         System.out.println("Reachability graph has " + reachabilityGraph.getStates().size()
+            + " reachable states and " + reachabilityGraph.getTodo().size() + " states still to be expanded");
 
          story.add("Expand only best state:");
 
@@ -289,7 +300,8 @@ public class RunTestCases
 
       startState = new ReachableState().withGraphRoot(model);
       reachabilityGraph = new ReachabilityGraph().withMasterMap(idMap).withStates(startState).withTodo(startState);
-      reachabilityGraph.setMetric(o -> CRAIndexCalculator.calculateCRAIndex((ClassModel) o));
+      reachabilityGraph
+         .setMetric(graphRootObject -> CRAIndexCalculator.calculateCRAIndex((ClassModel) graphRootObject));
 
       // merge rule
       ClassModelPO classModelPO = mergeDataDependencyRule();
@@ -299,7 +311,7 @@ public class RunTestCases
       ClassModelPO rule2PO = mergeMethodDependencyRule();
       reachabilityGraph.addToRules(rule2PO.getPattern().withName("mergemethod"));
 
-      reachabilityGraph.explore(1000, Searchmode.DEPTH);
+      reachabilityGraph.explore(exploreDepth, Searchmode.DEPTH);
    }
 
    private ClassModelPO mergeDataDependencyRule()
