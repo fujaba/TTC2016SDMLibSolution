@@ -13,6 +13,7 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.modelsets.ObjectSet;
 import org.sdmlib.models.pattern.ReachabilityGraph;
+import org.sdmlib.models.pattern.ReachabilityGraph.Searchmode;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
@@ -45,36 +46,21 @@ public class RunTestCases
    {
       RunTestCases runner = new RunTestCases();
 
-      // runner.runCase("input_models/TTC_InputRDG_Small1.xmi");
-      // runner.runCase("input_models/TTC_InputRDG_Paper.xmi");
-      // runner.runCase("input_models/TTC_InputRDG_A.xmi");
-      // runner.runCase("input_models/TTC_InputRDG_B.xmi");
-      // runner.runCase("input_models/TTC_InputRDG_C.xmi");
-      // runner.runCase("input_models/TTC_InputRDG_D.xmi");
-      // runner.runCase("input_models/TTC_InputRDG_E.xmi");
-      // logTime("input_models/TTC_InputRDG_Small1.xmi");
-      logTime("input_models/TTC_InputRDG_A.xmi"); // MOMot has 4 classes with
-                                                  // CRA of 3.0
-      logTime("input_models/TTC_InputRDG_B.xmi"); // MOMot has 7 classes with
-                                                  // CRA of 1.125
-      logTime("input_models/TTC_InputRDG_C.xmi"); // MOMot has 12 classes with
-                                                  // CRA of -5.635714285714286
-      logTime("input_models/TTC_InputRDG_D.xmi"); // MOMot has 20 classes with
-                                                  // CRA of -23.63380952380952
-      logTime("input_models/TTC_InputRDG_E.xmi"); // MOMot has 47 classes with
-                                                  // CRA of -69.65545274170275
+      runner.logTime("input_models/TTC_InputRDG_A.xmi");
+      runner.logTime("input_models/TTC_InputRDG_B.xmi");
+      runner.logTime("input_models/TTC_InputRDG_C.xmi");
+      runner.logTime("input_models/TTC_InputRDG_D.xmi");
+      runner.logTime("input_models/TTC_InputRDG_E.xmi");
    }
 
-   private static void logTime(String caseFileName)
+   private void logTime(String caseFileName)
    {
       System.out.println("################################################\n" + caseFileName + "\n"
          + "################################################");
 
-      RunTestCases runner = new RunTestCases();
-
       long currentTimeMillis = System.currentTimeMillis();
 
-      runner.runCase(caseFileName);
+      runCase(caseFileName);
 
       long runtime = System.currentTimeMillis() - currentTimeMillis;
 
@@ -152,6 +138,7 @@ public class RunTestCases
     */
    public void runCase(String caseFile)
    {
+
       StoryPage story = new StoryPage();
       int pos = caseFile.lastIndexOf('/');
       String storyName = caseFile.substring(pos + 1);
@@ -312,7 +299,7 @@ public class RunTestCases
       ClassModelPO rule2PO = mergeMethodDependencyRule();
       reachabilityGraph.addToRules(rule2PO.getPattern().withName("mergemethod"));
 
-      reachabilityGraph.explore(2000);
+      reachabilityGraph.explore(1000, Searchmode.DEPTH);
    }
 
    private ClassModelPO mergeDataDependencyRule()
