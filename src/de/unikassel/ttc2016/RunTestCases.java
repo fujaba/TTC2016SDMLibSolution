@@ -1,5 +1,7 @@
 package de.unikassel.ttc2016;
 
+import static org.junit.Assert.*;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,8 +41,8 @@ public class RunTestCases
    private ReachableState startState;
    private int numEvaluatedStatesForDepthSearch;
    private ReachableStateSet evaluated;
-   private static ReachableState bestState;
-   private static double best;
+   private ReachableState bestState;
+   private double best;
    private static long exploreDepth = 1000;
 
    public static void main(String[] args)
@@ -62,12 +64,20 @@ public class RunTestCases
 
    private void logTime(String caseFileName)
    {
+      for (Searchmode m : Searchmode.values())
+      {
+         logTime(caseFileName, m);
+      }
+   }
+
+   private void logTime(String caseFileName, Searchmode mode)
+   {
       System.out.println("################################################\n" + caseFileName + "\n"
          + "################################################");
 
       long currentTimeMillis = System.currentTimeMillis();
 
-      runCase(caseFileName);
+      runCase(caseFileName, mode);
 
       long runtime = System.currentTimeMillis() - currentTimeMillis;
 
@@ -78,6 +88,7 @@ public class RunTestCases
       timeStamp += ";" + runtime;
       timeStamp += ";" + best;
       timeStamp += ";" + exploreDepth;
+      timeStamp += ";" + mode;
       ClassModel graphRoot = (ClassModel) bestState.getGraphRoot();
       timeStamp += ";" + graphRoot.getClasses().size();
       timeStamp += ";" + caseFileName;
@@ -93,6 +104,22 @@ public class RunTestCases
          e.printStackTrace();
       }
 
+   }
+
+     /**
+    * 
+    * @see <a href='../../../../doc/TTC_InputRDG_A.html'>TTC_InputRDG_A.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_B.html'>TTC_InputRDG_B.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_C.html'>TTC_InputRDG_C.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_D.html'>TTC_InputRDG_D.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_E.html'>TTC_InputRDG_E.html</a>
+ */
+   private void runCase(String caseFileName)
+   {
+      for (Searchmode m : Searchmode.values())
+      {
+         runCase(caseFileName, m);
+      }
    }
 
    /**
@@ -146,7 +173,7 @@ public class RunTestCases
     * @see <a href='../../../../doc/TTC_InputRDG_D.html'>TTC_InputRDG_D.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_E.html'>TTC_InputRDG_E.html</a>
     */
-   public void runCase(String caseFile)
+   public void runCase(String caseFile, Searchmode mode)
    {
 
       StoryPage story = new StoryPage();
@@ -173,8 +200,9 @@ public class RunTestCases
          addInitialClasses(model);
 
          System.out.println("This test case consists of " + model.getClasses().size() + " features.");
-
-         expandReachabilityGraph(model);
+         System.out.println("Applying search mode " + mode);
+         
+         expandReachabilityGraph(model, mode);
 
          evaluateStates();
 
@@ -294,8 +322,16 @@ public class RunTestCases
 
       printMetrics((ClassModel) bestState.getGraphRoot());
    }
+   
+   private void expandReachabilityGraphAllModes(ClassModel model)
+   {
+      for (Searchmode m : Searchmode.values())
+      {
+         expandReachabilityGraph(model, m);
+      }
+   }
 
-   private void expandReachabilityGraph(ClassModel model)
+   private void expandReachabilityGraph(ClassModel model, Searchmode mode)
    {
       IdMap idMap = new SDMLibIdMap("s").with(ClassModelCreator.createIdMap("s"));
       idMap.with(ReachabilityGraphCreator.createIdMap("rg"));
@@ -313,7 +349,7 @@ public class RunTestCases
       ClassModelPO rule2PO = mergeMethodDependencyRule();
       reachabilityGraph.addToRules(rule2PO.getPattern().withName("mergemethod"));
 
-      reachabilityGraph.explore(exploreDepth, Searchmode.DEPTH);
+      reachabilityGraph.explore(exploreDepth, mode);
    }
 
    private ClassModelPO mergeDataDependencyRule()
@@ -387,5 +423,21 @@ public class RunTestCases
       featurePO.allMatches();
 
       return classModelPO;
+   }
+   
+     /**
+    * 
+    * @see <a href='../../../../doc/Rules.html'>Rules.html</a>
+ */
+   @Test
+   public void testRules() throws Exception
+   {
+      StoryPage story = new StoryPage();
+      
+      ClassModelPO addInitialClasses = addInitialClasses(null);
+      
+      story.addPattern(addInitialClasses, false);
+
+      story.dumpHTML();
    }
 }

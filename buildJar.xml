@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project TTC2016SDMLibSolution">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="${dir.buildfile}/.."/>
+    <property name="dir.jarfile" value="${dir.buildfile}"/>
+    <target name="create_run_jar">
+        <jar destfile="${dir.jarfile}/TTC2016SDMLib.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="de.unikassel.ttc2016.RunTestCases"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${dir.jarfile}/bin"/>
+            <fileset dir="C:/Users/zuendorf/eclipseworkspaces/indigo/NetworkParser/bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+            <fileset dir="C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib/bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.core.runtime_3.11.1.v20150903-1804.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/javax.annotation_1.2.0.v201401042248.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/javax.inject_1.0.0.v20091030.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.osgi_3.10.102.v20160118-1700.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.osgi.compatibility.state_1.0.100.v20150402-1551.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.equinox.common_3.7.0.v20150402-1709.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.core.jobs_3.7.0.v20150330-2103.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.core.runtime.compatibility.registry_3.6.0.v20150318-1505/runtime_registry_compatibility.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.equinox.registry_3.6.0.v20150318-1503.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.equinox.preferences_3.5.300.v20150408-1437.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.core.contenttype_3.5.0.v20150421-2214.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.equinox.app_1.3.300.v20150423-1356.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.ecore_2.11.2.v20160208-0816.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.common_2.11.1.v20160208-0816.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.xtext.xbase.lib_2.9.2.v201603040440.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/com.google.guava_15.0.0.v201403281430.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.ecore.xcore.lib_1.1.100.v20160209-0349.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.swt_3.104.2.v20160212-1350.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.swt.win32.win32.x86_64_3.104.2.v20160212-1350.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.edit_2.11.1.v20160208-0841.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.ecore.change_2.11.0.v20160208-0816.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.codegen_2.11.0.v20160208-0841.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.codegen.ecore_2.11.1.v20160208-0841.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.codegen.ecore.ui_2.11.1.v20160208-0841.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.ui.ide_3.11.0.v20150825-2158.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.edit.ui_2.11.1.v20160208-0841.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.ui.views_3.8.0.v20150422-0725.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.ui.workbench_3.107.1.v20160120-2131.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.e4.ui.workbench3_0.13.0.v20150422-0725.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.common.ui_2.10.1.v20160208-0841.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.ui_3.107.0.v20150507-1945.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.jface_3.11.1.v20160128-1644.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.core.commands_3.7.0.v20150422-0725.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.ecore.edit_2.9.0.v20160208-0841.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.codegen.ecore.xtext_1.2.0.v20160209-0349.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/zuendorf/AppData/Local/Yatta/Launcher/installations/my-pmws1415-eclipse/eclipse/plugins/org.eclipse.emf.ecore.xmi_2.11.1.v20160208-0816.jar"/>
+            <fileset dir="C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib-EMF/target/classes"/>
+            <fileset dir="C:/Users/zuendorf/eclipseworkspaces/indigo/SDMLib-EMF/target/test-classes"/>
+        </jar>
+    </target>
+</project>

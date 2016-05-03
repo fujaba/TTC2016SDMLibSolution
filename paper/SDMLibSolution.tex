@@ -72,21 +72,105 @@ Wilhelmsh{\"o}her Allee 73, 34121 Kassel, Germany\\
 
 \begin{abstract}
 
-This paper describes the SDMLib solution to the Model Execution case for the TTC2015 
-\cite{ttc2015-model_execution}. We solved all case variants and did all performance tests. 
-For this case we generated the Java implementation of the activity diagram classes
-with SDMLib in order to have an efficient model representation. Then we modeled the operations 
-using SDMLib model transformations. These model transformations were embedded into methods of
-the activity diagram classes leveraging the overriding of methods for the distinction of 
-different behavior for different kinds of activity nodes. Our solution deviates from the 
-case description in the handling of tokens: instead of consuming and recreating tokens we use
-just one token and allow it to be at several places at a time and we just move the token forward 
-through the activity diagram. This results in more elegant modeling and faster execution. 
+This paper describes the SDMLib solution to the Class Responsibility Assignment Case for TTC2016
+\cite{ttc2016-case}. SDMLib provides reachability graph computation ala Groove. Thus, 
+the simple idea was to provide rules for possible clustering operations and then use the
+reachability graph computation to generate all possible clusterings. Then, we apply the
+CRAIndex computation to each generated clustering and identify the best clustering. Of course,
+this runs into scalability problems, very soon. Thus, we extended our reachability graph 
+computation to do an A* based search space exploration. Therefore, we passed the CRAIndex 
+computation as a metric to our reachability graph computation and in each step, we consider 
+the set of not yet expanded graphs and choose the one, that has the best metric value for 
+expansion. The paper reports about the results we achieved with this approach.  
+   
   
 \end{abstract}
 
 \section{Introduction}
 \label{sec:intro}
+
+This paper describes the SDMLib solution to the Class Responsibility Assignment Case for TTC2016
+\cite{ttc2016-case}. SDMLib provides reachability graph computation ala Groove 
+\cite{rensink2003groove}. For a given start graph and a given set of rules, 
+the reachability graph computation generates all graphs that may be derived from 
+the start graph by applying all rules at all 
+possibles matches as often as possible in all possible orders. Each time a new graph is 
+computed, we search through the set of already computed graphs for an already known 
+isomorphic graph. As proposed by \cite{rensink2003groove}, SDMLib computes node and graph 
+certificates which are then used as hash keys to access potentially isomorphic graphs, 
+efficiently. The node certificates then also help to do the actual isomorphism test. If a new 
+graph has been generated, we create a so-called reachable state 
+node and we connect the reachable state node of the predecessor graph with the reachable 
+state node for the new graph via a rule application edge labeled with the name of 
+the rule used. In addition, a root node of the graph is attached to the reachable state node. 
+Altogether, the generated reachability graph has a top layer consisting of reachable 
+state nodes connected via rule application edges and each reachable state node refers to 
+the corresponding application graph via a \texttt{graphRoot} link. In SDMLib, this whole 
+structure is again a graph, and graph rules may be applied to it in order to find e.g. 
+reachable states with a maximal metric for the attached application graph or to find states 
+where all successor states have lower metric values or to find the shortest path leading to 
+the best state or any other graph related algorithm.  
+
+The Class Responsibility Assignment Case challenges the rule orchestration mechanisms 
+provided by the different model transformation approaches. Thus, our solution uses the SDMLib 
+reachability graph computation for rule orchestration. This is a very simple way to apply 
+all rules in all possible ways and in addition we are able to investigate all intermediate 
+results in order to identify which paths through the search space are the most interesting 
+ones. The drawback of this approach is that we waste a lot of runtime and memory space 
+for copying the whole class model graph each time a rule is applied and for the search of 
+already known isomorphic copies of the generated graphs. However, as shown in the case 
+description, the number of possible clusterings grows with the Bell number, i.e. so fast that 
+a complete enumeration of all possible clustering is not possible in a meaningful time for 
+larger examples. Thus, we hope that the flexibility provided by the SDMLib reachability graphs 
+to investigate different intermediate states pays off, at the end. 
+
+As it is usually not possible to generate the whole reachability graph for a given example, 
+our reachability graph computation may be restricted to a maximum number of reachable 
+states to be considered. As we only generate a cutout of the whole reachability graph, we 
+always wanted to be able to guide the state exploration process.  
+ 
+
+
+Thus, 
+the simple idea was to provide rules for possible clustering operations and then use the
+reachability graph computation to generate all possible clusterings. Then, we apply the
+CRAIndex computation to each generated clustering and identify the best clustering. Of course,
+this runs into scalability problems, very soon. Thus, we extended our reachability graph 
+computation to do an A* based search space exploration. Therefore, we passed the CRAIndex 
+computation as a metric to our reachability graph computation and in each step, we consider 
+the set of not yet expanded graphs and choose the one, that has the best metric value for 
+expansion. The paper reports about the results we achieved with this approach.  
+
+
+\begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
+label=Activity.initVariables.java, escapeinside={\%}{\%},
+caption={General Reachability Graph Computation}
+]
+ReachabilityGraph::explore(depth) {
+   todo = new ArrayList();
+   todo.add(this.startState);
+   states.put(certificate(this.startState), startState);
+   while (! todo.isEmpty() && states.size() <= depth) {
+      current = todo.get(0); todo.remove(0);
+      for(Rule r : this.rules) {
+         while (r.findMatch()) {
+            newState = current.clone().apply(r);
+            isoOldState = find(states, newState);
+            if (isoOldState == null){
+               states.put(certificate(newState), newState);
+            	 addEdge(current, r, newState);
+             	 todo.add(newState);
+            } else {
+               addEdge(current, r, isoOldState);
+            }
+         }
+      }
+   }
+}
+
+\end{lstlisting}
+
+
 
 We assume that the reader is familiar with the description of the TTC2015 model execution 
 case \cite{ttc2015-model_execution}. This paper describes the SDMLib \cite{sdmlib} solution to the TTC2015 model 
@@ -103,9 +187,9 @@ We think the proposed token handling is pretty complicated and inefficient. To c
 
 
 \begin{figure}[ht] \centering
-	\includegraphics[width=0.8\linewidth]{images/ClassDiag.eps}
- \caption{Simplified Token Handling}
- \label{fig:ClassDiag}
+	\includegraphics[width=0.8\linewidth]{images/RuleAddInitialClasses.pdf}
+ \caption{Rule adding initial classes}
+ \label{fig:RuleInitialClasses}
 \end{figure}
 
 Figure~\ref{fig:ActivityObjectDiagram} shows an object diagram depicting the activity diagram of test 2 of the model execution case during execution. The \texttt{InitialNode} \texttt{i14} 
