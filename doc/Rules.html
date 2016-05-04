@@ -73,6 +73,292 @@
    json["options"]={"canvasid":"canvasRulesPatternDiagram0", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"c1 : ClassModelPO",
+         "attributes":[
+            "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"c2 : ClassPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"f3 : FeaturePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"m4 : MethodPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"a5 : AttributePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"c6 : ClassPO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+            {
+               "typ":"patternObject",
+               "id":"f7 : FeaturePO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"c1 : ClassModelPO"
+         },
+         "target":{
+            "property":"classes",
+            "id":"c2 : ClassPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"c2 : ClassPO"
+         },
+         "target":{
+            "property":"encapsulates",
+            "id":"f3 : FeaturePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"f3 : FeaturePO"
+         },
+         "target":{
+            "property":"instanceof",
+            "id":"m4 : MethodPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"m4 : MethodPO"
+         },
+         "target":{
+            "property":"dataDependency",
+            "id":"a5 : AttributePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"a5 : AttributePO"
+         },
+         "target":{
+            "property":"isEncapsulatedBy",
+            "id":"c6 : ClassPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"c6 : ClassPO"
+         },
+         "target":{
+            "property":"classmodel",
+            "id":"c1 : ClassModelPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"c6 : ClassPO"
+         },
+         "target":{
+            "property":"encapsulates",
+            "id":"f7 : FeaturePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"f7 : FeaturePO"
+         },
+         "target":{
+            "property":"isEncapsulatedBy",
+            "id":"c2 : ClassPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasRulesPatternDiagram1", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
+<script>
+   var json = {
+   "typ":"object",
+   "nodes":[
+      {
+         "typ":"patternObject",
+         "id":"c1 : ClassModelPO",
+         "attributes":[
+            "<< start >>"
+         ]
+      },
+      {
+         "typ":"patternObject",
+         "id":"c2 : ClassPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"f3 : FeaturePO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"m4 : MethodPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"m5 : MethodPO",
+         "attributes":[]
+      },
+      {
+         "typ":"patternObject",
+         "id":"c6 : ClassPO",
+         "attributes":[]
+      },
+      {
+         "typ":"objectdiagram",
+         "style":"nac",
+         "info":"OptionalSubPattern",
+         "nodes":[
+            {
+               "typ":"patternObject",
+               "id":"f7 : FeaturePO",
+               "attributes":[]
+            }
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"c1 : ClassModelPO"
+         },
+         "target":{
+            "property":"classes",
+            "id":"c2 : ClassPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"c2 : ClassPO"
+         },
+         "target":{
+            "property":"encapsulates",
+            "id":"f3 : FeaturePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"f3 : FeaturePO"
+         },
+         "target":{
+            "property":"instanceof",
+            "id":"m4 : MethodPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"m4 : MethodPO"
+         },
+         "target":{
+            "property":"functionalDependency",
+            "id":"m5 : MethodPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"m5 : MethodPO"
+         },
+         "target":{
+            "property":"isEncapsulatedBy",
+            "id":"c6 : ClassPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"c6 : ClassPO"
+         },
+         "target":{
+            "property":"classmodel",
+            "id":"c1 : ClassModelPO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"c6 : ClassPO"
+         },
+         "target":{
+            "property":"encapsulates",
+            "id":"f7 : FeaturePO"
+         }
+      },
+      {
+         "typ":"EDGE",
+         "source":{
+            "property":" ",
+            "id":"f7 : FeaturePO"
+         },
+         "target":{
+            "property":"isEncapsulatedBy",
+            "id":"c2 : ClassPO"
+         }
+      }
+   ]
+}   ;
+   json["options"]={"canvasid":"canvasRulesPatternDiagram2", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+   g.layout(100,100);
+</script>
 
 </body>
 </html>

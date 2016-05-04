@@ -1,1 +1,263 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="Board" width="606" height="198" style="width: 606px; height: 198px;"><defs><filter id="drop-shadow"><feGaussianBlur in="SourceAlpha" result="blur-out" stdDeviation="2"/><feOffset in="blur-out" dx="2" dy="2"/><feBlend in="SourceGraphic" mode="normal"/></filter><linearGradient id="reflect" x1="0%" x2="0%" y1="50%" y2="0%" spreadMethod="reflect"><stop offset="0%" style="stop-color: rgb(170, 170, 170);"/><stop offset="100%" style="stop-color: rgb(238, 238, 238);"/></linearGradient><linearGradient id="classelement" x1="0%" x2="100%" y1="100%" y2="0%"><stop offset="0" style="stop-color: rgb(255, 255, 255);"/><stop offset="1" style="stop-color: rgb(211, 211, 211);"/></linearGradient></defs><g><rect width="156.9375" height="90" x="10" y="50" fill="lightblue" class="draggable" stroke="#000"/><text x="20" y="70" width="136.9375">c1 : ClassModelPO</text><line x1="10" y1="80" x2="166.9375" y2="80" stroke="#000"/><text width="156.9375" x="20" y="100">&lt;&lt; start &gt;&gt;</text><text width="156.9375" x="20" y="120">&lt;&lt; bound&gt;&gt;</text></g><g><rect width="113.359375" height="65" x="255" y="123" fill="lightblue" class="draggable" stroke="#000"/><text x="265" y="143" width="93.359375">c3 : ClassPO</text><line x1="255" y1="153" x2="368.359375" y2="153" stroke="#000"/><text width="113.359375" x="265" y="173">&lt;&lt; create&gt;&gt;</text></g><g><rect width="124.9375" height="60" x="471" y="66" fill="lightblue" class="draggable" stroke="#000"/><text x="481" y="86" width="104.9375">f2 : FeaturePO</text><line x1="471" y1="96" x2="595.9375" y2="96" stroke="#000"/></g><line x1="167" y1="95" x2="471" y2="96" stroke="#000"/><text x="187" y="95" id="c1 : ClassModelPO" class="draggable" transform="rotate(0.19736770917323238,187,95)" fill="#CCC"> </text><text x="393" y="96" id="f2 : FeaturePO" class="draggable" transform="rotate(0.19736770917323238,393,96)" fill="#CCC">features</text><line x1="167" y1="131" x2="255" y2="140" stroke="#000"/><text x="202" y="126" id="c1 : ClassModelPO" class="draggable" transform="rotate(6.1151020488524335,202,126)" fill="#CCC"> </text><text x="182" y="120" id="c3 : ClassPO" class="draggable" transform="rotate(6.1151020488524335,182,120)" fill="#CCC">classes</text><line x1="368" y1="141" x2="471" y2="126" stroke="#000"/><text x="388" y="135" id="c3 : ClassPO" class="draggable" transform="rotate(-8.676866353196424,388,135)" fill="#CCC"> </text><text x="349" y="146" id="f2 : FeaturePO" class="draggable" transform="rotate(-8.676866353196424,349,146)" fill="#CCC">encapsulates</text></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   class="Board"
+   width="609.75067"
+   height="160.58887"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="RuleAddInitialClasses.svg">
+  <metadata
+     id="metadata70">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     id="namedview68"
+     showgrid="false"
+     inkscape:zoom="1.63358"
+     inkscape:cx="308.30015"
+     inkscape:cy="85.755164"
+     inkscape:window-x="1272"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2"
+     fit-margin-top="1"
+     fit-margin-right="1"
+     fit-margin-bottom="1"
+     fit-margin-left="1" />
+  <defs
+     id="defs4">
+    <filter
+       id="drop-shadow">
+      <feGaussianBlur
+         in="SourceAlpha"
+         result="blur-out"
+         stdDeviation="2"
+         id="feGaussianBlur7" />
+      <feOffset
+         in="blur-out"
+         dx="2"
+         dy="2"
+         id="feOffset9"
+         result="result1" />
+      <feBlend
+         in="SourceGraphic"
+         mode="normal"
+         id="feBlend11"
+         in2="result1" />
+    </filter>
+    <linearGradient
+       id="reflect"
+       x1="0"
+       x2="0"
+       y1="0.5"
+       y2="0"
+       spreadMethod="reflect">
+      <stop
+         offset="0%"
+         style="stop-color: rgb(170, 170, 170);"
+         id="stop14" />
+      <stop
+         offset="100%"
+         style="stop-color: rgb(238, 238, 238);"
+         id="stop16" />
+    </linearGradient>
+    <linearGradient
+       id="classelement"
+       x1="0"
+       x2="1"
+       y1="1"
+       y2="0">
+      <stop
+         offset="0"
+         style="stop-color: rgb(255, 255, 255);"
+         id="stop19" />
+      <stop
+         offset="1"
+         style="stop-color: rgb(211, 211, 211);"
+         id="stop21" />
+    </linearGradient>
+  </defs>
+  <text
+     x="184.31818"
+     y="89.32843"
+     id="c1 : ClassModelPO"
+     class="draggable"
+     transform="matrix(0.99999407,0.00344471,-0.00344471,0.99999407,0,0)"
+     style="fill:#cccccc" />
+  <text
+     x="210.7627"
+     y="99.074829"
+     id="text59"
+     class="draggable"
+     transform="matrix(0.9943099,0.10652616,-0.10652616,0.9943099,0,0)"
+     style="fill:#cccccc" />
+  <text
+     x="360.99649"
+     y="186.55855"
+     id="text64"
+     class="draggable"
+     transform="matrix(0.98855488,-0.1508617,0.1508617,0.98855488,0,0)"
+     style="fill:#cccccc" />
+  <g
+     id="g3436"
+     transform="translate(-8.5,-48.5)">
+    <g
+       id="g23">
+      <rect
+         id="rect25"
+         class="draggable"
+         y="50"
+         x="10"
+         height="90"
+         width="156.9375"
+         style="fill:#add8e6;stroke:#000000" />
+      <text
+         id="text27"
+         width="136.9375"
+         y="70"
+         x="20">c1 : ClassModelPO</text>
+      <line
+         id="line29"
+         y2="80"
+         x2="166.9375"
+         y1="80"
+         x1="10"
+         style="stroke:#000000" />
+      <text
+         id="text31"
+         y="100"
+         x="20"
+         width="156.9375">&lt;&lt; start &gt;&gt;</text>
+      <text
+         id="text33"
+         y="120"
+         x="20"
+         width="156.9375">&lt;&lt; bound&gt;&gt;</text>
+    </g>
+    <g
+       transform="translate(20.813183,1.2243049)"
+       id="g45">
+      <rect
+         style="fill:#add8e6;stroke:#000000"
+         id="rect47"
+         class="draggable"
+         y="66"
+         x="471"
+         height="60"
+         width="124.9375" />
+      <text
+         id="text49"
+         width="104.9375"
+         y="86"
+         x="481">f2 : FeaturePO</text>
+      <line
+         style="stroke:#000000"
+         id="line51"
+         y2="96"
+         x2="595.9375"
+         y1="96"
+         x1="471" />
+    </g>
+    <line
+       style="stroke:#000000;stroke-width:1.03316224"
+       id="line53"
+       y2="95.999512"
+       x2="491.81409"
+       y1="95.000488"
+       x1="166.9991" />
+    <text
+       style="fill:#000000"
+       transform="matrix(0.99999407,0.00344471,-0.00344471,0.99999407,0,0)"
+       class="draggable"
+       id="f2 : FeaturePO"
+       y="89.064629"
+       x="414.12244">features</text>
+    <line
+       id="line57"
+       y2="140"
+       x2="255"
+       y1="131"
+       x1="167"
+       style="stroke:#000000" />
+    <text
+       style="fill:#000000"
+       transform="matrix(0.9943099,0.10652616,-0.10652616,0.9943099,0,0)"
+       class="draggable"
+       id="c3 : ClassPO"
+       y="108.66821"
+       x="198.37772">classes</text>
+    <line
+       style="stroke:#000000;stroke-width:1.27497292"
+       id="line62"
+       y2="120.64848"
+       x2="492.39764"
+       y1="140.84215"
+       x1="368.02768" />
+    <text
+       style="fill:#000000"
+       transform="matrix(0.98855488,-0.1508617,0.1508617,0.98855488,0,0)"
+       class="draggable"
+       id="text66"
+       y="190.48097"
+       x="385.89557">encapsulates</text>
+    <g
+       id="g3429">
+      <rect
+         style="fill:#add8e6;stroke:#000000;stroke-width:1.39579773"
+         id="rect37"
+         class="draggable"
+         y="123.19788"
+         x="234.99686"
+         height="84.193077"
+         width="170.50592" />
+      <text
+         id="text39"
+         width="93.359375"
+         y="142.38785"
+         x="280.91595">c3 : ClassPO</text>
+      <line
+         style="stroke:#000000;stroke-width:1.22564673"
+         id="line41"
+         y2="153"
+         x2="405.08853"
+         y1="153"
+         x1="234.79897" />
+      <text
+         id="text43"
+         y="170.55139"
+         x="272.95798"
+         width="113.359375">&lt;&lt; create&gt;&gt;</text>
+      <text
+         id="text43-4"
+         y="191.72133"
+         x="240.5042"
+         width="113.359375">name:=&quot;Class4&quot;+f2.name</text>
+    </g>
+  </g>
+</svg>

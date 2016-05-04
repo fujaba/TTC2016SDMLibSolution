@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.27)  4 MAY 2016 12:27
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.27)  5 MAY 2016 01:01
 entering extended mode
 **SDMLibSolution.tex
 (C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.tex
@@ -256,11 +256,7 @@ Package color Info: Driver file: pdftex.def on input line 130.
 \WF@everypar=\toks19
 Package: wrapfig 2003/01/31  v 3.6
 )
-(C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.aux
-
-LaTeX Warning: Label `Activity.initVariables.java' multiply defined.
-
-)
+(C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
 LaTeX Font Info:    ... okay on input line 26.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
@@ -276,7 +272,8 @@ LaTeX Font Info:    ... okay on input line 26.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 26.
 LaTeX Font Info:    ... okay on input line 26.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 26.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ot1ptm.fd"
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ot1ptm.fd"
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 \AtBeginShipoutBox=\box31
@@ -358,225 +355,85 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 89.
  [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 148.
-LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 149.
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] <images/RuleAddInitialClasses.pdf, id=43, 489.62979pt x 128.95287p
+t>
+File: images/RuleAddInitialClasses.pdf Graphic file (type pdf)
+ <use images/RuleAddInitialClasses.pdf>
+Package pdftex.def Info: images/RuleAddInitialClasses.pdf used on input line 150.
+(pdftex.def)             Requested size: 469.47046pt x 123.64378pt.
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 158.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 158.
+
+
+LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbraceleft' on input line 158.
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 150.
-LaTeX Font Info:    Try loading font information for OML+ptm on input line 153.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 160.
+<images/RuleMergeDataDep.pdf, id=45, 584.58403pt x 308.352pt>
+File: images/RuleMergeDataDep.pdf Graphic file (type pdf)
+ <use images/RuleMergeDataDep.pdf>
+Package pdftex.def Info: images/RuleMergeDataDep.pdf used on input line 176.
+(pdftex.def)             Requested size: 469.47046pt x 247.63705pt.
+
+Underfull \vbox (badness 1681) has occurred while \output is active []
+
+ [2pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
+
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.191 ]
+        <C:/Users/zuendorf/eclipseworkspaces/luna/TTC2016SDMLibSolution/paper/images/RuleAddInitialClasses.pdf>]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 191.
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 192.
+LaTeX Font Info:    Try loading font information for OML+ptm on input line 196.
+
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omlptm.fd"
 File: omlptm.fd 
 )
 LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 153.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 196.
 
+Underfull \vbox (badness 2980) has occurred while \output is active []
 
-LaTeX Warning: Citation `ttc2015-model_execution' on page 2 undefined on input line 176.
+ [3pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 
-[2]
-
-LaTeX Warning: Reference `fig:ClassDiag' on page 3 undefined on input line 186.
-
-<images/RuleAddInitialClasses.pdf, id=68, 472.91681pt x 113.223pt>
-File: images/RuleAddInitialClasses.pdf Graphic file (type pdf)
- <use images/RuleAddInitialClasses.pdf>
-Package pdftex.def Info: images/RuleAddInitialClasses.pdf used on input line 190.
-(pdftex.def)             Requested size: 375.57779pt x 89.92027pt.
-
-
-! LaTeX Error: Unknown graphics extension: .eps.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.212 ...ewidth]{images/ActivityObjectDiagram.eps}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-[3pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.236         localVariablePO.
-                              createCurrentValue(valuePO);pdfTeX warning (ext4): destination with the same identifier (n
-ame{figure.2}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.236         localVariablePO.
-                              createCurrentValue(valuePO); <C:/Users/zuendorf/eclipseworkspaces/luna/TTC2016SDMLibSoluti
-on/paper/images/RuleAddInitialClasses.pdf>]
-
-! LaTeX Error: Unknown graphics extension: .initVariables.eps.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.242 ...width]{images/Activity.initVariables.eps}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Overfull \hbox (18.1988pt too wide) in paragraph at lines 274--275
-[]\OT1/ptm/m/n/10.95 Line 5 of List-ing []2[] ex-tends the search Pat-tern by an \OT1/cmtt/m/n/10.95 valuePO \OT1/ptm/m/
-n/10.95 Pat-tern Ob-ject con-nected to \OT1/cmtt/m/n/10.95 localVariablePO
- []
-
-
-Overfull \hbox (20.44882pt too wide) in paragraph at lines 274--275
-\OT1/ptm/m/n/10.95 ma-tion by an ac-tion that cre-ates a \OT1/cmtt/m/n/10.95 currentValue \OT1/ptm/m/n/10.95 link be-twe
-en the model ob-jects matched by \OT1/cmtt/m/n/10.95 localVariablePO
- []
-
-
-Overfull \hbox (16.3152pt too wide) in paragraph at lines 284--296
-[]\OT1/ptm/m/n/10.95 Model trans-for-ma-tion \OT1/cmtt/m/n/10.95 initVariables \OT1/ptm/m/n/10.95 is the first op-er-a-t
-ion called within method \OT1/cmtt/m/n/10.95 run() \OT1/ptm/m/n/10.95 of class \OT1/cmtt/m/n/10.95 Activity\OT1/ptm/m/n/
-10.95 ,
- []
-
-[4pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.296 
-      ]
-Overfull \hbox (75.84395pt too wide) in paragraph at lines 310--312
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-! LaTeX Error: Unknown graphics extension: .run.eps.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.330 ...idth=\linewidth]{images/Activity.run.eps}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Overfull \hbox (33.18996pt too wide) in paragraph at lines 335--343
-[]\OT1/ptm/m/n/10.95 Lines 8 to 14 of List-ing []3[] build and run the cen-tral model trans-for-ma-tion em-ployed in met
-hod \OT1/cmtt/m/n/10.95 Activity.run()\OT1/ptm/m/n/10.95 .
- []
-
-[5pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.347 
-      ]
-
-! LaTeX Error: Unknown graphics extension: .run.eps.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.390 ...=\linewidth]{images/ActivityNode.run.eps}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-[6pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.397 
-      ]
-Overfull \hbox (0.60292pt too wide) in paragraph at lines 404--405
-[]\OT1/ptm/m/n/10.95 Listing []5[] and Fig-ure []6[] show the ex-e-cu-tion of \OT1/cmtt/m/n/10.95 ControlFlow \OT1/ptm/m
-/n/10.95 ob-jects. Line 4 starts with a \OT1/cmtt/m/n/10.95 controlFlowPO
- []
-
-
-Overfull \hbox (69.2739pt too wide) in paragraph at lines 423--425
-[][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-[7]
-
-! LaTeX Error: Unknown graphics extension: .run.eps.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.440 ...h=\linewidth]{images/ControlFlow.run.eps}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Overfull \hbox (14.35085pt too wide) in paragraph at lines 447--448
-\OT1/ptm/m/n/10.95 vide their own \OT1/cmtt/m/n/10.95 run() \OT1/ptm/m/n/10.95 meth-ods ex-e-cut-ing them. Thus, for \OT
-1/cmtt/m/n/10.95 OpaqueAction \OT1/ptm/m/n/10.95 nodes we over-ride the \OT1/cmtt/m/n/10.95 ActivityNode
- []
-
-
-Overfull \hbox (42.99368pt too wide) in paragraph at lines 458--459
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (42.99368pt too wide) in paragraph at lines 459--460
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-[8pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.473          break;
-                     ]
-Overfull \hbox (3.57336pt too wide) in paragraph at lines 476--477
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (49.56374pt too wide) in paragraph at lines 479--480
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-(C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.bbl
+l.214 \end{lstlisting}
+                       <C:/Users/zuendorf/eclipseworkspaces/luna/TTC2016SDMLibSolution/paper/images/RuleMergeDataDep.pdf
+>] (C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.bbl
 Underfull \hbox (badness 5970) in paragraph at lines 4--7
 []\OT1/ptm/m/n/10 M. Fleck, J. Troya, and M. Wim-mer.  TTC2016 The Class Re-spon-si-bil-ity As-sign-ment Case.
  []
 
-) [9] [10]
+) [4]
 \pages=\write4
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 510.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 510.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 230.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 230.
  (C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 510.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 510.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 230.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 230.
 Package rerunfilecheck Info: File `SDMLibSolution.out' has not changed.
-(rerunfilecheck)             Checksum: 6F6DEDCA5DB9072214751EB3651356E1;204.
+(rerunfilecheck)             Checksum: 318496A7A68BA563BD8BE36B2CCF4C6C;285.
 
 
-LaTeX Warning: There were undefined references.
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 510.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 230.
  ) 
 Here is how much of TeX's memory you used:
- 6952 strings out of 493921
- 103590 string characters out of 3144867
- 192887 words of memory out of 3000000
- 10005 multiletter control sequences out of 15000+200000
- 43956 words of font info for 88 fonts, out of 3000000 for 9000
+ 6733 strings out of 493921
+ 100443 string characters out of 3144867
+ 187388 words of memory out of 3000000
+ 9915 multiletter control sequences out of 15000+200000
+ 41167 words of font info for 84 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 36i,13n,42p,1839b,1707s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,13n,42p,298b,1250s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
 ic/amsfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files
  (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfont
@@ -584,9 +441,9 @@ s/cm/cmtt10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/c
 eX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a
 .pfb>
-Output written on SDMLibSolution.pdf (10 pages, 176515 bytes).
+Output written on SDMLibSolution.pdf (4 pages, 138332 bytes).
 PDF statistics:
- 314 PDF objects out of 1000 (max. 8388607)
- 161 named destinations out of 1000 (max. 500000)
- 38 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 144 PDF objects out of 1000 (max. 8388607)
+ 37 named destinations out of 1000 (max. 500000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

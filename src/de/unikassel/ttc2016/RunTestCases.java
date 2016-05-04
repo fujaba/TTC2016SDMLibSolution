@@ -450,6 +450,10 @@ public class RunTestCases
       ClassModelPO addInitialClasses = addInitialClasses(null);
       
       story.addPattern(addInitialClasses, false);
+      
+      story.addPattern(mergeDataDependencyRule(), false);
+
+      story.addPattern(mergeMethodDependencyRule(), false);
 
       story.dumpHTML();
    }
