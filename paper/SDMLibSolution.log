@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.27)  3 MAY 2016 19:21
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.27)  4 MAY 2016 12:27
 entering extended mode
 **SDMLibSolution.tex
 (C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.tex
@@ -356,21 +356,20 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 72.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 89.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 94.
-
-
-LaTeX Warning: Citation `rensink2003groove' on page 1 undefined on input line 94.
-
-
-LaTeX Warning: Citation `rensink2003groove' on page 1 undefined on input line 99.
-
-[1
+ [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 148.
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 149.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 150.
+LaTeX Font Info:    Try loading font information for OML+ptm on input line 153.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omlptm.fd"
+File: omlptm.fd 
+)
+LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10.95> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 153.
 
 
 LaTeX Warning: Citation `ttc2015-model_execution' on page 2 undefined on input line 176.
@@ -379,7 +378,7 @@ LaTeX Warning: Citation `ttc2015-model_execution' on page 2 undefined on input l
 
 LaTeX Warning: Reference `fig:ClassDiag' on page 3 undefined on input line 186.
 
-<images/RuleAddInitialClasses.pdf, id=64, 472.91681pt x 113.223pt>
+<images/RuleAddInitialClasses.pdf, id=68, 472.91681pt x 113.223pt>
 File: images/RuleAddInitialClasses.pdf Graphic file (type pdf)
  <use images/RuleAddInitialClasses.pdf>
 Package pdftex.def Info: images/RuleAddInitialClasses.pdf used on input line 190.
@@ -504,13 +503,6 @@ Overfull \hbox (69.2739pt too wide) in paragraph at lines 423--425
  []
 
 [7]
-LaTeX Font Info:    Try loading font information for OML+ptm on input line 435.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omlptm.fd"
-File: omlptm.fd 
-)
-LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 435.
-
 
 ! LaTeX Error: Unknown graphics extension: .run.eps.
 
@@ -578,10 +570,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 510.
  ) 
 Here is how much of TeX's memory you used:
- 6950 strings out of 493921
- 103569 string characters out of 3144867
- 192846 words of memory out of 3000000
- 10003 multiletter control sequences out of 15000+200000
+ 6952 strings out of 493921
+ 103590 string characters out of 3144867
+ 192887 words of memory out of 3000000
+ 10005 multiletter control sequences out of 15000+200000
  43956 words of font info for 88 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  36i,13n,42p,1839b,1707s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -592,9 +584,9 @@ s/cm/cmtt10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/c
 eX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a
 .pfb>
-Output written on SDMLibSolution.pdf (10 pages, 175633 bytes).
+Output written on SDMLibSolution.pdf (10 pages, 176515 bytes).
 PDF statistics:
- 312 PDF objects out of 1000 (max. 8388607)
+ 314 PDF objects out of 1000 (max. 8388607)
  161 named destinations out of 1000 (max. 500000)
  38 words of extra memory for PDF output out of 10000 (max. 10000000)
 

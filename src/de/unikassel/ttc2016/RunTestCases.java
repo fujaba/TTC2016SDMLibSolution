@@ -55,11 +55,24 @@ public class RunTestCases
 
       RunTestCases runner = new RunTestCases();
 
-      runner.logTime("input_models/TTC_InputRDG_A.xmi");
-      runner.logTime("input_models/TTC_InputRDG_B.xmi");
-      runner.logTime("input_models/TTC_InputRDG_C.xmi");
-      runner.logTime("input_models/TTC_InputRDG_D.xmi");
-      runner.logTime("input_models/TTC_InputRDG_E.xmi");
+      long[] levels = new long[] {exploreDepth};
+      
+      if (exploreDepth == -1)
+      {
+         levels = new long[] {100, 200, 500, 1000, 2000, 5000, 10000};
+      }
+
+      for (long l : levels)
+      {
+         exploreDepth = l;
+         
+         runner.logTime("input_models/TTC_InputRDG_A.xmi");
+         runner.logTime("input_models/TTC_InputRDG_B.xmi");
+         runner.logTime("input_models/TTC_InputRDG_C.xmi");
+         runner.logTime("input_models/TTC_InputRDG_D.xmi");
+         runner.logTime("input_models/TTC_InputRDG_E.xmi");         
+      }
+      
    }
 
    private void logTime(String caseFileName)
