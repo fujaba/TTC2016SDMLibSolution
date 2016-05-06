@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.27)  5 MAY 2016 01:01
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.27)  6 MAY 2016 13:10
 entering extended mode
 **SDMLibSolution.tex
 (C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.tex
@@ -371,69 +371,81 @@ LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 160.
-<images/RuleMergeDataDep.pdf, id=45, 584.58403pt x 308.352pt>
+<images/RuleMergeDataDep.pdf, id=45, 519.57283pt x 297.913pt>
 File: images/RuleMergeDataDep.pdf Graphic file (type pdf)
  <use images/RuleMergeDataDep.pdf>
 Package pdftex.def Info: images/RuleMergeDataDep.pdf used on input line 176.
-(pdftex.def)             Requested size: 469.47046pt x 247.63705pt.
-
-Underfull \vbox (badness 1681) has occurred while \output is active []
-
+(pdftex.def)             Requested size: 469.47046pt x 269.18747pt.
  [2pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.191 ]
-        <C:/Users/zuendorf/eclipseworkspaces/luna/TTC2016SDMLibSolution/paper/images/RuleAddInitialClasses.pdf>]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 191.
+l.207 
+       <C:/Users/zuendorf/eclipseworkspaces/luna/TTC2016SDMLibSolution/paper/images/RuleAddInitialClasses.pdf>]
+<images/RuleMergeMethodDep.pdf, id=64, 519.57283pt x 297.913pt>
+File: images/RuleMergeMethodDep.pdf Graphic file (type pdf)
+ <use images/RuleMergeMethodDep.pdf>
+Package pdftex.def Info: images/RuleMergeMethodDep.pdf used on input line 209.
+(pdftex.def)             Requested size: 469.47046pt x 269.18747pt.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 224.
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 192.
-LaTeX Font Info:    Try loading font information for OML+ptm on input line 196.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 225.
+LaTeX Font Info:    Try loading font information for OML+ptm on input line 229.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omlptm.fd"
 File: omlptm.fd 
 )
 LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 196.
-
-Underfull \vbox (badness 2980) has occurred while \output is active []
-
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 229.
  [3pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.214 \end{lstlisting}
-                       <C:/Users/zuendorf/eclipseworkspaces/luna/TTC2016SDMLibSolution/paper/images/RuleMergeDataDep.pdf
->] (C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.bbl
+l.232          while 
+                     (r.findMatch()) { <C:/Users/zuendorf/eclipseworkspaces/luna/TTC2016SDMLibSolution/paper/images/Rule
+MergeDataDep.pdf>] (C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.bbl
 Underfull \hbox (badness 5970) in paragraph at lines 4--7
 []\OT1/ptm/m/n/10 M. Fleck, J. Troya, and M. Wim-mer.  TTC2016 The Class Re-spon-si-bil-ity As-sign-ment Case.
  []
 
-) [4]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
+
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.8 \bibitem{rensink2003groove}
+                                <C:/Users/zuendorf/eclipseworkspaces/luna/TTC2016SDMLibSolution/paper/images/RuleMergeMe
+thodDep.pdf>]) [5]
 \pages=\write4
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 230.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 230.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 263.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 263.
  (C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 230.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 230.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 263.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 263.
 Package rerunfilecheck Info: File `SDMLibSolution.out' has not changed.
 (rerunfilecheck)             Checksum: 318496A7A68BA563BD8BE36B2CCF4C6C;285.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 230.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 263.
  ) 
 Here is how much of TeX's memory you used:
- 6733 strings out of 493921
- 100443 string characters out of 3144867
- 187388 words of memory out of 3000000
- 9915 multiletter control sequences out of 15000+200000
+ 6741 strings out of 493921
+ 100635 string characters out of 3144867
+ 183388 words of memory out of 3000000
+ 9920 multiletter control sequences out of 15000+200000
  41167 words of font info for 84 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 36i,13n,42p,298b,1250s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,13n,42p,298b,1767s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
 ic/amsfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files
  (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfont
@@ -441,9 +453,9 @@ s/cm/cmtt10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/c
 eX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a
 .pfb>
-Output written on SDMLibSolution.pdf (4 pages, 138332 bytes).
+Output written on SDMLibSolution.pdf (5 pages, 153929 bytes).
 PDF statistics:
- 144 PDF objects out of 1000 (max. 8388607)
- 37 named destinations out of 1000 (max. 500000)
- 51 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 159 PDF objects out of 1000 (max. 8388607)
+ 39 named destinations out of 1000 (max. 500000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

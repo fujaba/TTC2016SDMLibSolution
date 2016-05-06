@@ -13,7 +13,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="RuleMergeDataDep.svg">
+   sodipodi:docname="RuleMergeMethodDep.svg">
   <metadata
      id="metadata138">
     <rdf:RDF>
@@ -277,7 +277,7 @@
          id="text91"
          width="113.828125"
          y="331"
-         x="535">a5 : AttributePO</text>
+         x="535">m5 : MethodPO</text>
       <line
          id="line93"
          y2="341"
@@ -326,8 +326,8 @@
        transform="matrix(0.99996214,-0.00870216,0.00870216,0.99996214,0,0)"
        class="draggable"
        id="a5 : AttributePO"
-       y="334.66821"
-       x="362.60159">dataDependency</text>
+       y="334.54645"
+       x="348.60205">functionalDependency</text>
     <line
        id="line114"
        y2="186.82146"

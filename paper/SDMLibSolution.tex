@@ -168,15 +168,61 @@ execution of this rule, each feature has its own class containing just this
 feature. This class model is then used as starting point for the repetitive 
 application of our clustering rules. 
 
-We use two different clustering rules, one for clustering along attribute dependencies 
-and one for clustering along method dependencies. Figure~\ref{fig:MergeAttributeRule} 
-shows the attribute dependency clustering rule: 
+We use two different clustering rules, one for clustering along data dependencies 
+and one for clustering along functional dependencies. Figure~\ref{fig:MergeAttributeRule} 
+shows the data dependency clustering rule \texttt{MergeDataDep}: 
 
 \begin{figure}[ht] \centering
 	\includegraphics[width=\linewidth]{images/RuleMergeDataDep.pdf}
  \caption{Merging Classes via Attribute Dependencies}
  \label{fig:MergeAttributeRule}
 \end{figure}  
+
+The matching of this rule starts with the \texttt{ClassModel} object which 
+is bound to \texttt{c1} at rule invocation. Then we follow a \texttt{classes}
+ edge to find a match for \texttt{c2}, i.e. a \texttt{Class} object in our 
+\texttt{ClassModel}. Next, we follow an \texttt{encapsulates} edge to match 
+a \texttt{Method} object \texttt{m4} contained in \texttt{c2}. The object 
+matched by \texttt{m4} must have a \texttt{dataDependency} edge to an \texttt
+{Attribute} object matched by the pattern object \texttt{a5}. This 
+\texttt{Attribute} object in turn must be contained in a \texttt{Class} matched by 
+\texttt{c6}. By default, SDMLib allows homomorphic matches, thus \texttt{c2} 
+and \texttt{c6} would be allowed to match the same \texttt{Class} object. 
+Via the \texttt{\{matchOtherThen c2\}} clause, we enforce isomorphic 
+matching, i.e. \texttt{c2} and \texttt{c6} must match two different 
+\texttt{Class} objects. Finally, the Class matched by \texttt{c6} must belong to our 
+\texttt{ClassModel} \texttt{c1}. When such a match is found, the subpattern 
+containing the \texttt{FeaturePO} pattern object \texttt{f7} is executed on 
+all possible matches. Pattern object \texttt{f7} matches for all features 
+contained in the \texttt{Class} matched by \texttt{c6}. (Note, \texttt{f7} 
+exploits homomorphic matching and will also match the \texttt{Attribute} 
+object already matched by \texttt{a5}.) For each \texttt{Feature} object, 
+the \texttt{encapsulates} edge connecting it to the \texttt{Class} matched 
+by \texttt{c6} is deleted and a new \texttt{isEncapsulatedBy} edge 
+connecting it to the \texttt{Class} matched by \texttt{c2} is created. After 
+transferring all features to the \texttt{Class} matched by \texttt{c2}, the 
+\texttt{Class} matched by \texttt{c6} is destroyed. Thus, the rule shown in 
+Figure~\ref{fig:MergeAttributeRule} merges two classes that are connected 
+via a \texttt{dataDependency} into one class. 
+
+Figure~\ref{fig:MergeMethodRule} shows our second clustering rule \texttt{MergeFuncDep}. 
+It works similar to rule \texttt{MergeDataDep} but it applies to a pair of classes that
+is connected via a \texttt{functionalDependency}. 
+
+\begin{figure}[ht] \centering
+	\includegraphics[width=\linewidth]{images/RuleMergeMethodDep.pdf}
+ \caption{Merging Classes via Method Dependencies}
+ \label{fig:MergeMethodRule}
+\end{figure}
+
+Our two clustering rules merge classes only if there is a dependency between them. 
+This already utilizes application specific knowledge about our CRAIndex metric. Our 
+search space expansion will start with classes containing only one feature each. Merging 
+classes without a dependency between them is not going to improve the CRAIndex of 
+the resulting class model. Merging classes has the potential to improve the CRAIndex only 
+if the classes contain features that depend on each other. Thus, our clustering rules 
+are already optimized for the optimization of the CRAIndex. Using a different metric would 
+perhabs require a more general clustering strategy. 
 
 
 \section{The Search Space Expansion Mechanisms}
