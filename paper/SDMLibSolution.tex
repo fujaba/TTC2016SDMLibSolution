@@ -4,7 +4,7 @@
 
 % For the FujabaDays 2006
 \documentclass[submission,copyright,creativecommons]{eptcs}
-\providecommand{\event}{TTC 2014} % Name of the event you are submitting to
+\providecommand{\event}{TTC 2016} % Name of the event you are submitting to
 
 
 \usepackage{graphicx,float,enumerate}
@@ -94,11 +94,13 @@ This paper describes the SDMLib solution to the Class Responsibility Assignment 
 \cite{rensink2003groove}. For a given start graph and a given set of rules, 
 the reachability graph computation generates all graphs that may be derived from 
 the start graph by applying all rules at all 
-possibles matches as often as possible in all possible orders. Each time a new graph is 
+possible matches as often as possible in all possible orders. Each time a new 
+graph is 
 computed, we search through the set of already computed graphs for an already known 
 isomorphic graph. As proposed by \cite{rensink2003groove}, SDMLib computes node and graph 
-certificates which are then used as hash keys to access potentially isomorphic graphs, 
-efficiently. The node certificates then also help to do the actual isomorphism test. If a new 
+certificates which are then used as hash keys to access potentially isomorphic 
+graphs efficiently. The node certificates then also help to do the actual 
+isomorphism test. If a new 
 graph has been generated, we create a so-called reachable state 
 node and we connect the reachable state node of the predecessor graph with the reachable 
 state node for the new graph via a rule application edge labeled with the name of 
@@ -125,7 +127,7 @@ for larger examples a complete enumeration of all possible clustering is not pos
 meaningful time. As only a small fraction of the search space can be explored, it might be 
 helpful to be able to investigate all intermediate states to identify the most promising spots 
 for further expansion. Thus, we hope that the flexibility provided by the SDMLib reachability 
-graphs to investigate different intermediate states pays off, at the end. 
+graphs to investigate different intermediate states pays off, in the end. 
 
 As it is usually not possible to generate the whole reachability graph for a given example, 
 our reachability graph computation may be restricted to a maximum number of reachable 
@@ -222,7 +224,10 @@ classes without a dependency between them is not going to improve the CRAIndex o
 the resulting class model. Merging classes has the potential to improve the CRAIndex only 
 if the classes contain features that depend on each other. Thus, our clustering rules 
 are already optimized for the optimization of the CRAIndex. Using a different metric would 
-perhabs require a more general clustering strategy. 
+perhabs require a more general clustering strategy. As the metric is evaluated 
+during the search space exploration, it would be easy to simply merge any two 
+classes, as any graphs resulting from applying a non metric improving rule 
+would immediately be dismissed anyways.
 
 
 \section{The Search Space Expansion Mechanisms}
@@ -232,7 +237,7 @@ perhabs require a more general clustering strategy.
 
 
 \begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
-label=Activity.initVariables.java, escapeinside={\%}{\%},
+label={Activity.initVariables.java}, escapeinside={\%}{\%},
 caption={General Reachability Graph Computation}
 ]
 ReachabilityGraph::explore(depth) {
@@ -259,6 +264,120 @@ ReachabilityGraph::explore(depth) {
 
 \end{lstlisting}
 
+As seen in Listing \ref{Activity.initVariables.java} the only limiting factor 
+is the depth passed to the explore function. In most scenarios the given rules 
+are a lot more specific and can be applied for fewer matches througout a common 
+graph. Thus, in most cases a complete reachability graph can in fact be 
+generated in a justifiable amount of time and is most likely what a user 
+expects. To adjust for a broader use and examples like the current challenge, 
+we have implemented two additional exploration algorithms. It is therefor now 
+possible to choose from the three different modes and still pass the depth of 
+the expansion, offering great flexibility for search space exploration. The 
+three modes are the following:
+
+\subsection{Default mode aka full search space exploration}
+
+The default mode will do a complete search space exploration when no depth 
+constraint is given, working as described in Listing 
+\ref{Activity.initVariables.java}. Limiting the depth will result in 	
+breadth-first expansion of the reachability graph until the limit of graphs is 
+reached.
+
+\subsection{Metric-based "ignore decline" mode}
+
+For both implemented modes, the metric passed to the explore function is 
+evaluated for all graphs. The list of graphs to still be explored is also 
+ordered based on the metric, thus graphs with a better metric are explored 
+earlier on. However to different algorithms can be applied to how the search 
+space is explored. The first mode, the metric-based ignore mode as depicted in 
+Listing \ref{lst:ignore}, will expand 
+the currently explored graph by applying all rules at all possible matches, but 
+ignore, i.e. not add to the further to be explored graphs, all those graphs 
+with a worse result for the given metric.
+
+\begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
+label={lst:ignore}, escapeinside={\%}{\%},
+caption={Metric based Reachability Graph Computation}
+]
+ReachabilityGraph::explore(depth, metric) {
+	todo = new ArrayList();
+	todo.add(this.startState);
+	states.put(certificate(this.startState), startState);
+	while (! todo.isEmpty() && states.size() <= depth) {
+		Collections.sort(todo, metric);
+		current = todo.get(0); todo.remove(0);
+		for(Rule r : this.rules) {
+			while (r.findMatch()) {
+				newState = current.clone().apply(r);
+				if(metric(newState) < bestMetric){
+					continue;
+				}else{
+					bestMetric = metric(newState);
+				}
+				isoOldState = find(states, newState);
+				if (isoOldState == null){
+					states.put(certificate(newState), newState);
+					addEdge(current, r, newState);
+					todo.add(newState);
+				} else {
+				addEdge(current, r, isoOldState);
+				}
+			}
+		}
+	}
+}
+
+\end{lstlisting}
+
+\subsection{Metric-based "promote improvement" mode}
+
+The second mode promotes any improvements in the applied metric, thus stopping 
+the current expansion step as soon as the metric yields a better result for a 
+newly generated graph. No further rules are applied to the current graph and 
+the discovered graph will now be explored as depicted in Listing 
+\ref{lst:improve}. This algorithm very quickly returns 
+local optimums of the reachability graph. In case it can not further enhance a 
+local optimum it stores the state of expansion on earlier graphs and continues 
+expanding them later on, so it will not only lead to the first local optimum 
+but rather detect a few, depending on how many steps are necessary to reach 
+them and limited by the depth constraint.
+
+\begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
+label={lst:improve}, escapeinside={\%}{\%},
+caption={Metric based depth first Reachability Graph Computation}
+]
+ReachabilityGraph::explore(depth, metric) {
+	todo = new ArrayList();
+	todo.add(this.startState);
+	states.put(certificate(this.startState), startState);
+	improve: while (! todo.isEmpty() && states.size() <= depth) {
+		Collections.sort(todo, metric);
+		current = todo.get(0); todo.remove(0);
+		for(Rule r : this.rules) {
+			while (r.findMatch()) {
+				newState = current.clone().apply(r);
+				if(metric(newState) < bestMetric){
+					continue;
+				}else{
+				bestMetric = metric(newState);
+			}
+			isoOldState = find(states, newState);
+			if (isoOldState == null){
+				states.put(certificate(newState), newState);
+				addEdge(current, r, newState);
+				todo.add(newState);
+				if(metric(newState) > bestMetric){
+					bestMetric = metric(newState);
+					continue improve;
+				}
+			} else {
+			addEdge(current, r, isoOldState);
+			}
+		}
+	}
+}
+
+\end{lstlisting}
 
 \section{Performance Results}
 \label{sec:results}

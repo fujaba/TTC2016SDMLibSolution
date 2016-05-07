@@ -1,5 +1,8 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{The Model Transformation Rules}{}% 2
 \BOOKMARK [1][-]{section.3}{The Search Space Expansion Mechanisms}{}% 3
-\BOOKMARK [1][-]{section.4}{Performance Results}{}% 4
-\BOOKMARK [1][-]{section.5}{Summary}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Default mode aka full search space exploration}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Metric-based "ignore decline" mode}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Metric-based "promote improvement" mode}{section.3}% 6
+\BOOKMARK [1][-]{section.4}{Performance Results}{}% 7
+\BOOKMARK [1][-]{section.5}{Summary}{}% 8
