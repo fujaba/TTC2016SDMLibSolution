@@ -1,9 +1,8 @@
 package de.unikassel.ttc2016;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -55,24 +54,26 @@ public class RunTestCases
 
       RunTestCases runner = new RunTestCases();
 
-      long[] levels = new long[] {exploreDepth};
-      
+      long[] levels = new long[]
+      { exploreDepth };
+
       if (exploreDepth == -1)
       {
-         levels = new long[] {100, 200, 500, 1000, 2000, 5000, 10000};
+         levels = new long[]
+         { 100, 200, 500, 1000, 2000, 5000, 10000 };
       }
 
       for (long l : levels)
       {
          exploreDepth = l;
-         
+
          runner.logTime("input_models/TTC_InputRDG_A.xmi");
          runner.logTime("input_models/TTC_InputRDG_B.xmi");
          runner.logTime("input_models/TTC_InputRDG_C.xmi");
          runner.logTime("input_models/TTC_InputRDG_D.xmi");
-         runner.logTime("input_models/TTC_InputRDG_E.xmi");         
+         runner.logTime("input_models/TTC_InputRDG_E.xmi");
       }
-      
+
    }
 
    private void logTime(String caseFileName)
@@ -94,7 +95,7 @@ public class RunTestCases
 
       long runtime = System.currentTimeMillis() - currentTimeMillis;
 
-      Path path = Paths.get("timelog.dat");
+      Path path = Paths.get("log.csv");
 
       String timeStamp = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(new Date());
       timeStamp += ";" + System.getProperty("user.name");
@@ -108,25 +109,35 @@ public class RunTestCases
 
       try
       {
-         timeStamp += ";" + new String(Files.readAllBytes(Paths.get(".git/refs/heads/master")));
+         timeStamp += "\n";
 
          Files.write(path, timeStamp.getBytes(), StandardOpenOption.APPEND);
+      }
+      catch (NoSuchFileException nsfe)
+      {
+         try
+         {
+            Files.write(path, timeStamp.getBytes(), StandardOpenOption.CREATE);
+         }
+         catch (IOException e)
+         {
+            e.printStackTrace();
+         }
       }
       catch (IOException e)
       {
          e.printStackTrace();
       }
-
    }
 
-     /**
+   /**
     * 
     * @see <a href='../../../../doc/TTC_InputRDG_A.html'>TTC_InputRDG_A.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_B.html'>TTC_InputRDG_B.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_C.html'>TTC_InputRDG_C.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_D.html'>TTC_InputRDG_D.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_E.html'>TTC_InputRDG_E.html</a>
- */
+    * @see <a href='../../../../doc/TTC_InputRDG_B.html'>TTC_InputRDG_B.html</a>
+    * @see <a href='../../../../doc/TTC_InputRDG_C.html'>TTC_InputRDG_C.html</a>
+    * @see <a href='../../../../doc/TTC_InputRDG_D.html'>TTC_InputRDG_D.html</a>
+    * @see <a href='../../../../doc/TTC_InputRDG_E.html'>TTC_InputRDG_E.html</a>
+    */
    private void runCase(String caseFileName)
    {
       for (Searchmode m : Searchmode.values())
@@ -214,7 +225,7 @@ public class RunTestCases
 
          System.out.println("This test case consists of " + model.getClasses().size() + " features.");
          System.out.println("Applying search mode " + mode);
-         
+
          expandReachabilityGraph(model, mode);
 
          evaluateStates();
@@ -335,7 +346,7 @@ public class RunTestCases
 
       printMetrics((ClassModel) bestState.getGraphRoot());
    }
-   
+
    private void expandReachabilityGraphAllModes(ClassModel model)
    {
       for (Searchmode m : Searchmode.values())
@@ -437,20 +448,20 @@ public class RunTestCases
 
       return classModelPO;
    }
-   
-     /**
+
+   /**
     * 
     * @see <a href='../../../../doc/Rules.html'>Rules.html</a>
- */
+    */
    @Test
    public void testRules() throws Exception
    {
       StoryPage story = new StoryPage();
-      
+
       ClassModelPO addInitialClasses = addInitialClasses(null);
-      
+
       story.addPattern(addInitialClasses, false);
-      
+
       story.addPattern(mergeDataDependencyRule(), false);
 
       story.addPattern(mergeMethodDependencyRule(), false);
