@@ -233,8 +233,33 @@ would immediately be dismissed anyways.
 \section{The Search Space Expansion Mechanisms}
 \label{sec:expansion}
 
- 
-
+At the beginning, a \texttt{ReachbilityGraph} object is initialized with a 
+start graph or \texttt{startState} and with a set of \texttt{rules} that 
+shall be applied to the different reachable states. Our standard 
+reachability graph computation algorithm is shown in 
+Listing~\ref{Activity.initVariables.java}. For the standard reachability graph 
+computation, we call explore(depth) where depth is the maximal number of 
+states to be generated. This is used e.g. to terminate the search in case of 
+an unlimited search spaces. First, our expansion algorithm initializes 
+its \texttt{todo} list with the \texttt{startState} and adds the 
+\texttt{startState} to a hash table of reachable \texttt{states} where 
+a graph \texttt{certificate} is used as key as proposed by \cite{rensink2003groove}.
+Then, we line~5 loops through the \texttt{todo} list until it drains or the maximal 
+\texttt{depth} of reachable \texttt{states} is reached. Each time, line~6 removes 
+the first element of the \texttt{todo} list and chooses it as \texttt{current} state. 
+Then line~7 and line~8 iterate through all \texttt{rules} and all matches. 
+For each match, we \texttt{clone()} the \texttt{current} state and apply the 
+rule changes to that clone, resulting in a \texttt{newState}. As the \texttt{newState}
+may have been created by other rule applications already, line~10 tries to \texttt{find} 
+an \texttt{isoOldState}, i.e. the \texttt{find}  operation computes the 
+\texttt{certificate} of the \texttt{newState} and tries to look it up in the 
+\texttt{states} hash table. This may involve a isomorphism check in case of accidentally 
+matching certificates. If no \texttt{isoOldState} is found, line~12 adds the 
+\texttt{newState} to the hash table of reachable \texttt{states}, line~13 adds an edge
+labeled with the applied rule from the \texttt{current} state to the \texttt{newState}, 
+and line~14 adds the \texttt{newState} to our \texttt{todo} list. If there is an 
+\texttt{isoOldState} line~16 just adds an edge from the \texttt{current} state to the 
+\texttt{isoOldState}.
 
 \begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
 label={Activity.initVariables.java}, escapeinside={\%}{\%},
@@ -252,8 +277,8 @@ ReachabilityGraph::explore(depth) {
             isoOldState = find(states, newState);
             if (isoOldState == null){
                states.put(certificate(newState), newState);
-            	 addEdge(current, r, newState);
-             	 todo.add(newState);
+               addEdge(current, r, newState);
+               todo.add(newState);
             } else {
                addEdge(current, r, isoOldState);
             }
@@ -261,16 +286,30 @@ ReachabilityGraph::explore(depth) {
       }
    }
 }
-
 \end{lstlisting}
 
-As seen in Listing \ref{Activity.initVariables.java} the only limiting factor 
-is the depth passed to the explore function. In most scenarios the given rules 
-are a lot more specific and can be applied for fewer matches througout a common 
-graph. Thus, in most cases a complete reachability graph can in fact be 
-generated in a justifiable amount of time and is most likely what a user 
-expects. To adjust for a broader use and examples like the current challenge, 
-we have implemented two additional exploration algorithms. It is therefor now 
+Our old reachability graph algorithm shown in Listing \ref{Activity.initVariables.java}
+removes elements from the beginning of its \texttt{todo} list and adds new elements to the 
+end of the \texttt{todo} list. This results in some kind of \emph{breadth first} 
+search strategy. 
+
+In many examples we have considered so far, the given rules 
+do not extend the given graph but they only mark certain situations or move elements 
+from one place to another. In such cases the number of different graphs that 
+may be generated is finite and thus the complete reachability graph may be 
+generated. Then you just call our explore method with the maximal \texttt{Long} value. 
+The rules shown in Section~\ref{sec:rules} reduce the number of classes by one on each 
+rule application. Thus, the number of rule applications is also finite and we 
+might be able to compute the full reachability graph. However, the computation 
+slows down dramatically as soon as the memory used by our reachability graph exceeds 
+the computers physical main memory size (16 giga byte for our test computer). For the 
+larger clustering example E this size is reached by about 25000 reachable states
+which is only a fraction of the overall possible states. 
+When you cannot search through the whole state space, the breadth first search 
+strategy of our standard algorithm will most likely not reach the interesting 
+parts of the state space but it visits \emph{"early"} states, only.   
+To adjust for a broader use and examples like the current challenge, 
+we have implemented three additional exploration algorithms. It is therefor now 
 possible to choose from the three different modes and still pass the depth of 
 the expansion, offering great flexibility for search space exploration. The 
 three modes are the following:
@@ -282,6 +321,35 @@ constraint is given, working as described in Listing
 \ref{Activity.initVariables.java}. Limiting the depth will result in 	
 breadth-first expansion of the reachability graph until the limit of graphs is 
 reached.
+
+\begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
+label={lst:defaultAStar}, escapeinside={\%}{\%},
+caption={Default A* based Search Space Expansion}
+]
+ReachabilityGraph::explore(depth, metric) {
+   todo = new ArrayList();
+   todo.add(this.startState);
+   states.put(certificate(this.startState), startState);
+   while (! todo.isEmpty() && states.size() <= depth) {
+      Collections.sort(todo, metric);
+      current = todo.get(0); todo.remove(0);
+      for(Rule r : this.rules) {
+         while (r.findMatch()) {
+            newState = current.clone().apply(r);
+            isoOldState = find(states, newState);
+            if (isoOldState == null){
+               states.put(certificate(newState), newState);
+               addEdge(current, r, newState);
+               todo.add(newState);
+            } else {
+               addEdge(current, r, isoOldState);
+            }
+         }
+      }
+   }
+}
+\end{lstlisting}
+
 
 \subsection{Metric-based "ignore decline" mode}
 
@@ -300,33 +368,32 @@ label={lst:ignore}, escapeinside={\%}{\%},
 caption={Metric based Reachability Graph Computation}
 ]
 ReachabilityGraph::explore(depth, metric) {
-	todo = new ArrayList();
-	todo.add(this.startState);
-	states.put(certificate(this.startState), startState);
-	while (! todo.isEmpty() && states.size() <= depth) {
-		Collections.sort(todo, metric);
-		current = todo.get(0); todo.remove(0);
-		for(Rule r : this.rules) {
-			while (r.findMatch()) {
-				newState = current.clone().apply(r);
-				if(metric(newState) < bestMetric){
-					continue;
-				}else{
-					bestMetric = metric(newState);
-				}
-				isoOldState = find(states, newState);
-				if (isoOldState == null){
-					states.put(certificate(newState), newState);
-					addEdge(current, r, newState);
-					todo.add(newState);
-				} else {
-				addEdge(current, r, isoOldState);
-				}
-			}
-		}
-	}
+   todo = new ArrayList();
+   todo.add(this.startState);
+   states.put(certificate(this.startState), startState);
+   while (! todo.isEmpty() && states.size() <= depth) {
+      Collections.sort(todo, metric);
+      current = todo.get(0); todo.remove(0);
+      for(Rule r : this.rules) {
+         while (r.findMatch()) {
+            newState = current.clone().apply(r);
+            if(metric(newState) < bestMetric){
+               continue;
+            }else{
+               bestMetric = metric(newState);
+            }
+            isoOldState = find(states, newState);
+            if (isoOldState == null){
+               states.put(certificate(newState), newState);
+               addEdge(current, r, newState);
+               todo.add(newState);
+            } else {
+               addEdge(current, r, isoOldState);
+            }
+         }
+      }
+   }
 }
-
 \end{lstlisting}
 
 \subsection{Metric-based "promote improvement" mode}
