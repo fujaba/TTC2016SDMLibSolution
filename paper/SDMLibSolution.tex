@@ -314,13 +314,18 @@ possible to choose from the three different modes and still pass the depth of
 the expansion, offering great flexibility for search space exploration. The 
 three modes are the following:
 
-\subsection{Default mode aka full search space exploration}
 
-The default mode will do a complete search space exploration when no depth 
-constraint is given, working as described in Listing 
-\ref{Activity.initVariables.java}. Limiting the depth will result in 	
-breadth-first expansion of the reachability graph until the limit of graphs is 
-reached.
+\subsection{Default A$*$ like search space exploration}
+
+To enable an A$*$ like search space expansion strategy Listing~\ref{lst:defaultAStar}
+extends our \texttt{explore} method with a \texttt{metric} parameter. At call time
+we pass a concrete metric e.g. as Java 8 lambda expression. 
+\begin{verbatim}
+rg.explore(25000, g -> CRAIndexCalculator.calculateCRAIndex((ClassModel) g));
+\end{verbatim}
+The new explore method just \texttt{sort}s the \texttt{todo} list in line~6 before choosing 
+a new element. Thereby, each step considers the state with the best 
+CRAIndex for further expansion resulting in a depth first like expansion strategy. 
 
 \begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
 label={lst:defaultAStar}, escapeinside={\%}{\%},
@@ -331,7 +336,7 @@ ReachabilityGraph::explore(depth, metric) {
    todo.add(this.startState);
    states.put(certificate(this.startState), startState);
    while (! todo.isEmpty() && states.size() <= depth) {
-      Collections.sort(todo, metric);
+      sort(todo, metric);
       current = todo.get(0); todo.remove(0);
       for(Rule r : this.rules) {
          while (r.findMatch()) {
@@ -351,17 +356,22 @@ ReachabilityGraph::explore(depth, metric) {
 \end{lstlisting}
 
 
-\subsection{Metric-based "ignore decline" mode}
+\subsection{Metric-based "Ignore Decline" Mode}
 
-For both implemented modes, the metric passed to the explore function is 
+Our A$*$ expansion strategy in each step still generates all successors of the 
+\texttt{current} state. For example E there are about 400 dependencies, thus, 
+the initial state has about 400 successor states. While this number decreases 
+by one with each rule application, the first 100 rule applications have 
+have 350 successors on average resulting in 35000 states, which already exceeds our 
+memory space. To improve this, Listing~\ref{lst:ignore} improves our 
+A$*$ algorithm by comparing the metric value of the \texttt{newState} with 
+the current \texttt{bestMetric}. If the metric of the \texttt{newState} is lower 
+then the \texttt{bestMetric} we ignore the \texttt{newState}, cf. line~13, and 
+we do not add it to our reachability graph nor to our \texttt{todo} list.  
+Thus, the metric passed to the explore function is 
 evaluated for all graphs. The list of graphs to still be explored is also 
 ordered based on the metric, thus graphs with a better metric are explored 
-earlier on. However to different algorithms can be applied to how the search 
-space is explored. The first mode, the metric-based ignore mode as depicted in 
-Listing \ref{lst:ignore}, will expand 
-the currently explored graph by applying all rules at all possible matches, but 
-ignore, i.e. not add to the further to be explored graphs, all those graphs 
-with a worse result for the given metric.
+earlier on. However we ignore all those graphs that decline our current result.
 
 \begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
 label={lst:ignore}, escapeinside={\%}{\%},
@@ -371,8 +381,9 @@ ReachabilityGraph::explore(depth, metric) {
    todo = new ArrayList();
    todo.add(this.startState);
    states.put(certificate(this.startState), startState);
+   bestMetric = metric(this.startState);
    while (! todo.isEmpty() && states.size() <= depth) {
-      Collections.sort(todo, metric);
+      sort(todo, metric);
       current = todo.get(0); todo.remove(0);
       for(Rule r : this.rules) {
          while (r.findMatch()) {
@@ -395,6 +406,7 @@ ReachabilityGraph::explore(depth, metric) {
    }
 }
 \end{lstlisting}
+
 
 \subsection{Metric-based "promote improvement" mode}
 
