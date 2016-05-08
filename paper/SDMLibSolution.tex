@@ -414,49 +414,62 @@ The second mode promotes any improvements in the applied metric, thus stopping
 the current expansion step as soon as the metric yields a better result for a 
 newly generated graph. No further rules are applied to the current graph and 
 the discovered graph will now be explored as depicted in Listing 
-\ref{lst:improve}. This algorithm very quickly returns 
+\ref{lst:improve}. When line~16 detects that the \texttt{newState} is an improvement 
+compared to the \texttt{current} state, line~18 aborts the expansion of the 
+\texttt{current} state and we choose the best state of our \texttt{todo} 
+list for further expansion. This is again our \texttt{newState}, 
+as the old \texttt{current} state has been the best state in the previous 
+expansion step and \texttt{newState} is even better. In addition, 
+line~17 pushes the old \texttt{current} state back into our \texttt{todo} list, for later 
+reconsideration.   
+
+This algorithm very quickly returns 
 local optimums of the reachability graph. In case it can not further enhance a 
 local optimum it stores the state of expansion on earlier graphs and continues 
 expanding them later on, so it will not only lead to the first local optimum 
-but rather detect a few, depending on how many steps are necessary to reach 
-them and limited by the depth constraint.
+but rather detect a few other, depending on how many steps are necessary to reach 
+them and limited by the depth constraint. 
 
 \begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
 label={lst:improve}, escapeinside={\%}{\%},
 caption={Metric based depth first Reachability Graph Computation}
 ]
 ReachabilityGraph::explore(depth, metric) {
-	todo = new ArrayList();
-	todo.add(this.startState);
-	states.put(certificate(this.startState), startState);
-	improve: while (! todo.isEmpty() && states.size() <= depth) {
-		Collections.sort(todo, metric);
-		current = todo.get(0); todo.remove(0);
-		for(Rule r : this.rules) {
-			while (r.findMatch()) {
-				newState = current.clone().apply(r);
-				if(metric(newState) < bestMetric){
-					continue;
-				}else{
-				bestMetric = metric(newState);
-			}
-			isoOldState = find(states, newState);
-			if (isoOldState == null){
-				states.put(certificate(newState), newState);
-				addEdge(current, r, newState);
-				todo.add(newState);
-				if(metric(newState) > bestMetric){
-					bestMetric = metric(newState);
-					continue improve;
-				}
-			} else {
-			addEdge(current, r, isoOldState);
-			}
-		}
-	}
+   todo = new ArrayList();
+   todo.add(this.startState);
+   states.put(certificate(this.startState), startState);
+   improve: while (! todo.isEmpty() && states.size() <= depth) {
+      sort(todo, metric);
+      current = todo.get(0); todo.remove(0);
+      for(Rule r : this.rules) {
+         while (r.findMatch()) {
+            newState = current.clone().apply(r);
+            isoOldState = find(states, newState);
+            if (isoOldState == null){
+               states.put(certificate(newState), newState);
+               addEdge(current, r, newState);
+               todo.add(newState);
+               if(metric(newState) > metric(current){
+                  todo.add(current);
+                  continue improve;
+               }
+            } else {
+               addEdge(current, r, isoOldState);
+            }
+         }
+      }
+   }
 }
-
 \end{lstlisting}
+
+Note, when the search is exhausted for some state and we go back to earlier
+states, rule application on those earlier states will first produce the same
+matches as in earlier runs. These same old matches will be identified by line~11
+as \texttt{isoOldState}s and thus ignored. However, this requires the computation 
+of a certificate and an isomorphism check. To avoid this effort, our real 
+implementation of the improve expansion stores the number of already created successors
+for each state and on reconsideration, this number of rule applications is directly 
+ignored.  
 
 \section{Performance Results}
 \label{sec:results}

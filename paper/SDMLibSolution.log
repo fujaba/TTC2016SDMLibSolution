@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.27)  8 MAY 2016 16:12
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.27)  8 MAY 2016 16:52
 entering extended mode
 **SDMLibSolution.tex
 (C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.tex
@@ -423,15 +423,10 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 318.
 
-[5] [6] [7]
-Overfull \hbox (29.85358pt too wide) in paragraph at lines 445--446
-[][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-<images/CRAByDepthB.pdf, id=209, 603.85597pt x 362.95604pt>
+[5] [6] [7] <images/CRAByDepthB.pdf, id=204, 603.85597pt x 362.95604pt>
 File: images/CRAByDepthB.pdf Graphic file (type pdf)
  <use images/CRAByDepthB.pdf>
-Package pdftex.def Info: images/CRAByDepthB.pdf used on input line 465.
+Package pdftex.def Info: images/CRAByDepthB.pdf used on input line 478.
 (pdftex.def)             Requested size: 469.47046pt x 282.18521pt.
 
 (C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.bbl
@@ -444,34 +439,31 @@ nored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.479 \end{document}
+l.492 \end{document}
                      <C:/Users/zuendorf/eclipseworkspaces/luna/TTC2016SDMLibSolution/paper/images/CRAByDepthB.pdf>]
 \pages=\write4
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 479.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 479.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 492.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 492.
 
 (C:\Users\zuendorf\eclipseworkspaces\luna\TTC2016SDMLibSolution\paper\SDMLibSolution.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 479.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 479.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 492.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 492.
+Package rerunfilecheck Info: File `SDMLibSolution.out' has not changed.
+(rerunfilecheck)             Checksum: E9D9AE5C78E9520B2CDDCC42853CDF0F;548.
 
-
-Package rerunfilecheck Warning: File `SDMLibSolution.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `SDMLibSolution.out':
-(rerunfilecheck)             Before: 2B21DB8D72EAB472F9E9F87EB443B6E6;554
-(rerunfilecheck)             After:  E9D9AE5C78E9520B2CDDCC42853CDF0F;548.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 479.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 492.
  ) 
 Here is how much of TeX's memory you used:
- 6857 strings out of 493921
- 102191 string characters out of 3144867
- 198728 words of memory out of 3000000
- 9938 multiletter control sequences out of 15000+200000
+ 6852 strings out of 493921
+ 102119 string characters out of 3144867
+ 195728 words of memory out of 3000000
+ 9937 multiletter control sequences out of 15000+200000
  43521 words of font info for 90 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  36i,13n,42p,298b,1705s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -482,9 +474,9 @@ s/cm/cmtt10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/c
 eX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a
 .pfb>
-Output written on SDMLibSolution.pdf (9 pages, 198023 bytes).
+Output written on SDMLibSolution.pdf (9 pages, 198677 bytes).
 PDF statistics:
- 305 PDF objects out of 1000 (max. 8388607)
- 130 named destinations out of 1000 (max. 500000)
+ 300 PDF objects out of 1000 (max. 8388607)
+ 126 named destinations out of 1000 (max. 500000)
  85 words of extra memory for PDF output out of 10000 (max. 10000000)
 
