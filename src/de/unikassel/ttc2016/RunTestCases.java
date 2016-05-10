@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import org.junit.Test;
@@ -42,14 +44,39 @@ public class RunTestCases
    private ReachableStateSet evaluated;
    private ReachableState bestState;
    private double best;
-   private static long exploreDepth = 1000;
+   private static long exploreDepth = 2000;
+   private static ArrayList<Searchmode> modes;
 
    public static void main(String[] args)
    {
+      modes = new ArrayList<Searchmode>();
 
-      if (args != null && args.length > 0)
+      if (args != null)
       {
-         exploreDepth = Long.parseLong(args[0]);
+         switch (args.length)
+         {
+         case 0:
+            break;
+         case 1:
+            exploreDepth = Long.parseLong(args[0]);
+            modes.addAll(Arrays.asList(Searchmode.values()));
+            break;
+         default:
+            exploreDepth = Long.parseLong(args[0]);
+            for (int i = 1; i < args.length; i++)
+            {
+               try
+               {
+                  modes.add(Searchmode.valueOf(args[i]));
+               }
+               catch (Exception e)
+               {
+                  System.out.println("Error parsing search mode " + args[i]);
+                  e.printStackTrace();
+               }
+            }
+            break;
+         }
       }
 
       RunTestCases runner = new RunTestCases();
@@ -78,7 +105,7 @@ public class RunTestCases
 
    private void logTime(String caseFileName)
    {
-      for (Searchmode m : Searchmode.values())
+      for (Searchmode m : modes)
       {
          logTime(caseFileName, m);
       }
@@ -258,9 +285,8 @@ public class RunTestCases
 
          story.addObjectDiagramOnlyWith(elems);
 
-         System.out.println("Only improving paths through rg gives cra: " + searchBetterCraStatesOnly());
-         System.out.println("ENDTEST\n");
-
+         // System.out.println("Only improving paths through rg gives cra: " +
+         // searchBetterCraStatesOnly());
          // String dumpDiagram = reachabilityGraph.dumpDiagram("rgDiagram");
 
          story.add("Reachability Graph:");
@@ -273,10 +299,14 @@ public class RunTestCases
          {
             craFromFile = Double.valueOf(new String(Files.readAllBytes(path)));
          }
-         if (craFromFile <= bestState.getMetricValue())
+         if (craFromFile < bestState.getMetricValue())
          {
-            System.out.println("Found a better or even result, writing to file.");
+            System.out.println("Found a better result, writing to file.");
             Files.write(path, String.valueOf(bestState.getMetricValue()).getBytes(), StandardOpenOption.CREATE);
+         }
+         else if (craFromFile == bestState.getMetricValue())
+         {
+            System.out.println("Result is even to current best result in file.");
          }
          else
          {
@@ -292,43 +322,44 @@ public class RunTestCases
       story.dumpHTML();
    }
 
-   private double searchBetterCraStatesOnly()
-   {
-      numEvaluatedStatesForDepthSearch = 0;
-      evaluated = new ReachableStateSet();
-      double result = getBetterCraFromState(startState);
-      System.out.println(
-         "Had to search through " + numEvaluatedStatesForDepthSearch + " states to follow all better cra paths.");
-      return result;
-   }
-
-   private double getBetterCraFromState(ReachableState state)
-   {
-      if (evaluated.contains(state))
-      {
-         return Double.NEGATIVE_INFINITY;
-      }
-      else
-      {
-         evaluated.add(state);
-      }
-      numEvaluatedStatesForDepthSearch++;
-      double cra = cra(state);
-      double bestSubCra = Double.NEGATIVE_INFINITY;
-      for (ReachableState tgt : state.getRuleapplications().getTgt())
-      {
-         double tgtCra = cra(tgt);
-         if (tgtCra >= cra)
-         {
-            double deepTgtCra = getBetterCraFromState(tgt);
-            if (bestSubCra < deepTgtCra)
-            {
-               bestSubCra = deepTgtCra;
-            }
-         }
-      }
-      return Math.max(cra, bestSubCra);
-   }
+   // private double searchBetterCraStatesOnly()
+   // {
+   // numEvaluatedStatesForDepthSearch = 0;
+   // evaluated = new ReachableStateSet();
+   // double result = getBetterCraFromState(startState);
+   // System.out.println(
+   // "Had to search through " + numEvaluatedStatesForDepthSearch + " states to
+   // follow all better cra paths.");
+   // return result;
+   // }
+   //
+   // private double getBetterCraFromState(ReachableState state)
+   // {
+   // if (evaluated.contains(state))
+   // {
+   // return Double.NEGATIVE_INFINITY;
+   // }
+   // else
+   // {
+   // evaluated.add(state);
+   // }
+   // numEvaluatedStatesForDepthSearch++;
+   // double cra = cra(state);
+   // double bestSubCra = Double.NEGATIVE_INFINITY;
+   // for (ReachableState tgt : state.getRuleapplications().getTgt())
+   // {
+   // double tgtCra = cra(tgt);
+   // if (tgtCra >= cra)
+   // {
+   // double deepTgtCra = getBetterCraFromState(tgt);
+   // if (bestSubCra < deepTgtCra)
+   // {
+   // bestSubCra = deepTgtCra;
+   // }
+   // }
+   // }
+   // return Math.max(cra, bestSubCra);
+   // }
 
    private double cra(ReachableState state)
    {
