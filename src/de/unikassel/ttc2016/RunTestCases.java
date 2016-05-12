@@ -56,6 +56,8 @@ public class RunTestCases
          switch (args.length)
          {
          case 0:
+            modes.add(Searchmode.DEFAULT);
+            exploreDepth = Long.MAX_VALUE;
             break;
          case 1:
             exploreDepth = Long.parseLong(args[0]);
@@ -99,6 +101,11 @@ public class RunTestCases
          runner.logTime("input_models/TTC_InputRDG_C.xmi");
          runner.logTime("input_models/TTC_InputRDG_D.xmi");
          runner.logTime("input_models/TTC_InputRDG_E.xmi");
+         runner.logTime("input_models/TTC_InputRDG_F.xmi");
+         runner.logTime("input_models/TTC_InputRDG_G.xmi");
+         runner.logTime("input_models/TTC_InputRDG_H.xmi");
+         runner.logTime("input_models/TTC_InputRDG_I.xmi");
+         runner.logTime("input_models/TTC_InputRDG_J.xmi");
       }
 
    }
@@ -164,7 +171,10 @@ public class RunTestCases
     * @see <a href='../../../../doc/TTC_InputRDG_C.html'>TTC_InputRDG_C.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_D.html'>TTC_InputRDG_D.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_E.html'>TTC_InputRDG_E.html</a>
-    */
+    * @see <a href='../../../../doc/TTC_InputRDG_F.html'>TTC_InputRDG_F.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_G.html'>TTC_InputRDG_G.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_H.html'>TTC_InputRDG_H.html</a>
+ */
    private void runCase(String caseFileName)
    {
       for (Searchmode m : Searchmode.values())
@@ -223,7 +233,10 @@ public class RunTestCases
     * @see <a href='../../../../doc/TTC_InputRDG_C.html'>TTC_InputRDG_C.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_D.html'>TTC_InputRDG_D.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_E.html'>TTC_InputRDG_E.html</a>
-    */
+    * @see <a href='../../../../doc/TTC_InputRDG_F.html'>TTC_InputRDG_F.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_G.html'>TTC_InputRDG_G.html</a>
+ * @see <a href='../../../../doc/TTC_InputRDG_H.html'>TTC_InputRDG_H.html</a>
+ */
    public void runCase(String caseFile, Searchmode mode)
    {
 
