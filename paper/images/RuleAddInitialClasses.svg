@@ -35,16 +35,16 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1057"
+     inkscape:window-width="944"
+     inkscape:window-height="1041"
      id="namedview68"
      showgrid="false"
      inkscape:zoom="1.63358"
      inkscape:cx="308.30015"
      inkscape:cy="85.755164"
-     inkscape:window-x="1272"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
+     inkscape:window-x="2240"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
      inkscape:current-layer="svg2"
      fit-margin-top="1"
      fit-margin-right="1"
@@ -125,139 +125,144 @@
      transform="matrix(0.98855488,-0.1508617,0.1508617,0.98855488,0,0)"
      style="fill:#cccccc" />
   <g
-     id="g3436"
+     id="g23"
      transform="translate(-8.5,-48.5)">
-    <g
-       id="g23">
-      <rect
-         id="rect25"
-         class="draggable"
-         y="50"
-         x="10"
-         height="90"
-         width="156.9375"
-         style="fill:#add8e6;stroke:#000000" />
-      <text
-         id="text27"
-         width="136.9375"
-         y="70"
-         x="20">c1 : ClassModelPO</text>
-      <line
-         id="line29"
-         y2="80"
-         x2="166.9375"
-         y1="80"
-         x1="10"
-         style="stroke:#000000" />
-      <text
-         id="text31"
-         y="100"
-         x="20"
-         width="156.9375">&lt;&lt; start &gt;&gt;</text>
-      <text
-         id="text33"
-         y="120"
-         x="20"
-         width="156.9375">&lt;&lt; bound&gt;&gt;</text>
-    </g>
-    <g
-       transform="translate(20.813183,1.2243049)"
-       id="g45">
-      <rect
-         style="fill:#add8e6;stroke:#000000"
-         id="rect47"
-         class="draggable"
-         y="66"
-         x="471"
-         height="60"
-         width="124.9375" />
-      <text
-         id="text49"
-         width="104.9375"
-         y="86"
-         x="481">f2 : FeaturePO</text>
-      <line
-         style="stroke:#000000"
-         id="line51"
-         y2="96"
-         x2="595.9375"
-         y1="96"
-         x1="471" />
-    </g>
-    <line
-       style="stroke:#000000;stroke-width:1.03316224"
-       id="line53"
-       y2="95.999512"
-       x2="491.81409"
-       y1="95.000488"
-       x1="166.9991" />
-    <text
-       style="fill:#000000"
-       transform="matrix(0.99999407,0.00344471,-0.00344471,0.99999407,0,0)"
+    <rect
+       style="fill:#add8e6;stroke:#000000"
+       width="156.9375"
+       height="90"
+       x="10"
+       y="50"
        class="draggable"
-       id="f2 : FeaturePO"
-       y="89.064629"
-       x="414.12244">features</text>
-    <line
-       id="line57"
-       y2="140"
-       x2="255"
-       y1="131"
-       x1="167"
-       style="stroke:#000000" />
+       id="rect25" />
     <text
-       style="fill:#000000"
-       transform="matrix(0.9943099,0.10652616,-0.10652616,0.9943099,0,0)"
-       class="draggable"
-       id="c3 : ClassPO"
-       y="108.66821"
-       x="198.37772">classes</text>
+       x="20"
+       y="70"
+       width="136.9375"
+       id="text27">c1 : ClassModelPO</text>
     <line
-       style="stroke:#000000;stroke-width:1.27497292"
-       id="line62"
-       y2="120.64848"
-       x2="492.39764"
-       y1="140.84215"
-       x1="368.02768" />
+       style="stroke:#000000"
+       x1="10"
+       y1="80"
+       x2="166.9375"
+       y2="80"
+       id="line29" />
     <text
-       style="fill:#000000"
-       transform="matrix(0.98855488,-0.1508617,0.1508617,0.98855488,0,0)"
-       class="draggable"
-       id="text66"
-       y="190.48097"
-       x="385.89557">encapsulates</text>
-    <g
-       id="g3429">
-      <rect
-         style="fill:#add8e6;stroke:#000000;stroke-width:1.39579773"
-         id="rect37"
-         class="draggable"
-         y="123.19788"
-         x="234.99686"
-         height="84.193077"
-         width="170.50592" />
-      <text
-         id="text39"
-         width="93.359375"
-         y="142.38785"
-         x="280.91595">c3 : ClassPO</text>
-      <line
-         style="stroke:#000000;stroke-width:1.22564673"
-         id="line41"
-         y2="153"
-         x2="405.08853"
-         y1="153"
-         x1="234.79897" />
-      <text
-         id="text43"
-         y="170.55139"
-         x="272.95798"
-         width="113.359375">&lt;&lt; create&gt;&gt;</text>
-      <text
-         id="text43-4"
-         y="191.72133"
-         x="240.5042"
-         width="113.359375">name:=&quot;Class4&quot;+f2.name</text>
-    </g>
+       width="156.9375"
+       x="20"
+       y="100"
+       id="text31">&lt;&lt; start &gt;&gt;</text>
+    <text
+       width="156.9375"
+       x="20"
+       y="120"
+       id="text33">&lt;&lt; bound&gt;&gt;</text>
   </g>
+  <g
+     id="g45"
+     transform="translate(12.313183,-47.275695)">
+    <rect
+       width="124.9375"
+       height="60"
+       x="471"
+       y="66"
+       class="draggable"
+       id="rect47"
+       style="fill:#add8e6;stroke:#000000" />
+    <text
+       x="481"
+       y="86"
+       width="104.9375"
+       id="text49">f2 : FeaturePO</text>
+    <line
+       x1="471"
+       y1="96"
+       x2="595.9375"
+       y2="96"
+       id="line51"
+       style="stroke:#000000" />
+  </g>
+  <line
+     x1="158.4991"
+     y1="46.500488"
+     x2="483.31409"
+     y2="47.499512"
+     id="line53"
+     style="stroke:#000000;stroke-width:1.03316224" />
+  <text
+     x="405.45541"
+     y="40.594196"
+     id="f2 : FeaturePO"
+     class="draggable"
+     transform="matrix(0.99999407,0.00344471,-0.00344471,0.99999407,0,0)"
+     style="fill:#000000">features</text>
+  <line
+     style="stroke:#000000"
+     x1="158.5"
+     y1="82.5"
+     x2="246.5"
+     y2="91.5"
+     id="line57" />
+  <text
+     x="184.75957"
+     y="61.349655"
+     id="c3 : ClassPO"
+     class="draggable"
+     transform="matrix(0.9943099,0.10652616,-0.10652616,0.9943099,0,0)"
+     style="fill:#000000">classes</text>
+  <line
+     x1="359.52768"
+     y1="92.342148"
+     x2="483.89764"
+     y2="72.148483"
+     id="line62"
+     style="stroke:#000000;stroke-width:1.27497292" />
+  <text
+     x="384.80963"
+     y="141.25374"
+     id="text66"
+     class="draggable"
+     transform="matrix(0.98855488,-0.1508617,0.1508617,0.98855488,0,0)"
+     style="fill:#000000">encapsulates</text>
+  <g
+     id="g3429"
+     transform="translate(-8.5,-48.5)">
+    <rect
+       width="170.50592"
+       height="84.193077"
+       x="234.99686"
+       y="123.19788"
+       class="draggable"
+       id="rect37"
+       style="fill:#add8e6;stroke:#000000;stroke-width:1.39579773" />
+    <text
+       x="280.91595"
+       y="142.38785"
+       width="93.359375"
+       id="text39">c3 : ClassPO</text>
+    <line
+       x1="234.79897"
+       y1="153"
+       x2="405.08853"
+       y2="153"
+       id="line41"
+       style="stroke:#000000;stroke-width:1.22564673" />
+    <text
+       width="113.359375"
+       x="272.95798"
+       y="170.55139"
+       id="text43">&lt;&lt; create&gt;&gt;</text>
+    <text
+       width="113.359375"
+       x="240.5042"
+       y="191.72133"
+       id="text43-4">name:=&quot;Class4&quot;+f2.name</text>
+  </g>
+  <text
+     x="497.25076"
+     y="103.27435"
+     id="f2 : FeaturePO-8"
+     class="draggable"
+     transform="matrix(0.99999407,0.00344471,-0.00344471,0.99999407,0,0)"
+     style="fill:#000000">{allMatches}</text>
 </svg>

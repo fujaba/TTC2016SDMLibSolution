@@ -1,5 +1,7 @@
 package de.unikassel.ttc2016;
 
+import static org.junit.Assert.*;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -118,6 +120,25 @@ public class RunTestCases
       }
    }
 
+   @Test
+   public void testIgnoreDetph() throws Exception
+   {
+      RunTestCases runner = new RunTestCases();
+
+      exploreDepth = 50;
+
+//      runner.logTime("input_models/TTC_InputRDG_A.xmi", Searchmode.DEPTHIGNORE);
+//      runner.logTime("input_models/TTC_InputRDG_B.xmi", Searchmode.DEPTHIGNORE);
+//      runner.logTime("input_models/TTC_InputRDG_C.xmi", Searchmode.DEPTHIGNORE);
+//      runner.logTime("input_models/TTC_InputRDG_D.xmi", Searchmode.DEPTHIGNORE);
+//      runner.logTime("input_models/TTC_InputRDG_E.xmi", Searchmode.DEPTHIGNORE);
+//      runner.logTime("input_models/TTC_InputRDG_F.xmi", Searchmode.DEPTHIGNORE);
+//      runner.logTime("input_models/TTC_InputRDG_G.xmi", Searchmode.DEPTHIGNORE);
+        runner.logTime("input_models/TTC_InputRDG_H.xmi", Searchmode.DEPTHIGNORE);
+//      runner.logTime("input_models/TTC_InputRDG_I.xmi", Searchmode.DEPTHIGNORE);
+//      runner.logTime("input_models/TTC_InputRDG_J.xmi", Searchmode.DEPTHIGNORE);
+   }
+   
    private void logTime(String caseFileName, Searchmode mode)
    {
       System.out.println("################################################\n" + caseFileName + "\n"
@@ -259,7 +280,7 @@ public class RunTestCases
 
          Object root = idMap.decodeEMF(text, model);
 
-         story.addObjectDiagram(root);
+         // story.addObjectDiagram(root);
 
          XMLEntity rootXML = (XMLEntity) root;
 
