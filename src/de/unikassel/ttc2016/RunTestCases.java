@@ -21,7 +21,6 @@ import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
-import org.sdmlib.serialization.xml.EmfIdMap;
 import org.sdmlib.storyboards.StoryPage;
 
 import de.unikassel.ttc2016.model.Attribute;
@@ -35,6 +34,7 @@ import de.unikassel.ttc2016.model.util.ClassPO;
 import de.unikassel.ttc2016.model.util.FeaturePO;
 import de.unikassel.ttc2016.model.util.MethodPO;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.xml.XMLEntity;
 
 public class RunTestCases
 {
@@ -172,9 +172,9 @@ public class RunTestCases
     * @see <a href='../../../../doc/TTC_InputRDG_D.html'>TTC_InputRDG_D.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_E.html'>TTC_InputRDG_E.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_F.html'>TTC_InputRDG_F.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_G.html'>TTC_InputRDG_G.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_H.html'>TTC_InputRDG_H.html</a>
- */
+    * @see <a href='../../../../doc/TTC_InputRDG_G.html'>TTC_InputRDG_G.html</a>
+    * @see <a href='../../../../doc/TTC_InputRDG_H.html'>TTC_InputRDG_H.html</a>
+    */
    private void runCase(String caseFileName)
    {
       for (Searchmode m : Searchmode.values())
@@ -234,9 +234,9 @@ public class RunTestCases
     * @see <a href='../../../../doc/TTC_InputRDG_D.html'>TTC_InputRDG_D.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_E.html'>TTC_InputRDG_E.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_F.html'>TTC_InputRDG_F.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_G.html'>TTC_InputRDG_G.html</a>
- * @see <a href='../../../../doc/TTC_InputRDG_H.html'>TTC_InputRDG_H.html</a>
- */
+    * @see <a href='../../../../doc/TTC_InputRDG_G.html'>TTC_InputRDG_G.html</a>
+    * @see <a href='../../../../doc/TTC_InputRDG_H.html'>TTC_InputRDG_H.html</a>
+    */
    public void runCase(String caseFile, Searchmode mode)
    {
 
@@ -246,7 +246,7 @@ public class RunTestCases
       storyName = CGUtil.packageName(storyName);
       story.getStoryboard().setName(storyName);
 
-      EmfIdMap idMap = (EmfIdMap) new EmfIdMap("g").with(ClassModelCreator.createIdMap("g"));
+      IdMap idMap = ClassModelCreator.createIdMap("g");
 
       byte[] allBytes;
       try
@@ -255,11 +255,13 @@ public class RunTestCases
 
          String text = new String(allBytes);
 
-         Object root = idMap.decode(text);
+         ClassModel model = new ClassModel();
+
+         Object root = idMap.decodeEMF(text, model);
 
          story.addObjectDiagram(root);
 
-         ClassModel model = (ClassModel) root;
+         XMLEntity rootXML = (XMLEntity) root;
 
          addInitialClasses(model);
 
@@ -511,5 +513,15 @@ public class RunTestCases
       story.addPattern(mergeMethodDependencyRule(), false);
 
       story.dumpHTML();
+   }
+
+   public ReachabilityGraph getReachabilityGraph()
+   {
+      return reachabilityGraph;
+   }
+
+   public void setReachabilityGraph(ReachabilityGraph reachabilityGraph)
+   {
+      this.reachabilityGraph = reachabilityGraph;
    }
 }
