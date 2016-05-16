@@ -474,17 +474,70 @@ ignored.
 \section{Performance Results}
 \label{sec:results}
 
-\begin{figure}[ht] \centering
-	\includegraphics[width=\linewidth]{images/CRAByDepthB.pdf}
+The following figures show the CRAIndex we achieved with our different exploration algorithms
+for different search depth values. Overall, the depth algorithm achieves pretty good 
+CRAIndex values already for very small search depth values. For input D the depth algorithm 
+achieves a CRAIndex of 0.30 already for depth 200 within 43.294 seconds. For depth 500 the 
+CRAIndex improves to 0.40 within 05:24.005 minutes. Surprisingly, further backtracking and 
+visiting up to 2000 states again improves the CRAIndex to 0.49 now needing 32:11.173 minutes. 
+Usually, the depth algorithm finds its best result within 500 visited states. 
+ 
+\begin{figure}[H] \centering
+	\includegraphics[width=0.8\linewidth]{Diagramme-Dateien/image001.png}
  \caption{CRAIndex per Search Depth for Example B}
  \label{fig:CRAByDepthB}
 \end{figure}
 
+\begin{figure}[H] \centering
+	\includegraphics[width=0.8\linewidth]{Diagramme-Dateien/image002.png}
+ \caption{CRAIndex per Search Depth for Example C}
+ \label{fig:CRAByDepthC}
+\end{figure}
 
-\section{Summary}
-\label{sec:summary}
+\begin{figure}[H] \centering
+	\includegraphics[width=0.8\linewidth]{Diagramme-Dateien/image005.png}
+ \caption{CRAIndex per Search Depth for Example D}
+ \label{fig:CRAByDepthD}
+\end{figure}
 
- 
+\begin{figure}[H] \centering
+	\includegraphics[width=0.8\linewidth]{Diagramme-Dateien/image007.png}
+ \caption{CRAIndex per Search Depth for Example E}
+ \label{fig:CRAByDepthE}
+\end{figure}
+
+The following figures show the performance of our algorithms for the different inputs and 
+for the different search depth values.  
+
+\begin{figure}[H] \centering
+	\includegraphics[width=0.8\linewidth]{Diagramme2-Dateien/image009.png}
+ \caption{Time (ms) per Search Depth for all inputs for algorithm default}
+ \label{fig:TimeByDefault}
+\end{figure}
+
+
+\begin{figure}[H] \centering
+	\includegraphics[width=0.8\linewidth]{Diagramme2-Dateien/image011.png}
+ \caption{Time (ms) per Search Depth for all inputs for algorithm depth}
+ \label{fig:TimeByDepth}
+\end{figure}
+
+\begin{figure}[H] \centering
+	\includegraphics[width=0.8\linewidth]{Diagramme2-Dateien/image013.png}
+ \caption{Time (ms) per Search Depth for all inputs for algorithm ignore}
+ \label{fig:TimeByIgnore}
+\end{figure}
+
+Finally, Figure~\ref{fig:PerformanceSummary} shows the CRAIndex we achieve for the 
+different input models and the time our best algorithm needed to compute this. 
+
+\begin{figure}[H] \centering
+	\includegraphics[width=0.8\linewidth]{images/performanceSummary.png}
+ \caption{Performance Summary}
+ \label{fig:PerformanceSummary}
+\end{figure}
+
+
 
 \bibliographystyle{abbrv}
 \bibliography{fujaba}  
