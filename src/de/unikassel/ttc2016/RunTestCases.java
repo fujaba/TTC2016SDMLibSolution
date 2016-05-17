@@ -31,8 +31,10 @@ import de.unikassel.ttc2016.model.util.AttributePO;
 import de.unikassel.ttc2016.model.util.ClassModelCreator;
 import de.unikassel.ttc2016.model.util.ClassModelPO;
 import de.unikassel.ttc2016.model.util.ClassPO;
+import de.unikassel.ttc2016.model.util.ClassSet;
 import de.unikassel.ttc2016.model.util.FeaturePO;
 import de.unikassel.ttc2016.model.util.MethodPO;
+import de.unikassel.ttc2016.model.util.MethodSet;
 import de.uniks.networkparser.IdMap;
 
 public class RunTestCases
@@ -437,16 +439,53 @@ public class RunTestCases
          .setMetric(graphRootObject -> CRAIndexCalculator.calculateCRAIndex((ClassModel) graphRootObject));
 
       // merge rule
-      ClassModelPO classModelPO = mergeDataDependencyRule();
+      //      ClassModelPO classModelPO = mergeDataDependencyRule();
+      //
+      //      reachabilityGraph.addToRules(classModelPO.getPattern().withName("mergedata"));
+      //
+      //      ClassModelPO rule2PO = mergeMethodDependencyRule();
+      //      reachabilityGraph.addToRules(rule2PO.getPattern().withName("mergemethod"));
 
-      reachabilityGraph.addToRules(classModelPO.getPattern().withName("mergedata"));
-
-      ClassModelPO rule2PO = mergeMethodDependencyRule();
-      reachabilityGraph.addToRules(rule2PO.getPattern().withName("mergemethod"));
-
+      // new path rule
+      ClassModelPO classModelPO = mergePathRule();
+      reachabilityGraph.addToRules(classModelPO.getPattern().withName("mergeDep"));
+      
       reachabilityGraph.explore(exploreDepth, mode);
    }
 
+   private ClassModelPO mergePathRule()
+   {
+      ClassModelPO classModelPO = new ClassModelPO();
+      ClassPO c1PO = classModelPO.filterClasses();
+      
+      ClassPO c2PO = c1PO.filterPath(
+         c -> {
+            MethodSet methods = ((Class) c).getEncapsulates().instanceOf(new MethodSet());
+         
+            ClassSet dataClasses = methods.getDataDependency().getIsEncapsulatedBy();
+            ClassSet methodClasses = methods.getFunctionalDependency().getIsEncapsulatedBy();
+            
+            return dataClasses.union(methodClasses);
+         }, 
+         new ClassPO());
+      
+      c2PO.hasMatchOtherThen(c1PO);
+      c2PO.filterClassmodel(classModelPO);
+      c2PO.getPattern().clone(reachabilityGraph);
+      c2PO.startSubPattern();
+      FeaturePO f3 = c2PO.filterEncapsulates();
+      f3.startCreate();
+      f3.filterIsEncapsulatedBy(c1PO);
+      f3.doAllMatches();
+      f3.endCreate();
+      c2PO.endSubPattern();
+      c2PO.destroy();
+      return classModelPO;
+   }
+   
+   
+   
+   
    private ClassModelPO mergeDataDependencyRule()
    {
       ClassModelPO classModelPO = new ClassModelPO();
