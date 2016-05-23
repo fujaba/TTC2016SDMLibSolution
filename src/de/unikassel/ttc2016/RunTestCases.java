@@ -120,11 +120,11 @@ public class RunTestCases
    }
 
    @Test
-   public void testIgnoreDetph() throws Exception
+   public void testSingleCase() throws Exception
    {
       RunTestCases runner = new RunTestCases();
 
-      exploreDepth = 50;
+      exploreDepth = 10000;
 
       // runner.logTime("input_models/TTC_InputRDG_A.xmi",
       // Searchmode.DEPTHIGNORE);
@@ -140,7 +140,7 @@ public class RunTestCases
       // Searchmode.DEPTHIGNORE);
       // runner.logTime("input_models/TTC_InputRDG_G.xmi",
       // Searchmode.DEPTHIGNORE);
-      runner.logTime("input_models/TTC_InputRDG_H.xmi", Searchmode.DEPTHIGNORE);
+      runner.logTime("input_models/TTC_InputRDG_B.xmi", Searchmode.DEPTH);
       // runner.logTime("input_models/TTC_InputRDG_I.xmi",
       // Searchmode.DEPTHIGNORE);
       // runner.logTime("input_models/TTC_InputRDG_J.xmi",
@@ -203,7 +203,8 @@ public class RunTestCases
     * @see <a href='../../../../doc/TTC_InputRDG_F.html'>TTC_InputRDG_F.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_G.html'>TTC_InputRDG_G.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_H.html'>TTC_InputRDG_H.html</a>
-    */
+    * @see <a href='../../../../doc/TTC_InputRDG_Small1.html'>TTC_InputRDG_Small1.html</a>
+ */
    private void runCase(String caseFileName)
    {
       for (Searchmode m : Searchmode.values())
@@ -265,7 +266,8 @@ public class RunTestCases
     * @see <a href='../../../../doc/TTC_InputRDG_F.html'>TTC_InputRDG_F.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_G.html'>TTC_InputRDG_G.html</a>
     * @see <a href='../../../../doc/TTC_InputRDG_H.html'>TTC_InputRDG_H.html</a>
-    */
+    * @see <a href='../../../../doc/TTC_InputRDG_Small1.html'>TTC_InputRDG_Small1.html</a>
+ */
    public void runCase(String caseFile, Searchmode mode)
    {
 
@@ -416,6 +418,13 @@ public class RunTestCases
       best = reachabilityGraph.getStates().getMetricValue().max();
 
       bestState = reachabilityGraph.getStates().filterMetricValue(best).first();
+      
+      int i = 1;
+      for (Class c : ((ClassModel) bestState.getGraphRoot()).getClasses())
+      {
+         c.setName("C" + i);
+         i++;
+      }
 
       printMetrics((ClassModel) bestState.getGraphRoot());
    }
@@ -438,7 +447,7 @@ public class RunTestCases
       reachabilityGraph
          .setMetric(graphRootObject -> CRAIndexCalculator.calculateCRAIndex((ClassModel) graphRootObject));
 
-      // merge rule
+      // merge rules
       //      ClassModelPO classModelPO = mergeDataDependencyRule();
       //
       //      reachabilityGraph.addToRules(classModelPO.getPattern().withName("mergedata"));
@@ -552,7 +561,11 @@ public class RunTestCases
 
       ClassPO newClassPO = classModelPO.filterClasses();
       newClassPO.filterEncapsulates(featurePO);
-      newClassPO.filter(c -> c.withName("Class4" + featurePO.getName()) != null);
+      
+      // add name after state space expansion to make C1 depend on 2 and vice versa cases handled only once.
+      // requires post processing
+      // newClassPO.filter(c -> c.withName("Class4" + featurePO.getName()) != null); 
+      
       featurePO.endCreate();
       featurePO.allMatches();
 
