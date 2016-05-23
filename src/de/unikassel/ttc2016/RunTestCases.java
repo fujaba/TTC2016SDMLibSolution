@@ -140,7 +140,7 @@ public class RunTestCases
       // Searchmode.DEPTHIGNORE);
       // runner.logTime("input_models/TTC_InputRDG_G.xmi",
       // Searchmode.DEPTHIGNORE);
-      runner.logTime("input_models/TTC_InputRDG_B.xmi", Searchmode.DEPTH);
+      runner.logTime("input_models/TTC_InputRDG_B.xmi", Searchmode.DEFAULT);
       // runner.logTime("input_models/TTC_InputRDG_I.xmi",
       // Searchmode.DEPTHIGNORE);
       // runner.logTime("input_models/TTC_InputRDG_J.xmi",

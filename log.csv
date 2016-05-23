@@ -230,3 +230,6 @@
 23.05.2016 15:04:20;zuendorf;4611;3.0;100;DEPTH;4;input_models/TTC_InputRDG_A.xmi
 23.05.2016 15:04:21;zuendorf;1133;3.0;100;IGNORE;4;input_models/TTC_InputRDG_A.xmi
 23.05.2016 15:09:30;zuendorf;302556;3.0;5000;DEPTH;8;input_models/TTC_InputRDG_B.xmi
+23.05.2016 15:23:38;zuendorf;807858;3.0;10000;DEPTH;8;input_models/TTC_InputRDG_B.xmi
+23.05.2016 17:47:30;zuendorf;644738;3.5;10000;DEPTHIGNORE;8;input_models/TTC_InputRDG_B.xmi
+23.05.2016 17:57:16;zuendorf;509332;3.75;10000;DEFAULT;8;input_models/TTC_InputRDG_B.xmi
