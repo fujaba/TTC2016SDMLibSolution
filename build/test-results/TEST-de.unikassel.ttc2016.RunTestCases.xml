@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.unikassel.ttc2016.RunTestCases" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-06-10T14:49:13" hostname="zuendorf-laptop" time="0.827">
+  <properties/>
+  <testcase name="testCRA4Paper" classname="de.unikassel.ttc2016.RunTestCases" time="0.18"/>
+  <testcase name="testRules" classname="de.unikassel.ttc2016.RunTestCases" time="0.211"/>
+  <testcase name="testSingleCase" classname="de.unikassel.ttc2016.RunTestCases" time="0.432"/>
+  <system-out><![CDATA[|Classes|    = 2
+|Methods|    = 0
+|Attributes| = 0
+All classes have different names: ok
+All features are encapsulated in a class: ok
+The aggregated cohesion ratio is: 2.0
+The aggregated coupling ratio is: 0.4444444444444444
+This makes a CRA-Index of: 1.5555555555555556
+
+
+################################################
+input_models/TTC_InputRDG_B.xmi
+################################################
+This test case consists of 18 features.
+Applying search mode DEFAULT
+|Classes|    = 18
+|Methods|    = 8
+|Attributes| = 10
+All classes have different names: ok
+All features are encapsulated in a class: ok
+The aggregated cohesion ratio is: 0.0
+The aggregated coupling ratio is: 15.0
+This makes a CRA-Index of: -15.0
+Reachability graph has 1 reachable states and 0 states still to be expanded
+Best state is : 1 -15.0
+CRA FOR BEST RESULT IS WORSE THAN PREVIOUSLY! (3.75 vs -15.0)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

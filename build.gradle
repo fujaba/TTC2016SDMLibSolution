@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+
+repositories {
+   maven { url "https://se.cs.uni-kassel.de/artifactory/libs-snapshot-local" }
+   maven { url 'https://repo.eclipse.org/content/repositories/paho-snapshots/' }
+   jcenter()
+   mavenCentral()
+}
+
+sourceSets {
+        main {
+            java.srcDirs = ['src']
+        }
+
+        test {
+            java.srcDirs = ['src']
+        }
+}
+
+
+dependencies {
+   compile 'junit:junit:4.+'
+   if ( ! project.hasProperty('useLocalDependencies'))
+   {
+   	  compile 'org.sdmlib:SDMLib:2.2.+'
+	  compile(group: 'org.sdmlib', name: 'SDMLib', version: '2.2.+', classifier: 'replication')
+   }
+   else
+   {
+		println "using local networkparser and sdmlib"
+		compile fileTree(dir: "../NetworkParser", include: ['*SNAPSHOT.jar'])
+		compile fileTree(dir: "../SDMLib", include: ['*SNAPSHOT.jar'])
+   }
+}
+
