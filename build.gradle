@@ -31,8 +31,8 @@ dependencies {
    else
    {
 		println "using local networkparser and sdmlib"
-		compile fileTree(dir: "../NetworkParser", include: ['*SNAPSHOT.jar'])
-		compile fileTree(dir: "../SDMLib", include: ['*SNAPSHOT.jar'])
+		compile fileTree(dir: "../NetworkParser", include: ['NetworkParser.jar'])
+		compile fileTree(dir: "../SDMLib", include: ['SDMLib.jar'])
    }
 }
 
