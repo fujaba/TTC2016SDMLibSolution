@@ -92,7 +92,7 @@ public class GraphTransformationExecutor {
 
 			ClassPO newClassPO = classModelPO.filterClasses();
 			newClassPO.filterEncapsulates(featurePO);
-			newClassPO.filter(c -> c.withName("Class4"+featurePO.getName()) != null);
+			newClassPO.createCondition(c -> c.withName("Class4"+featurePO.getName()) != null);
 			featurePO.endCreate();
 			featurePO.allMatches();
 

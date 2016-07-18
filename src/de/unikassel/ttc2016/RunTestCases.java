@@ -467,7 +467,7 @@ public class RunTestCases
       ClassModelPO classModelPO = new ClassModelPO();
       ClassPO c1PO = classModelPO.filterClasses();
       
-      ClassPO c2PO = c1PO.filterPath(
+      ClassPO c2PO = c1PO.createPath(
          c -> {
             MethodSet methods = ((Class) c).getEncapsulates().instanceOf(new MethodSet());
          
