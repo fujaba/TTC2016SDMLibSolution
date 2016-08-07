@@ -21,7 +21,7 @@ import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
 import org.sdmlib.models.pattern.util.RuleApplicationSet;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.unikassel.ttc2016.model.Attribute;
 import de.unikassel.ttc2016.model.Class;
@@ -220,7 +220,7 @@ public class RunTestCases
    @Test
    public void testCRA4Paper() throws Exception
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
 
       ClassModel m = new ClassModel();
 
@@ -271,7 +271,7 @@ public class RunTestCases
    public void runCase(String caseFile, Searchmode mode)
    {
 
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
       int pos = caseFile.lastIndexOf('/');
       String storyName = caseFile.substring(pos + 1);
       storyName = CGUtil.packageName(storyName);
@@ -579,7 +579,7 @@ public class RunTestCases
    @Test
    public void testRules() throws Exception
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
 
       ClassModelPO addInitialClasses = addInitialClasses(null);
 

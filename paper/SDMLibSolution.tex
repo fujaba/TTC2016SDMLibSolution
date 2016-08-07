@@ -168,15 +168,14 @@ attribute gets assigned the concatenation of the prefix \texttt{"Class4"}
 and the \texttt{name} of the current \texttt{Feature}. Thus, after the 
 execution of this rule, each feature has its own class containing just this 
 feature. This class model is then used as starting point for the repetitive 
-application of our clustering rules. 
+application of our clustering rule. 
 
-We use two different clustering rules, one for clustering along data dependencies 
-and one for clustering along functional dependencies. Figure~\ref{fig:MergeAttributeRule} 
-shows the data dependency clustering rule \texttt{MergeDataDep}: 
+Our clustering rule merges classes along functional or data dependencies, 
+cf. Figure~\ref{fig:MergeAttributeRule}: 
 
 \begin{figure}[ht] \centering
-	\includegraphics[width=\linewidth]{images/RuleMergeDataDep.pdf}
- \caption{Merging Classes via Attribute Dependencies}
+	\includegraphics[width=\linewidth]{images/RuleMergeDep.pdf}
+ \caption{Merging Classes via Feature Dependencies}
  \label{fig:MergeAttributeRule}
 \end{figure}  
 
@@ -185,9 +184,10 @@ is bound to \texttt{c1} at rule invocation. Then we follow a \texttt{classes}
  edge to find a match for \texttt{c2}, i.e. a \texttt{Class} object in our 
 \texttt{ClassModel}. Next, we follow an \texttt{encapsulates} edge to match 
 a \texttt{Method} object \texttt{m4} contained in \texttt{c2}. The object 
-matched by \texttt{m4} must have a \texttt{dataDependency} edge to an \texttt
-{Attribute} object matched by the pattern object \texttt{a5}. This 
-\texttt{Attribute} object in turn must be contained in a \texttt{Class} matched by 
+matched by \texttt{m4} must have a \texttt{dataDependency} edge 
+or a \texttt{functionalDependency} edge to a \texttt{Feature} object 
+matched by the pattern object \texttt{f5}. This 
+\texttt{Feature} object in turn must be contained in a \texttt{Class} matched by 
 \texttt{c6}. By default, SDMLib allows homomorphic matches, thus \texttt{c2} 
 and \texttt{c6} would be allowed to match the same \texttt{Class} object. 
 Via the \texttt{\{matchOtherThen c2\}} clause, we enforce isomorphic 
@@ -197,34 +197,24 @@ matching, i.e. \texttt{c2} and \texttt{c6} must match two different
 containing the \texttt{FeaturePO} pattern object \texttt{f7} is executed on 
 all possible matches. Pattern object \texttt{f7} matches for all features 
 contained in the \texttt{Class} matched by \texttt{c6}. (Note, \texttt{f7} 
-exploits homomorphic matching and will also match the \texttt{Attribute} 
-object already matched by \texttt{a5}.) For each \texttt{Feature} object, 
+exploits homomorphic matching and will also match the \texttt{Feature} 
+object already matched by \texttt{f5}.) For each \texttt{Feature} object, 
 the \texttt{encapsulates} edge connecting it to the \texttt{Class} matched 
 by \texttt{c6} is deleted and a new \texttt{isEncapsulatedBy} edge 
 connecting it to the \texttt{Class} matched by \texttt{c2} is created. After 
 transferring all features to the \texttt{Class} matched by \texttt{c2}, the 
 \texttt{Class} matched by \texttt{c6} is destroyed. Thus, the rule shown in 
 Figure~\ref{fig:MergeAttributeRule} merges two classes that are connected 
-via a \texttt{dataDependency} into one class. 
+via a feature dependency into one class. 
 
-Figure~\ref{fig:MergeMethodRule} shows our second clustering rule \texttt{MergeFuncDep}. 
-It works similar to rule \texttt{MergeDataDep} but it applies to a pair of classes that
-is connected via a \texttt{functionalDependency}. 
-
-\begin{figure}[ht] \centering
-	\includegraphics[width=\linewidth]{images/RuleMergeMethodDep.pdf}
- \caption{Merging Classes via Method Dependencies}
- \label{fig:MergeMethodRule}
-\end{figure}
-
-Our two clustering rules merge classes only if there is a dependency between them. 
+Our clustering rule merges classes only if there is a dependency between them. 
 This already utilizes application specific knowledge about our CRAIndex metric. Our 
 search space expansion will start with classes containing only one feature each. Merging 
 classes without a dependency between them is not going to improve the CRAIndex of 
 the resulting class model. Merging classes has the potential to improve the CRAIndex only 
-if the classes contain features that depend on each other. Thus, our clustering rules 
-are already optimized for the optimization of the CRAIndex. Using a different metric would 
-perhabs require a more general clustering strategy. As the metric is evaluated 
+if the classes contain features that depend on each other. Thus, our clustering rule 
+is already optimized for the optimization of the CRAIndex. Using a different metric would 
+perhaps require a more general clustering strategy. As the metric is evaluated 
 during the search space exploration, it would be easy to simply merge any two 
 classes, as any graphs resulting from applying a non metric improving rule 
 would immediately be dismissed anyways.
@@ -235,97 +225,38 @@ would immediately be dismissed anyways.
 
 At the beginning, a \texttt{ReachbilityGraph} object is initialized with a 
 start graph or \texttt{startState} and with a set of \texttt{rules} that 
-shall be applied to the different reachable states. Our standard 
-reachability graph computation algorithm is shown in 
-Listing~\ref{Activity.initVariables.java}. For the standard reachability graph 
-computation, we call explore(depth) where depth is the maximal number of 
-states to be generated. This is used e.g. to terminate the search in case of 
-an unlimited search spaces. First, our expansion algorithm initializes 
-its \texttt{todo} list with the \texttt{startState} and adds the 
-\texttt{startState} to a hash table of reachable \texttt{states} where 
-a graph \texttt{certificate} is used as key as proposed by \cite{rensink2003groove}.
-Then, we line~5 loops through the \texttt{todo} list until it drains or the maximal 
-\texttt{depth} of reachable \texttt{states} is reached. Each time, line~6 removes 
-the first element of the \texttt{todo} list and chooses it as \texttt{current} state. 
-Then line~7 and line~8 iterate through all \texttt{rules} and all matches. 
-For each match, we \texttt{clone()} the \texttt{current} state and apply the 
-rule changes to that clone, resulting in a \texttt{newState}. As the \texttt{newState}
-may have been created by other rule applications already, line~10 tries to \texttt{find} 
-an \texttt{isoOldState}, i.e. the \texttt{find}  operation computes the 
-\texttt{certificate} of the \texttt{newState} and tries to look it up in the 
-\texttt{states} hash table. This may involve a isomorphism check in case of accidentally 
-matching certificates. If no \texttt{isoOldState} is found, line~12 adds the 
-\texttt{newState} to the hash table of reachable \texttt{states}, line~13 adds an edge
-labeled with the applied rule from the \texttt{current} state to the \texttt{newState}, 
-and line~14 adds the \texttt{newState} to our \texttt{todo} list. If there is an 
-\texttt{isoOldState} line~16 just adds an edge from the \texttt{current} state to the 
-\texttt{isoOldState}.
-
-\begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
-label={Activity.initVariables.java}, escapeinside={\%}{\%},
-caption={General Reachability Graph Computation}
-]
-ReachabilityGraph::explore(depth) {
-   todo = new ArrayList();
-   todo.add(this.startState);
-   states.put(certificate(this.startState), startState);
-   while (! todo.isEmpty() && states.size() <= depth) {
-      current = todo.get(0); todo.remove(0);
-      for(Rule r : this.rules) {
-         while (r.findMatch()) {
-            newState = current.clone().apply(r);
-            isoOldState = find(states, newState);
-            if (isoOldState == null){
-               states.put(certificate(newState), newState);
-               addEdge(current, r, newState);
-               todo.add(newState);
-            } else {
-               addEdge(current, r, isoOldState);
-            }
-         }
-      }
-   }
-}
-\end{lstlisting}
-
-Our old reachability graph algorithm shown in Listing \ref{Activity.initVariables.java}
-removes elements from the beginning of its \texttt{todo} list and adds new elements to the 
-end of the \texttt{todo} list. This results in some kind of \emph{breadth first} 
-search strategy. 
-
-In many examples we have considered so far, the given rules 
-do not extend the given graph but they only mark certain situations or move elements 
-from one place to another. In such cases the number of different graphs that 
-may be generated is finite and thus the complete reachability graph may be 
-generated. Then you just call our explore method with the maximal \texttt{Long} value. 
-The rules shown in Section~\ref{sec:rules} reduce the number of classes by one on each 
-rule application. Thus, the number of rule applications is also finite and we 
-might be able to compute the full reachability graph. However, the computation 
-slows down dramatically as soon as the memory used by our reachability graph exceeds 
-the computers physical main memory size (16 giga byte for our test computer). For the 
-larger clustering example E this size is reached by about 25000 reachable states
-which is only a fraction of the overall possible states. 
-When you cannot search through the whole state space, the breadth first search 
-strategy of our standard algorithm will most likely not reach the interesting 
-parts of the state space but it visits \emph{"early"} states, only.   
-To adjust for a broader use and examples like the current challenge, 
-we have implemented three additional exploration algorithms. It is therefor now 
-possible to choose from the three different modes and still pass the depth of 
-the expansion, offering great flexibility for search space exploration. The 
-three modes are the following:
-
-
-\subsection{Default A$*$ like search space exploration}
-
-To enable an A$*$ like search space expansion strategy Listing~\ref{lst:defaultAStar}
-extends our \texttt{explore} method with a \texttt{metric} parameter. At call time
-we pass a concrete metric e.g. as Java 8 lambda expression. 
+shall be applied to the different reachable states. Our standard A* search space 
+exploration algorithm is shown in 
+Listing~\ref{lst:defaultAStar}. For the A* search space 
+exploration, we call e.g.
 \begin{verbatim}
 rg.explore(25000, g -> CRAIndexCalculator.calculateCRAIndex((ClassModel) g));
 \end{verbatim}
-The new explore method just \texttt{sort}s the \texttt{todo} list in line~6 before choosing 
-a new element. Thereby, each step considers the state with the best 
+where the first parameter is the maximal number of 
+states to be generated and the second parameter is the cost function that guides
+our search space expansion algorithm. First, our expansion algorithm initializes 
+its \texttt{todo} list with the \texttt{startState} and adds the 
+\texttt{startState} to a hash table of reachable \texttt{states} where 
+a graph \texttt{certificate} is used as key, as proposed by \cite{rensink2003groove}.
+Then, line~5 loops through the \texttt{todo} list until it drains or the maximal 
+\texttt{depth} of the search space is reached. 
+Line~6 of our explore method just \texttt{sort}s the \texttt{todo} list before choosing 
+a new element in line~7. Thereby, each exploration step considers the state with the best 
 CRAIndex for further expansion resulting in a depth first like expansion strategy. 
+Then line~8 and line~9 iterate through all \texttt{rules} and all matches. 
+For each match, we \texttt{clone()} the \texttt{current} state and apply the 
+rule changes to that clone, resulting in a \texttt{newState}. As the \texttt{newState}
+may have been created by other rule applications already, line~11 tries to \texttt{find} 
+an \texttt{isoOldState}, i.e. the \texttt{find}  operation computes the 
+\texttt{certificate} of the \texttt{newState} and tries to look it up in the 
+\texttt{states} hash table. This may involve an isomorphism check in case of accidentally 
+matching certificates. If no \texttt{isoOldState} is found, line~13 adds the 
+\texttt{newState} to the hash table of reachable \texttt{states}, line~14 adds an edge
+labeled with the applied rule from the \texttt{current} state to the \texttt{newState}, 
+and line~15 adds the \texttt{newState} to our \texttt{todo} list. If there is an 
+\texttt{isoOldState} line~17 just adds an edge from the \texttt{current} state to the 
+\texttt{isoOldState}.
+
 
 \begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
 label={lst:defaultAStar}, escapeinside={\%}{\%},
@@ -356,179 +287,46 @@ ReachabilityGraph::explore(depth, metric) {
 \end{lstlisting}
 
 
-\subsection{Metric-based "Ignore Decline" Mode}
-
-Our A$*$ expansion strategy in each step still generates all successors of the 
-\texttt{current} state. For example E there are about 400 dependencies, thus, 
+Within each step, our default A$*$ search space exploration strategy 
+generates all successors of the 
+\texttt{current} state. For case E there are about 400 dependencies, thus, 
 the initial state has about 400 successor states. While this number decreases 
 by one with each rule application, the first 100 rule applications have 
 have 350 successors on average resulting in 35000 states, which already exceeds our 
-memory space. To improve this, Listing~\ref{lst:ignore} improves our 
-A$*$ algorithm by comparing the metric value of the \texttt{newState} with 
+memory space. To improve this, we added a variant of our algorithm called 
+\emph{Ignore Decline} mode.  The Ignore Decline mode improves our 
+exploration algorithm by comparing the metric value of the \texttt{newState} with 
 the current \texttt{bestMetric}. If the metric of the \texttt{newState} is lower 
-then the \texttt{bestMetric} we ignore the \texttt{newState}, cf. line~13, and 
-we do not add it to our reachability graph nor to our \texttt{todo} list.  
-Thus, the metric passed to the explore function is 
-evaluated for all graphs. The list of graphs to still be explored is also 
-ordered based on the metric, thus graphs with a better metric are explored 
-earlier on. However we ignore all those graphs that decline our current result.
+then the \texttt{bestMetric} we ignore the \texttt{newState}, i.e. 
+we do not add it to our reachability graph nor to our \texttt{todo} list. This 
+may exclude some important candidates from later consideration but it reduces the 
+number of states to be added to our reachability graph considerably thus reducing 
+memory space consumption.   
 
-\begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
-label={lst:ignore}, escapeinside={\%}{\%},
-caption={Metric based Reachability Graph Computation}
-]
-ReachabilityGraph::explore(depth, metric) {
-   todo = new ArrayList();
-   todo.add(this.startState);
-   states.put(certificate(this.startState), startState);
-   bestMetric = metric(this.startState);
-   while (! todo.isEmpty() && states.size() <= depth) {
-      sort(todo, metric);
-      current = todo.get(0); todo.remove(0);
-      for(Rule r : this.rules) {
-         while (r.findMatch()) {
-            newState = current.clone().apply(r);
-            if(metric(newState) < bestMetric){
-               continue;
-            }else{
-               bestMetric = metric(newState);
-            }
-            isoOldState = find(states, newState);
-            if (isoOldState == null){
-               states.put(certificate(newState), newState);
-               addEdge(current, r, newState);
-               todo.add(newState);
-            } else {
-               addEdge(current, r, isoOldState);
-            }
-         }
-      }
-   }
-}
-\end{lstlisting}
-
-
-\subsection{Metric-based "promote improvement" mode}
-
-The second mode promotes any improvements in the applied metric, thus stopping 
-the current expansion step as soon as the metric yields a better result for a 
-newly generated graph. No further rules are applied to the current graph and 
-the discovered graph will now be explored as depicted in Listing 
-\ref{lst:improve}. When line~16 detects that the \texttt{newState} is an improvement 
-compared to the \texttt{current} state, line~18 aborts the expansion of the 
-\texttt{current} state and we choose the best state of our \texttt{todo} 
-list for further expansion. This is again our \texttt{newState}, 
-as the old \texttt{current} state has been the best state in the previous 
-expansion step and \texttt{newState} is even better. In addition, 
-line~17 pushes the old \texttt{current} state back into our \texttt{todo} list, for later 
-reconsideration.   
-
-This algorithm very quickly returns 
-local optimums of the reachability graph. In case it can not further enhance a 
-local optimum it stores the state of expansion on earlier graphs and continues 
-expanding them later on, so it will not only lead to the first local optimum 
-but rather detect a few other, depending on how many steps are necessary to reach 
-them and limited by the depth constraint. 
-
-\begin{lstlisting}[language=Java, numbers=left, captionpos=b, 
-label={lst:improve}, escapeinside={\%}{\%},
-caption={Metric based depth first Reachability Graph Computation}
-]
-ReachabilityGraph::explore(depth, metric) {
-   todo = new ArrayList();
-   todo.add(this.startState);
-   states.put(certificate(this.startState), startState);
-   improve: while (! todo.isEmpty() && states.size() <= depth) {
-      sort(todo, metric);
-      current = todo.get(0); todo.remove(0);
-      for(Rule r : this.rules) {
-         while (r.findMatch()) {
-            newState = current.clone().apply(r);
-            isoOldState = find(states, newState);
-            if (isoOldState == null){
-               states.put(certificate(newState), newState);
-               addEdge(current, r, newState);
-               todo.add(newState);
-               if(metric(newState) > metric(current){
-                  todo.add(current);
-                  continue improve;
-               }
-            } else {
-               addEdge(current, r, isoOldState);
-            }
-         }
-      }
-   }
-}
-\end{lstlisting}
-
+The second variant of our search space exploration algorithm is called 
+\emph{Promote Improvements} mode.  The Promote Improvement mode computes the metric 
+for each new state and in case of an improvement compared to the current state, 
+we stop the expansion of the current state (putting it back into the todo list). 
+Then we jump back to line~6 and start with a new iteration, i.e. we sort the todo list 
+(bringing the new best state to the front) and continue the search space exploration 
+with this new state.
+The Promote Improvement mode reaches  
+local optima of the reachability graph very fast. 
 Note, when the search is exhausted for some state and we go back to earlier
 states, rule application on those earlier states will first produce the same
 matches as in earlier runs. These same old matches will be identified by line~11
 as \texttt{isoOldState}s and thus ignored. However, this requires the computation 
 of a certificate and an isomorphism check. To avoid this effort, our real 
-implementation of the improve expansion stores the number of already created successors
+implementation of the The Promote Improvement mode stores 
+the number of already created successors
 for each state and on reconsideration, this number of rule applications is directly 
 ignored.  
+
 
 \section{Performance Results}
 \label{sec:results}
 
-The following figures show the CRAIndex we achieved with our different exploration algorithms
-for different search depth values. Overall, the depth algorithm achieves pretty good 
-CRAIndex values already for very small search depth values. For input D the depth algorithm 
-achieves a CRAIndex of 0.30 already for depth 200 within 43.294 seconds. For depth 500 the 
-CRAIndex improves to 0.40 within 05:24.005 minutes. Surprisingly, further backtracking and 
-visiting up to 2000 states again improves the CRAIndex to 0.49 now needing 32:11.173 minutes. 
-Usually, the depth algorithm finds its best result within 500 visited states. 
- 
-\begin{figure}[H] \centering
-	\includegraphics[width=0.8\linewidth]{Diagramme-Dateien/image001.png}
- \caption{CRAIndex per Search Depth for Example B}
- \label{fig:CRAByDepthB}
-\end{figure}
-
-\begin{figure}[H] \centering
-	\includegraphics[width=0.8\linewidth]{Diagramme-Dateien/image002.png}
- \caption{CRAIndex per Search Depth for Example C}
- \label{fig:CRAByDepthC}
-\end{figure}
-
-\begin{figure}[H] \centering
-	\includegraphics[width=0.8\linewidth]{Diagramme-Dateien/image005.png}
- \caption{CRAIndex per Search Depth for Example D}
- \label{fig:CRAByDepthD}
-\end{figure}
-
-\begin{figure}[H] \centering
-	\includegraphics[width=0.8\linewidth]{Diagramme-Dateien/image007.png}
- \caption{CRAIndex per Search Depth for Example E}
- \label{fig:CRAByDepthE}
-\end{figure}
-
-The following figures show the performance of our algorithms for the different inputs and 
-for the different search depth values.  
-
-\begin{figure}[H] \centering
-	\includegraphics[width=0.8\linewidth]{Diagramme2-Dateien/image009.png}
- \caption{Time (ms) per Search Depth for all inputs for algorithm default}
- \label{fig:TimeByDefault}
-\end{figure}
-
-
-\begin{figure}[H] \centering
-	\includegraphics[width=0.8\linewidth]{Diagramme2-Dateien/image011.png}
- \caption{Time (ms) per Search Depth for all inputs for algorithm depth}
- \label{fig:TimeByDepth}
-\end{figure}
-
-\begin{figure}[H] \centering
-	\includegraphics[width=0.8\linewidth]{Diagramme2-Dateien/image013.png}
- \caption{Time (ms) per Search Depth for all inputs for algorithm ignore}
- \label{fig:TimeByIgnore}
-\end{figure}
-
-Finally, Figure~\ref{fig:PerformanceSummary} shows the CRAIndex we achieve for the 
+Figure~\ref{fig:PerformanceSummary} shows the CRAIndex we achieve for the 
 different input models and the time our best algorithm needed to compute this. 
 
 \begin{figure}[H] \centering

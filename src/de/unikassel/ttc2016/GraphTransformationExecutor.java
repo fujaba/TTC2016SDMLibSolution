@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.ClassModel;
@@ -37,7 +37,7 @@ public class GraphTransformationExecutor {
 		 */
 		public void runCase(String caseFile)
 		{
-			StoryPage story = new StoryPage();
+			Storyboard story = new Storyboard();
 			IdMap map = ClassModelCreator.createIdMap("g");
 
 			byte[] allBytes;

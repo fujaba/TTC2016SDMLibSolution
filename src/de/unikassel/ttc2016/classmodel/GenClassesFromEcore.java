@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.storyboards.StoryPage;
+import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.graph.Attribute;
@@ -24,7 +24,7 @@ public class GenClassesFromEcore
  */
    public static void main(String[] args) throws IOException
    {
-      StoryPage story = new StoryPage();
+      Storyboard story = new Storyboard();
       
       IdMap map = new IdMap();
       String content = new String(Files.readAllBytes(new File("./input_models/architectureCRA.ecore").toPath()));

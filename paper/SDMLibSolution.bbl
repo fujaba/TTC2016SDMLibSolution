@@ -1,0 +1,14 @@
+\begin{thebibliography}{1}
+
+\bibitem{ttc2016-case}
+M.~Fleck, J.~Troya, and M.~Wimmer.
+\newblock {TTC2016 The Class Responsibility Assignment Case}.
+\newblock https://github.com/martin-fleck/cra-ttc2016, 2016.
+
+\bibitem{rensink2003groove}
+A.~Rensink.
+\newblock The {GROOVE} simulator: A tool for state space generation.
+\newblock In {\em Applications of Graph Transformations with Industrial
+  Relevance}, pages 479--485. Springer, 2003.
+
+\end{thebibliography}
