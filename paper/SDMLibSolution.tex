@@ -90,7 +90,7 @@ expansion. The paper reports about the results we achieved with this approach.
 \label{sec:intro}
 
 This paper describes the SDMLib solution to the Class Responsibility Assignment Case for TTC2016
-\cite{ttc2016-case}. SDMLib provides reachability graph computation ala Groove 
+\cite{ttc2016-case}. SDMLib provides \emph{reachability graph computation} ala Groove 
 \cite{rensink2003groove}. For a given start graph and a given set of rules, 
 the reachability graph computation generates all graphs that may be derived from 
 the start graph by applying all rules at all 
@@ -101,8 +101,8 @@ isomorphic graph. As proposed by \cite{rensink2003groove}, SDMLib computes node 
 certificates which are then used as hash keys to access potentially isomorphic 
 graphs efficiently. The node certificates then also help to do the actual 
 isomorphism test. If a new 
-graph has been generated, we create a so-called reachable state 
-node and we connect the reachable state node of the predecessor graph with the reachable 
+graph has been generated, we create a so-called \emph{reachable state 
+node} and we connect the reachable state node of the predecessor graph with the reachable 
 state node for the new graph via a rule application edge labeled with the name of 
 the rule used. In addition, a root node of the graph is attached to the reachable state node. 
 Altogether, the generated reachability graph has a top layer consisting of reachable 
@@ -131,20 +131,20 @@ graphs to investigate different intermediate states pays off, in the end.
 
 As it is usually not possible to generate the whole reachability graph for a given example, 
 our reachability graph computation may be restricted to a maximum number of reachable 
-states to be considered. Next, we have extended our reachability graph computation with an A* 
+states to be generated. Next, we have extended our reachability graph computation with an A* 
 like search space exploration that takes a metric as parameter and at each step chooses the 
 state with the best metric value for expansion. We have developed two variants of this A* 
 algorithm which will be discussed below. 
 
 The next section introduces the rules we use to solve the Class Responsibility Assignment Case
 and then Section~\ref{sec:expansion} shows the different search strategies we use in this 
-example. Finally,~\ref{sec:results} shows our performance measurements. In the last section
-we sum up our results. 
+example. Finally, Section~\ref{sec:results} shows our performance measurements. 
  
+
 \section{The Model Transformation Rules}
 \label{sec:rules}
 
-Our feature clustering approach uses three SDMLib model transformation rules. In the 
+Our feature clustering approach uses two SDMLib model transformation rules. In the 
 preparation phase we use the rule shown in Figure~\ref{fig:RuleInitialClasses} to create 
 one class for each feature in our class model. 
 
@@ -170,16 +170,15 @@ execution of this rule, each feature has its own class containing just this
 feature. This class model is then used as starting point for the repetitive 
 application of our clustering rule. 
 
-Our clustering rule merges classes along functional or data dependencies, 
-cf. Figure~\ref{fig:MergeAttributeRule}: 
-
+ 
 \begin{figure}[ht] \centering
 	\includegraphics[width=\linewidth]{images/RuleMergeDep.pdf}
  \caption{Merging Classes via Feature Dependencies}
  \label{fig:MergeAttributeRule}
 \end{figure}  
 
-The matching of this rule starts with the \texttt{ClassModel} object which 
+Our clustering rule merges classes along functional or data dependencies, 
+cf. Figure~\ref{fig:MergeAttributeRule}. The matching of this rule starts with the \texttt{ClassModel} object which 
 is bound to \texttt{c1} at rule invocation. Then we follow a \texttt{classes}
  edge to find a match for \texttt{c2}, i.e. a \texttt{Class} object in our 
 \texttt{ClassModel}. Next, we follow an \texttt{encapsulates} edge to match 
@@ -220,7 +219,7 @@ classes, as any graphs resulting from applying a non metric improving rule
 would immediately be dismissed anyways.
 
 
-\section{The Search Space Expansion Mechanisms}
+\section{The Search Space Exploration Mechanisms}
 \label{sec:expansion}
 
 At the beginning, a \texttt{ReachbilityGraph} object is initialized with a 
@@ -233,7 +232,7 @@ exploration, we call e.g.
 rg.explore(25000, g -> CRAIndexCalculator.calculateCRAIndex((ClassModel) g));
 \end{verbatim}
 where the first parameter is the maximal number of 
-states to be generated and the second parameter is the cost function that guides
+states to be generated and the second parameter is the metric function that guides
 our search space expansion algorithm. First, our expansion algorithm initializes 
 its \texttt{todo} list with the \texttt{startState} and adds the 
 \texttt{startState} to a hash table of reachable \texttt{states} where 
@@ -244,12 +243,12 @@ Line~6 of our explore method just \texttt{sort}s the \texttt{todo} list before c
 a new element in line~7. Thereby, each exploration step considers the state with the best 
 CRAIndex for further expansion resulting in a depth first like expansion strategy. 
 Then line~8 and line~9 iterate through all \texttt{rules} and all matches. 
-For each match, we \texttt{clone()} the \texttt{current} state and apply the 
+For each match, we \texttt{clone()} the \texttt{current} state and \texttt{apply()} the 
 rule changes to that clone, resulting in a \texttt{newState}. As the \texttt{newState}
 may have been created by other rule applications already, line~11 tries to \texttt{find} 
 an \texttt{isoOldState}, i.e. the \texttt{find}  operation computes the 
 \texttt{certificate} of the \texttt{newState} and tries to look it up in the 
-\texttt{states} hash table. This may involve an isomorphism check in case of accidentally 
+\texttt{states} hash table. This involves an isomorphism check to exclude accidentally 
 matching certificates. If no \texttt{isoOldState} is found, line~13 adds the 
 \texttt{newState} to the hash table of reachable \texttt{states}, line~14 adds an edge
 labeled with the applied rule from the \texttt{current} state to the \texttt{newState}, 
@@ -291,7 +290,7 @@ Within each step, our default A$*$ search space exploration strategy
 generates all successors of the 
 \texttt{current} state. For case E there are about 400 dependencies, thus, 
 the initial state has about 400 successor states. While this number decreases 
-by one with each rule application, the first 100 rule applications have 
+by one with each rule application, the first 100 rule applications  
 have 350 successors on average resulting in 35000 states, which already exceeds our 
 memory space. To improve this, we added a variant of our algorithm called 
 \emph{Ignore Decline} mode.  The Ignore Decline mode improves our 
@@ -317,7 +316,7 @@ states, rule application on those earlier states will first produce the same
 matches as in earlier runs. These same old matches will be identified by line~11
 as \texttt{isoOldState}s and thus ignored. However, this requires the computation 
 of a certificate and an isomorphism check. To avoid this effort, our real 
-implementation of the The Promote Improvement mode stores 
+implementation of the Promote Improvement mode stores 
 the number of already created successors
 for each state and on reconsideration, this number of rule applications is directly 
 ignored.  

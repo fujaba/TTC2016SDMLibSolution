@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.27)  7 AUG 2016 23:13
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.27)  13 AUG 2016 00:02
 entering extended mode
 **SDMLibSolution.tex
 (C:\Users\zuendorf\eclipseworkspaces\indigo\TTC2016SDMLibSolution\paper\SDMLibSolution.tex
@@ -355,13 +355,8 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 89.
  [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 141.
-
-LaTeX Warning: Reference `sec:results' on page 2 undefined on input line 141.
-
-<images/RuleAddInitialClasses.pdf, id=34, 489.62979pt x 128.95287pt>
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] <images/RuleAddInitialClasses.pdf, id=40, 489.62979pt x 128.95287p
+t>
 File: images/RuleAddInitialClasses.pdf Graphic file (type pdf)
  <use images/RuleAddInitialClasses.pdf>
 Package pdftex.def Info: images/RuleAddInitialClasses.pdf used on input line 152.
@@ -374,17 +369,19 @@ LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
 (Font)              for symbol `textbraceleft' on input line 160.
 
-<images/RuleMergeDep.pdf, id=36, 519.57283pt x 297.913pt>
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 162.
+<images/RuleMergeDep.pdf, id=41, 519.57283pt x 297.913pt>
 File: images/RuleMergeDep.pdf Graphic file (type pdf)
  <use images/RuleMergeDep.pdf>
-Package pdftex.def Info: images/RuleMergeDep.pdf used on input line 177.
+Package pdftex.def Info: images/RuleMergeDep.pdf used on input line 175.
 (pdftex.def)             Requested size: 469.47046pt x 269.18747pt.
  [2pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.209 
+l.208 
        <C:/Users/zuendorf/eclipseworkspaces/indigo/TTC2016SDMLibSolution/paper/images/RuleAddInitialClasses.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -393,22 +390,22 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.232 \begin{verbatim}
+l.231 \begin{verbatim}
                        <C:/Users/zuendorf/eclipseworkspaces/indigo/TTC2016SDMLibSolution/paper/images/RuleMergeDep.pdf>]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 264.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 263.
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 265.
-LaTeX Font Info:    Try loading font information for OML+ptm on input line 269.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 264.
+LaTeX Font Info:    Try loading font information for OML+ptm on input line 268.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omlptm.fd"
 File: omlptm.fd 
 )
 LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 269.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 268.
  [4]
-<images/performanceSummary.png, id=97, 368.87813pt x 49.68562pt>
+<images/performanceSummary.png, id=103, 368.87813pt x 49.68562pt>
 File: images/performanceSummary.png Graphic file (type png)
  <use images/performanceSummary.png>
-Package pdftex.def Info: images/performanceSummary.png used on input line 333.
+Package pdftex.def Info: images/performanceSummary.png used on input line 332.
 (pdftex.def)             Requested size: 375.57779pt x 50.58768pt.
 
 (C:\Users\zuendorf\eclipseworkspaces\indigo\TTC2016SDMLibSolution\paper\SDMLibSolution.bbl
@@ -421,40 +418,28 @@ d
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.343 \end{document}
+l.342 \end{document}
                      <C:/Users/zuendorf/eclipseworkspaces/indigo/TTC2016SDMLibSolution/paper/images/performanceSummary.p
 ng>]
 \pages=\write4
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 343.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 343.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 342.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 342.
  (C:\Users\zuendorf\eclipseworkspaces\indigo\TTC2016SDMLibSolution\paper\SDMLibSolution.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 343.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 343.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 342.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 342.
+Package rerunfilecheck Info: File `SDMLibSolution.out' has not changed.
+(rerunfilecheck)             Checksum: 8C47EF5FF75E48E28A8B6E63B394E390;244.
 
-
-Package rerunfilecheck Warning: File `SDMLibSolution.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `SDMLibSolution.out':
-(rerunfilecheck)             Before: 399492513740A6F6C81642CA53D34988;187
-(rerunfilecheck)             After:  24C2E54BD54573649BAA93C23EB54308;242.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 343.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 342.
  ) 
 Here is how much of TeX's memory you used:
- 6744 strings out of 493921
- 100651 string characters out of 3144867
- 191356 words of memory out of 3000000
- 9920 multiletter control sequences out of 15000+200000
+ 6745 strings out of 493921
+ 100662 string characters out of 3144867
+ 191400 words of memory out of 3000000
+ 9921 multiletter control sequences out of 15000+200000
  41662 words of font info for 86 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  36i,13n,42p,298b,1250s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -465,9 +450,9 @@ s/cm/cmtt10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/c
 eX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a
 .pfb>
-Output written on SDMLibSolution.pdf (5 pages, 154958 bytes).
+Output written on SDMLibSolution.pdf (5 pages, 155225 bytes).
 PDF statistics:
- 149 PDF objects out of 1000 (max. 8388607)
+ 153 PDF objects out of 1000 (max. 8388607)
  39 named destinations out of 1000 (max. 500000)
- 40 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 48 words of extra memory for PDF output out of 10000 (max. 10000000)
 
