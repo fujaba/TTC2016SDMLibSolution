@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,25 +21,45 @@
    
 package de.unikassel.ttc2016.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import de.unikassel.ttc2016.model.ClassModel;
-import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
 import de.unikassel.ttc2016.model.util.ClassSet;
 import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.util.FeatureSet;
 import de.unikassel.ttc2016.model.Feature;
 
-public class ClassModelSet extends SDMSet<ClassModel>
+public class ClassModelSet extends SimpleSet<ClassModel>
 {
+	public java.lang.Class<?> getTypClass() {
+		return ClassModel.class;
+	}
+
+   public ClassModelSet()
+   {
+      // empty
+   }
+
+   public ClassModelSet(ClassModel... objects)
+   {
+      for (ClassModel obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public ClassModelSet(Collection<ClassModel> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final ClassModelSet EMPTY_SET = new ClassModelSet().withFlag(ClassModelSet.READONLY);
 
 
-   public ClassModelPO filterClassModelPO()
+   public ClassModelPO createClassModelPO()
    {
       return new ClassModelPO(this.toArray(new ClassModel[this.size()]));
    }
@@ -50,6 +70,19 @@ public class ClassModelSet extends SDMSet<ClassModel>
       return "de.unikassel.ttc2016.model.ClassModel";
    }
 
+
+   @Override
+   public ClassModelSet getNewList(boolean keyValue)
+   {
+      return new ClassModelSet();
+   }
+
+
+   public ClassModelSet filter(Condition<ClassModel> condition) {
+      ClassModelSet filterList = new ClassModelSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public ClassModelSet with(Object value)
@@ -76,21 +109,15 @@ public class ClassModelSet extends SDMSet<ClassModel>
       return this;
    }
 
-   @Override
-   public ClassModelSet filter(Condition<ClassModel> newValue) {
-      ClassModelSet filterList = new ClassModelSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of ClassModel objects and collect a list of the name attribute values. 
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (ClassModel obj : this)
       {
@@ -108,7 +135,7 @@ public class ClassModelSet extends SDMSet<ClassModel>
     * 
     * @return Subset of ClassModel objects that match the parameter
     */
-   public ClassModelSet filterName(String value)
+   public ClassModelSet createNameCondition(String value)
    {
       ClassModelSet result = new ClassModelSet();
       
@@ -132,7 +159,7 @@ public class ClassModelSet extends SDMSet<ClassModel>
     * 
     * @return Subset of ClassModel objects that match the parameter
     */
-   public ClassModelSet filterName(String lower, String upper)
+   public ClassModelSet createNameCondition(String lower, String upper)
    {
       ClassModelSet result = new ClassModelSet();
       

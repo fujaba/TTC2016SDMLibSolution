@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,8 +24,11 @@ package de.unikassel.ttc2016.model;
 import de.unikassel.ttc2016.model.NamedElement;
 import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.Class;
-
-public  class Feature extends NamedElement
+   /**
+    * 
+    * @see <a href='../../../../../src/de/unikassel/ttc2016/classmodel/GenClassesFromEcore.java'>GenClassesFromEcore.java</a>
+ */
+   public  class Feature extends NamedElement
 {
 
    
@@ -34,12 +37,9 @@ public  class Feature extends NamedElement
    @Override
    public void removeYou()
    {
-   
-      super.removeYou();
-
       setClassmodel(null);
       setIsEncapsulatedBy(null);
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
 
@@ -92,7 +92,7 @@ public  class Feature extends NamedElement
             value.withFeatures(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSMODEL, oldValue, value);
+         firePropertyChange(PROPERTY_CLASSMODEL, oldValue, value);
          changed = true;
       }
       
@@ -151,7 +151,7 @@ public  class Feature extends NamedElement
             value.withEncapsulates(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_ISENCAPSULATEDBY, oldValue, value);
+         firePropertyChange(PROPERTY_ISENCAPSULATEDBY, oldValue, value);
          changed = true;
       }
       

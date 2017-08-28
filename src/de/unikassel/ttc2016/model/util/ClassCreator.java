@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,16 +22,13 @@
 package de.unikassel.ttc2016.model.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
-
-import org.sdmlib.serialization.EntityFactory;
-
 import de.unikassel.ttc2016.model.Class;
+import de.uniks.networkparser.IdMap;
 import de.unikassel.ttc2016.model.NamedElement;
 import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.Feature;
 
-public class ClassCreator extends EntityFactory
+public class ClassCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
@@ -86,11 +83,15 @@ public class ClassCreator extends EntityFactory
    {
       if (NamedElement.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((NamedElement) target).withName((String) value);
+         ((NamedElement) target).setName((String) value);
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((Class)target).removeYou();
+           return true;
+      }
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -107,7 +108,7 @@ public class ClassCreator extends EntityFactory
          return true;
       }
       
-      if ((Class.PROPERTY_ENCAPSULATES + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Class.PROPERTY_ENCAPSULATES + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Class) target).withoutEncapsulates((Feature) value);
          return true;

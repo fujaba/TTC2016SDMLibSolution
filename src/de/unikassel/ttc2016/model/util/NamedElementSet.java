@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,19 +21,46 @@
    
 package de.unikassel.ttc2016.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import de.unikassel.ttc2016.model.NamedElement;
-import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
+import de.unikassel.ttc2016.model.ClassModel;
+import de.unikassel.ttc2016.model.util.ClassModelSet;
+import de.unikassel.ttc2016.model.Class;
+import de.unikassel.ttc2016.model.util.ClassSet;
+import de.unikassel.ttc2016.model.Feature;
+import de.unikassel.ttc2016.model.util.FeatureSet;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
 
-public class NamedElementSet extends SDMSet<NamedElement>
+public class NamedElementSet extends SimpleSet<NamedElement>
 {
+	public java.lang.Class<?> getTypClass() {
+		return NamedElement.class;
+	}
+
+   public NamedElementSet()
+   {
+      // empty
+   }
+
+   public NamedElementSet(NamedElement... objects)
+   {
+      for (NamedElement obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public NamedElementSet(Collection<NamedElement> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final NamedElementSet EMPTY_SET = new NamedElementSet().withFlag(NamedElementSet.READONLY);
 
 
-   public NamedElementPO filterNamedElementPO()
+   public NamedElementPO createNamedElementPO()
    {
       return new NamedElementPO(this.toArray(new NamedElement[this.size()]));
    }
@@ -44,6 +71,64 @@ public class NamedElementSet extends SDMSet<NamedElement>
       return "de.unikassel.ttc2016.model.NamedElement";
    }
 
+
+   @Override
+   public NamedElementSet getNewList(boolean keyValue)
+   {
+      return new NamedElementSet();
+   }
+
+
+   public NamedElementSet filter(Condition<NamedElement> condition) {
+      NamedElementSet filterList = new NamedElementSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public ClassModelSet instanceOfClassModel()
+   {
+      ClassModelSet result = new ClassModelSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof ClassModel)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public ClassSet instanceOfClass()
+   {
+      ClassSet result = new ClassSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Class)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public FeatureSet instanceOfFeature()
+   {
+      FeatureSet result = new FeatureSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Feature)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
 
    @SuppressWarnings("unchecked")
    public NamedElementSet with(Object value)
@@ -70,21 +155,15 @@ public class NamedElementSet extends SDMSet<NamedElement>
       return this;
    }
 
-   @Override
-   public NamedElementSet filter(Condition<NamedElement> newValue) {
-      NamedElementSet filterList = new NamedElementSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of NamedElement objects and collect a list of the name attribute values. 
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (NamedElement obj : this)
       {
@@ -102,7 +181,7 @@ public class NamedElementSet extends SDMSet<NamedElement>
     * 
     * @return Subset of NamedElement objects that match the parameter
     */
-   public NamedElementSet filterName(String value)
+   public NamedElementSet createNameCondition(String value)
    {
       NamedElementSet result = new NamedElementSet();
       
@@ -126,7 +205,7 @@ public class NamedElementSet extends SDMSet<NamedElement>
     * 
     * @return Subset of NamedElement objects that match the parameter
     */
-   public NamedElementSet filterName(String lower, String upper)
+   public NamedElementSet createNameCondition(String lower, String upper)
    {
       NamedElementSet result = new NamedElementSet();
       

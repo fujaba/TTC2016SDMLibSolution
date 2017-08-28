@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,22 +22,22 @@
 package de.unikassel.ttc2016.model.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import de.unikassel.ttc2016.model.Method;
+import de.uniks.networkparser.IdMap;
 import de.unikassel.ttc2016.model.NamedElement;
 import de.unikassel.ttc2016.model.ClassModel;
-import de.unikassel.ttc2016.model.Feature;
-import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.Attribute;
+import de.unikassel.ttc2016.model.Class;
+import de.unikassel.ttc2016.model.Feature;
 
 public class MethodCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
       NamedElement.PROPERTY_NAME,
-      Feature.PROPERTY_CLASSMODEL,
-      Feature.PROPERTY_ISENCAPSULATEDBY,
+      Method.PROPERTY_CLASSMODEL,
       Method.PROPERTY_DATADEPENDENCY,
+      Method.PROPERTY_ISENCAPSULATEDBY,
       Method.PROPERTY_USEDBYMETHODS,
       Method.PROPERTY_FUNCTIONALDEPENDENCY,
    };
@@ -75,14 +75,14 @@ public class MethodCreator implements SendableEntityCreator
          return ((Method) target).getClassmodel();
       }
 
-      if (Method.PROPERTY_ISENCAPSULATEDBY.equalsIgnoreCase(attribute))
-      {
-         return ((Method) target).getIsEncapsulatedBy();
-      }
-
       if (Method.PROPERTY_DATADEPENDENCY.equalsIgnoreCase(attribute))
       {
          return ((Method) target).getDataDependency();
+      }
+
+      if (Method.PROPERTY_ISENCAPSULATEDBY.equalsIgnoreCase(attribute))
+      {
+         return ((Method) target).getIsEncapsulatedBy();
       }
 
       if (Method.PROPERTY_USEDBYMETHODS.equalsIgnoreCase(attribute))
@@ -103,11 +103,15 @@ public class MethodCreator implements SendableEntityCreator
    {
       if (NamedElement.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((NamedElement) target).withName((String) value);
+         ((NamedElement) target).setName((String) value);
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((Method)target).removeYou();
+           return true;
+      }
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -118,21 +122,21 @@ public class MethodCreator implements SendableEntityCreator
          return true;
       }
 
-      if (Method.PROPERTY_ISENCAPSULATEDBY.equalsIgnoreCase(attrName))
-      {
-         ((Method) target).setIsEncapsulatedBy((Class) value);
-         return true;
-      }
-
       if (Method.PROPERTY_DATADEPENDENCY.equalsIgnoreCase(attrName))
       {
          ((Method) target).withDataDependency((Attribute) value);
          return true;
       }
       
-      if ((Method.PROPERTY_DATADEPENDENCY + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Method.PROPERTY_DATADEPENDENCY + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Method) target).withoutDataDependency((Attribute) value);
+         return true;
+      }
+
+      if (Method.PROPERTY_ISENCAPSULATEDBY.equalsIgnoreCase(attrName))
+      {
+         ((Method) target).setIsEncapsulatedBy((Class) value);
          return true;
       }
 
@@ -142,7 +146,7 @@ public class MethodCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Method.PROPERTY_USEDBYMETHODS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Method.PROPERTY_USEDBYMETHODS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Method) target).withoutUsedByMethods((Method) value);
          return true;
@@ -154,7 +158,7 @@ public class MethodCreator implements SendableEntityCreator
          return true;
       }
       
-      if ((Method.PROPERTY_FUNCTIONALDEPENDENCY + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Method.PROPERTY_FUNCTIONALDEPENDENCY + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Method) target).withoutFunctionalDependency((Method) value);
          return true;

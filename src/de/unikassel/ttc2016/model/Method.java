@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -23,12 +23,15 @@ package de.unikassel.ttc2016.model;
 
 import de.unikassel.ttc2016.model.Feature;
 import de.unikassel.ttc2016.model.ClassModel;
-import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.util.AttributeSet;
 import de.unikassel.ttc2016.model.Attribute;
+import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.util.MethodSet;
-
-public  class Method extends Feature
+   /**
+    * 
+    * @see <a href='../../../../../src/de/unikassel/ttc2016/classmodel/GenClassesFromEcore.java'>GenClassesFromEcore.java</a>
+ */
+   public  class Method extends Feature
 {
 
    
@@ -37,15 +40,12 @@ public  class Method extends Feature
    @Override
    public void removeYou()
    {
-   
-      super.removeYou();
-
       setClassmodel(null);
-      setIsEncapsulatedBy(null);
       withoutDataDependency(this.getDataDependency().toArray(new Attribute[this.getDataDependency().size()]));
+      setIsEncapsulatedBy(null);
       withoutUsedByMethods(this.getUsedByMethods().toArray(new Method[this.getUsedByMethods().size()]));
       withoutFunctionalDependency(this.getFunctionalDependency().toArray(new Method[this.getFunctionalDependency().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
 
@@ -82,10 +82,6 @@ public  class Method extends Feature
       return this.dataDependency;
    }
 
-     /**
-    * 
-    * @see <a href='../../../../../src/de/unikassel/ttc2016/RunTestCases.java'>RunTestCases.java</a>
- */
    public Method withDataDependency(Attribute... value)
    {
       if(value==null){
@@ -105,7 +101,7 @@ public  class Method extends Feature
             if (changed)
             {
                item.withMethods(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_DATADEPENDENCY, null, item);
+               firePropertyChange(PROPERTY_DATADEPENDENCY, null, item);
             }
          }
       }
@@ -121,7 +117,7 @@ public  class Method extends Feature
             if (this.dataDependency.remove(item))
             {
                item.withoutMethods(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_DATADEPENDENCY, item, null);
+               firePropertyChange(PROPERTY_DATADEPENDENCY, item, null);
             }
          }
       }
@@ -183,7 +179,7 @@ public  class Method extends Feature
             if (changed)
             {
                item.withFunctionalDependency(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_USEDBYMETHODS, null, item);
+               firePropertyChange(PROPERTY_USEDBYMETHODS, null, item);
             }
          }
       }
@@ -199,7 +195,7 @@ public  class Method extends Feature
             if (this.usedByMethods.remove(item))
             {
                item.withoutFunctionalDependency(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_USEDBYMETHODS, item, null);
+               firePropertyChange(PROPERTY_USEDBYMETHODS, item, null);
             }
          }
       }
@@ -261,7 +257,7 @@ public  class Method extends Feature
             if (changed)
             {
                item.withUsedByMethods(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_FUNCTIONALDEPENDENCY, null, item);
+               firePropertyChange(PROPERTY_FUNCTIONALDEPENDENCY, null, item);
             }
          }
       }
@@ -276,8 +272,8 @@ public  class Method extends Feature
          {
             if (this.functionalDependency.remove(item))
             {
-               item.withoutFunctionalDependency(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_FUNCTIONALDEPENDENCY, item, null);
+               item.withoutUsedByMethods(this);
+               firePropertyChange(PROPERTY_FUNCTIONALDEPENDENCY, item, null);
             }
          }
       }

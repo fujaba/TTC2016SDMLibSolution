@@ -3,15 +3,15 @@ package de.unikassel.ttc2016.model.util;
 import org.sdmlib.models.pattern.PatternObject;
 import de.unikassel.ttc2016.model.Attribute;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import de.unikassel.ttc2016.model.util.ClassModelPO;
-import de.unikassel.ttc2016.model.Feature;
 import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.util.AttributePO;
-import de.unikassel.ttc2016.model.util.ClassPO;
-import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.util.MethodPO;
 import de.unikassel.ttc2016.model.Method;
 import de.unikassel.ttc2016.model.util.MethodSet;
+import de.unikassel.ttc2016.model.util.ClassPO;
+import de.unikassel.ttc2016.model.Class;
 
 public class AttributePO extends PatternObject<AttributePO, Attribute>
 {
@@ -43,7 +43,12 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
       }
       newInstance(null, hostGraphObject);
    }
-   public AttributePO filterName(String value)
+
+   public AttributePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public AttributePO createNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Attribute.PROPERTY_NAME)
@@ -57,7 +62,7 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
       return this;
    }
    
-   public AttributePO filterName(String lower, String upper)
+   public AttributePO createNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Attribute.PROPERTY_NAME)
@@ -72,9 +77,17 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
       return this;
    }
    
-   public AttributePO createName(String value)
+   public AttributePO createNameAssignment(String value)
    {
-      this.startCreate().filterName(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Attribute.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -96,75 +109,46 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
       return this;
    }
    
-   public ClassModelPO filterClassmodel()
+   public ClassModelPO createClassmodelPO()
    {
       ClassModelPO result = new ClassModelPO(new ClassModel[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Feature.PROPERTY_CLASSMODEL, result);
+      super.hasLink(Attribute.PROPERTY_CLASSMODEL, result);
       
       return result;
    }
 
-   public ClassModelPO createClassmodel()
+   public ClassModelPO createClassmodelPO(String modifier)
    {
-      return this.startCreate().filterClassmodel().endCreate();
+      ClassModelPO result = new ClassModelPO(new ClassModel[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Attribute.PROPERTY_CLASSMODEL, result);
+      
+      return result;
    }
 
-   public AttributePO filterClassmodel(ClassModelPO tgt)
+   public AttributePO createClassmodelLink(ClassModelPO tgt)
    {
-      return hasLinkConstraint(tgt, Feature.PROPERTY_CLASSMODEL);
+      return hasLinkConstraint(tgt, Attribute.PROPERTY_CLASSMODEL);
    }
 
-   public AttributePO createClassmodel(ClassModelPO tgt)
+   public AttributePO createClassmodelLink(ClassModelPO tgt, String modifier)
    {
-      return this.startCreate().filterClassmodel(tgt).endCreate();
+      return hasLinkConstraint(tgt, Attribute.PROPERTY_CLASSMODEL, modifier);
    }
 
    public ClassModel getClassmodel()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Feature) this.getCurrentMatch()).getClassmodel();
+         return ((Attribute) this.getCurrentMatch()).getClassmodel();
       }
       return null;
    }
 
-   public ClassPO filterIsEncapsulatedBy()
-   {
-      ClassPO result = new ClassPO(new Class[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Feature.PROPERTY_ISENCAPSULATEDBY, result);
-      
-      return result;
-   }
-
-   public ClassPO createIsEncapsulatedBy()
-   {
-      return this.startCreate().filterIsEncapsulatedBy().endCreate();
-   }
-
-   public AttributePO filterIsEncapsulatedBy(ClassPO tgt)
-   {
-      return hasLinkConstraint(tgt, Feature.PROPERTY_ISENCAPSULATEDBY);
-   }
-
-   public AttributePO createIsEncapsulatedBy(ClassPO tgt)
-   {
-      return this.startCreate().filterIsEncapsulatedBy(tgt).endCreate();
-   }
-
-   public Class getIsEncapsulatedBy()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Feature) this.getCurrentMatch()).getIsEncapsulatedBy();
-      }
-      return null;
-   }
-
-   public MethodPO filterMethods()
+   public MethodPO createMethodsPO()
    {
       MethodPO result = new MethodPO(new Method[]{});
       
@@ -174,19 +158,24 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
       return result;
    }
 
-   public MethodPO createMethods()
+   public MethodPO createMethodsPO(String modifier)
    {
-      return this.startCreate().filterMethods().endCreate();
+      MethodPO result = new MethodPO(new Method[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Attribute.PROPERTY_METHODS, result);
+      
+      return result;
    }
 
-   public AttributePO filterMethods(MethodPO tgt)
+   public AttributePO createMethodsLink(MethodPO tgt)
    {
       return hasLinkConstraint(tgt, Attribute.PROPERTY_METHODS);
    }
 
-   public AttributePO createMethods(MethodPO tgt)
+   public AttributePO createMethodsLink(MethodPO tgt, String modifier)
    {
-      return this.startCreate().filterMethods(tgt).endCreate();
+      return hasLinkConstraint(tgt, Attribute.PROPERTY_METHODS, modifier);
    }
 
    public MethodSet getMethods()
@@ -194,6 +183,45 @@ public class AttributePO extends PatternObject<AttributePO, Attribute>
       if (this.getPattern().getHasMatch())
       {
          return ((Attribute) this.getCurrentMatch()).getMethods();
+      }
+      return null;
+   }
+
+   public ClassPO createIsEncapsulatedByPO()
+   {
+      ClassPO result = new ClassPO(new Class[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Attribute.PROPERTY_ISENCAPSULATEDBY, result);
+      
+      return result;
+   }
+
+   public ClassPO createIsEncapsulatedByPO(String modifier)
+   {
+      ClassPO result = new ClassPO(new Class[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Attribute.PROPERTY_ISENCAPSULATEDBY, result);
+      
+      return result;
+   }
+
+   public AttributePO createIsEncapsulatedByLink(ClassPO tgt)
+   {
+      return hasLinkConstraint(tgt, Attribute.PROPERTY_ISENCAPSULATEDBY);
+   }
+
+   public AttributePO createIsEncapsulatedByLink(ClassPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Attribute.PROPERTY_ISENCAPSULATEDBY, modifier);
+   }
+
+   public Class getIsEncapsulatedBy()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Attribute) this.getCurrentMatch()).getIsEncapsulatedBy();
       }
       return null;
    }

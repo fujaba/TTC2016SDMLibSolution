@@ -3,6 +3,7 @@ package de.unikassel.ttc2016.model.util;
 import org.sdmlib.models.pattern.PatternObject;
 import de.unikassel.ttc2016.model.ClassModel;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import de.unikassel.ttc2016.model.util.ClassPO;
 import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.util.ClassModelPO;
@@ -41,7 +42,12 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
       }
       newInstance(null, hostGraphObject);
    }
-   public ClassModelPO filterName(String value)
+
+   public ClassModelPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public ClassModelPO createNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(ClassModel.PROPERTY_NAME)
@@ -55,7 +61,7 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
       return this;
    }
    
-   public ClassModelPO filterName(String lower, String upper)
+   public ClassModelPO createNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(ClassModel.PROPERTY_NAME)
@@ -70,9 +76,17 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
       return this;
    }
    
-   public ClassModelPO createName(String value)
+   public ClassModelPO createNameAssignment(String value)
    {
-      this.startCreate().filterName(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(ClassModel.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -94,7 +108,7 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
       return this;
    }
    
-   public ClassPO filterClasses()
+   public ClassPO createClassesPO()
    {
       ClassPO result = new ClassPO(new Class[]{});
       
@@ -104,19 +118,24 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
       return result;
    }
 
-   public ClassPO createClasses()
+   public ClassPO createClassesPO(String modifier)
    {
-      return this.startCreate().filterClasses().endCreate();
+      ClassPO result = new ClassPO(new Class[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ClassModel.PROPERTY_CLASSES, result);
+      
+      return result;
    }
 
-   public ClassModelPO filterClasses(ClassPO tgt)
+   public ClassModelPO createClassesLink(ClassPO tgt)
    {
       return hasLinkConstraint(tgt, ClassModel.PROPERTY_CLASSES);
    }
 
-   public ClassModelPO createClasses(ClassPO tgt)
+   public ClassModelPO createClassesLink(ClassPO tgt, String modifier)
    {
-      return this.startCreate().filterClasses(tgt).endCreate();
+      return hasLinkConstraint(tgt, ClassModel.PROPERTY_CLASSES, modifier);
    }
 
    public ClassSet getClasses()
@@ -128,7 +147,7 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
       return null;
    }
 
-   public FeaturePO filterFeatures()
+   public FeaturePO createFeaturesPO()
    {
       FeaturePO result = new FeaturePO(new Feature[]{});
       
@@ -138,19 +157,24 @@ public class ClassModelPO extends PatternObject<ClassModelPO, ClassModel>
       return result;
    }
 
-   public FeaturePO createFeatures()
+   public FeaturePO createFeaturesPO(String modifier)
    {
-      return this.startCreate().filterFeatures().endCreate();
+      FeaturePO result = new FeaturePO(new Feature[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(ClassModel.PROPERTY_FEATURES, result);
+      
+      return result;
    }
 
-   public ClassModelPO filterFeatures(FeaturePO tgt)
+   public ClassModelPO createFeaturesLink(FeaturePO tgt)
    {
       return hasLinkConstraint(tgt, ClassModel.PROPERTY_FEATURES);
    }
 
-   public ClassModelPO createFeatures(FeaturePO tgt)
+   public ClassModelPO createFeaturesLink(FeaturePO tgt, String modifier)
    {
-      return this.startCreate().filterFeatures(tgt).endCreate();
+      return hasLinkConstraint(tgt, ClassModel.PROPERTY_FEATURES, modifier);
    }
 
    public FeatureSet getFeatures()

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -27,8 +27,11 @@ import de.unikassel.ttc2016.model.Attribute;
 import de.unikassel.ttc2016.model.Method;
 import de.unikassel.ttc2016.model.util.FeatureSet;
 import de.unikassel.ttc2016.model.Feature;
-
-public  class Class extends NamedElement
+   /**
+    * 
+    * @see <a href='../../../../../src/de/unikassel/ttc2016/classmodel/GenClassesFromEcore.java'>GenClassesFromEcore.java</a>
+ */
+   public  class Class extends NamedElement
 {
 
    
@@ -37,12 +40,9 @@ public  class Class extends NamedElement
    @Override
    public void removeYou()
    {
-   
-      super.removeYou();
-
       setClassmodel(null);
       withoutEncapsulates(this.getEncapsulates().toArray(new Feature[this.getEncapsulates().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
 
@@ -95,7 +95,7 @@ public  class Class extends NamedElement
             value.withClasses(this);
          }
          
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSMODEL, oldValue, value);
+         firePropertyChange(PROPERTY_CLASSMODEL, oldValue, value);
          changed = true;
       }
       
@@ -157,7 +157,7 @@ public  class Class extends NamedElement
             if (changed)
             {
                item.withIsEncapsulatedBy(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ENCAPSULATES, null, item);
+               firePropertyChange(PROPERTY_ENCAPSULATES, null, item);
             }
          }
       }
@@ -173,7 +173,7 @@ public  class Class extends NamedElement
             if (this.encapsulates.remove(item))
             {
                item.setIsEncapsulatedBy(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_ENCAPSULATES, item, null);
+               firePropertyChange(PROPERTY_ENCAPSULATES, item, null);
             }
          }
       }

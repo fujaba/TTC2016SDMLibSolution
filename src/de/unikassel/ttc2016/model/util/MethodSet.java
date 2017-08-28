@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,28 +21,48 @@
    
 package de.unikassel.ttc2016.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import de.unikassel.ttc2016.model.Method;
-import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
 import de.unikassel.ttc2016.model.util.ClassModelSet;
 import de.unikassel.ttc2016.model.ClassModel;
-import de.unikassel.ttc2016.model.util.ClassSet;
-import de.unikassel.ttc2016.model.Class;
 import java.util.Collections;
 import de.unikassel.ttc2016.model.util.AttributeSet;
 import de.unikassel.ttc2016.model.Attribute;
+import de.unikassel.ttc2016.model.util.ClassSet;
+import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.util.MethodSet;
 
-public class MethodSet extends SDMSet<Method>
+public class MethodSet extends SimpleSet<Method>
 {
+	public java.lang.Class<?> getTypClass() {
+		return Method.class;
+	}
+
+   public MethodSet()
+   {
+      // empty
+   }
+
+   public MethodSet(Method... objects)
+   {
+      for (Method obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public MethodSet(Collection<Method> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final MethodSet EMPTY_SET = new MethodSet().withFlag(MethodSet.READONLY);
 
 
-   public MethodPO filterMethodPO()
+   public MethodPO createMethodPO()
    {
       return new MethodPO(this.toArray(new Method[this.size()]));
    }
@@ -53,6 +73,19 @@ public class MethodSet extends SDMSet<Method>
       return "de.unikassel.ttc2016.model.Method";
    }
 
+
+   @Override
+   public MethodSet getNewList(boolean keyValue)
+   {
+      return new MethodSet();
+   }
+
+
+   public MethodSet filter(Condition<Method> condition) {
+      MethodSet filterList = new MethodSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
 
    @SuppressWarnings("unchecked")
    public MethodSet with(Object value)
@@ -79,21 +112,15 @@ public class MethodSet extends SDMSet<Method>
       return this;
    }
 
-   @Override
-   public MethodSet filter(Condition<Method> newValue) {
-      MethodSet filterList = new MethodSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of Method objects and collect a list of the name attribute values. 
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Method obj : this)
       {
@@ -111,7 +138,7 @@ public class MethodSet extends SDMSet<Method>
     * 
     * @return Subset of Method objects that match the parameter
     */
-   public MethodSet filterName(String value)
+   public MethodSet createNameCondition(String value)
    {
       MethodSet result = new MethodSet();
       
@@ -135,7 +162,7 @@ public class MethodSet extends SDMSet<Method>
     * 
     * @return Subset of Method objects that match the parameter
     */
-   public MethodSet filterName(String lower, String upper)
+   public MethodSet createNameCondition(String lower, String upper)
    {
       MethodSet result = new MethodSet();
       
@@ -234,71 +261,6 @@ public class MethodSet extends SDMSet<Method>
    }
 
    /**
-    * Loop through the current set of Method objects and collect a set of the Class objects reached via isEncapsulatedBy. 
-    * 
-    * @return Set of Class objects reachable via isEncapsulatedBy
-    */
-   public ClassSet getIsEncapsulatedBy()
-   {
-      ClassSet result = new ClassSet();
-      
-      for (Method obj : this)
-      {
-         result.with(obj.getIsEncapsulatedBy());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Method objects and collect all contained objects with reference isEncapsulatedBy pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as isEncapsulatedBy neighbor of the collected results. 
-    * 
-    * @return Set of Class objects referring to value via isEncapsulatedBy
-    */
-   public MethodSet filterIsEncapsulatedBy(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      MethodSet answer = new MethodSet();
-      
-      for (Method obj : this)
-      {
-         if (neighbors.contains(obj.getIsEncapsulatedBy()) || (neighbors.isEmpty() && obj.getIsEncapsulatedBy() == null))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Method object passed as parameter to the IsEncapsulatedBy attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their IsEncapsulatedBy attributes.
-    */
-   public MethodSet withIsEncapsulatedBy(Class value)
-   {
-      for (Method obj : this)
-      {
-         obj.withIsEncapsulatedBy(value);
-      }
-      
-      return this;
-   }
-
-   /**
     * Loop through the current set of Method objects and collect a set of the Attribute objects reached via dataDependency. 
     * 
     * @return Set of Attribute objects reachable via dataDependency
@@ -373,6 +335,71 @@ public class MethodSet extends SDMSet<Method>
       for (Method obj : this)
       {
          obj.withoutDataDependency(value);
+      }
+      
+      return this;
+   }
+
+   /**
+    * Loop through the current set of Method objects and collect a set of the Class objects reached via isEncapsulatedBy. 
+    * 
+    * @return Set of Class objects reachable via isEncapsulatedBy
+    */
+   public ClassSet getIsEncapsulatedBy()
+   {
+      ClassSet result = new ClassSet();
+      
+      for (Method obj : this)
+      {
+         result.with(obj.getIsEncapsulatedBy());
+      }
+      
+      return result;
+   }
+
+   /**
+    * Loop through the current set of Method objects and collect all contained objects with reference isEncapsulatedBy pointing to the object passed as parameter. 
+    * 
+    * @param value The object required as isEncapsulatedBy neighbor of the collected results. 
+    * 
+    * @return Set of Class objects referring to value via isEncapsulatedBy
+    */
+   public MethodSet filterIsEncapsulatedBy(Object value)
+   {
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      MethodSet answer = new MethodSet();
+      
+      for (Method obj : this)
+      {
+         if (neighbors.contains(obj.getIsEncapsulatedBy()) || (neighbors.isEmpty() && obj.getIsEncapsulatedBy() == null))
+         {
+            answer.add(obj);
+         }
+      }
+      
+      return answer;
+   }
+
+   /**
+    * Loop through current set of ModelType objects and attach the Method object passed as parameter to the IsEncapsulatedBy attribute of each of it. 
+    * 
+    * @return The original set of ModelType objects now with the new neighbor attached to their IsEncapsulatedBy attributes.
+    */
+   public MethodSet withIsEncapsulatedBy(Class value)
+   {
+      for (Method obj : this)
+      {
+         obj.withIsEncapsulatedBy(value);
       }
       
       return this;

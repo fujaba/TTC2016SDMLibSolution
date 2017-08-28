@@ -3,6 +3,7 @@ package de.unikassel.ttc2016.model.util;
 import org.sdmlib.models.pattern.PatternObject;
 import de.unikassel.ttc2016.model.Feature;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import de.unikassel.ttc2016.model.util.ClassModelPO;
 import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.util.FeaturePO;
@@ -39,7 +40,12 @@ public class FeaturePO extends PatternObject<FeaturePO, Feature>
       }
       newInstance(null, hostGraphObject);
    }
-   public FeaturePO filterName(String value)
+
+   public FeaturePO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public FeaturePO createNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Feature.PROPERTY_NAME)
@@ -53,7 +59,7 @@ public class FeaturePO extends PatternObject<FeaturePO, Feature>
       return this;
    }
    
-   public FeaturePO filterName(String lower, String upper)
+   public FeaturePO createNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Feature.PROPERTY_NAME)
@@ -68,9 +74,17 @@ public class FeaturePO extends PatternObject<FeaturePO, Feature>
       return this;
    }
    
-   public FeaturePO createName(String value)
+   public FeaturePO createNameAssignment(String value)
    {
-      this.startCreate().filterName(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Feature.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -92,7 +106,7 @@ public class FeaturePO extends PatternObject<FeaturePO, Feature>
       return this;
    }
    
-   public ClassModelPO filterClassmodel()
+   public ClassModelPO createClassmodelPO()
    {
       ClassModelPO result = new ClassModelPO(new ClassModel[]{});
       
@@ -102,19 +116,24 @@ public class FeaturePO extends PatternObject<FeaturePO, Feature>
       return result;
    }
 
-   public ClassModelPO createClassmodel()
+   public ClassModelPO createClassmodelPO(String modifier)
    {
-      return this.startCreate().filterClassmodel().endCreate();
+      ClassModelPO result = new ClassModelPO(new ClassModel[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Feature.PROPERTY_CLASSMODEL, result);
+      
+      return result;
    }
 
-   public FeaturePO filterClassmodel(ClassModelPO tgt)
+   public FeaturePO createClassmodelLink(ClassModelPO tgt)
    {
       return hasLinkConstraint(tgt, Feature.PROPERTY_CLASSMODEL);
    }
 
-   public FeaturePO createClassmodel(ClassModelPO tgt)
+   public FeaturePO createClassmodelLink(ClassModelPO tgt, String modifier)
    {
-      return this.startCreate().filterClassmodel(tgt).endCreate();
+      return hasLinkConstraint(tgt, Feature.PROPERTY_CLASSMODEL, modifier);
    }
 
    public ClassModel getClassmodel()
@@ -126,7 +145,7 @@ public class FeaturePO extends PatternObject<FeaturePO, Feature>
       return null;
    }
 
-   public ClassPO filterIsEncapsulatedBy()
+   public ClassPO createIsEncapsulatedByPO()
    {
       ClassPO result = new ClassPO(new Class[]{});
       
@@ -136,19 +155,24 @@ public class FeaturePO extends PatternObject<FeaturePO, Feature>
       return result;
    }
 
-   public ClassPO createIsEncapsulatedBy()
+   public ClassPO createIsEncapsulatedByPO(String modifier)
    {
-      return this.startCreate().filterIsEncapsulatedBy().endCreate();
+      ClassPO result = new ClassPO(new Class[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Feature.PROPERTY_ISENCAPSULATEDBY, result);
+      
+      return result;
    }
 
-   public FeaturePO filterIsEncapsulatedBy(ClassPO tgt)
+   public FeaturePO createIsEncapsulatedByLink(ClassPO tgt)
    {
       return hasLinkConstraint(tgt, Feature.PROPERTY_ISENCAPSULATEDBY);
    }
 
-   public FeaturePO createIsEncapsulatedBy(ClassPO tgt)
+   public FeaturePO createIsEncapsulatedByLink(ClassPO tgt, String modifier)
    {
-      return this.startCreate().filterIsEncapsulatedBy(tgt).endCreate();
+      return hasLinkConstraint(tgt, Feature.PROPERTY_ISENCAPSULATEDBY, modifier);
    }
 
    public Class getIsEncapsulatedBy()

@@ -3,15 +3,15 @@ package de.unikassel.ttc2016.model.util;
 import org.sdmlib.models.pattern.PatternObject;
 import de.unikassel.ttc2016.model.Method;
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import de.unikassel.ttc2016.model.util.ClassModelPO;
-import de.unikassel.ttc2016.model.Feature;
 import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.util.MethodPO;
-import de.unikassel.ttc2016.model.util.ClassPO;
-import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.util.AttributePO;
 import de.unikassel.ttc2016.model.Attribute;
 import de.unikassel.ttc2016.model.util.AttributeSet;
+import de.unikassel.ttc2016.model.util.ClassPO;
+import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.util.MethodSet;
 
 public class MethodPO extends PatternObject<MethodPO, Method>
@@ -44,7 +44,12 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       }
       newInstance(null, hostGraphObject);
    }
-   public MethodPO filterName(String value)
+
+   public MethodPO(String modifier)
+   {
+      this.setModifier(modifier);
+   }
+   public MethodPO createNameCondition(String value)
    {
       new AttributeConstraint()
       .withAttrName(Method.PROPERTY_NAME)
@@ -58,7 +63,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return this;
    }
    
-   public MethodPO filterName(String lower, String upper)
+   public MethodPO createNameCondition(String lower, String upper)
    {
       new AttributeConstraint()
       .withAttrName(Method.PROPERTY_NAME)
@@ -73,9 +78,17 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return this;
    }
    
-   public MethodPO createName(String value)
+   public MethodPO createNameAssignment(String value)
    {
-      this.startCreate().filterName(value).endCreate();
+      new AttributeConstraint()
+      .withAttrName(Method.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
       return this;
    }
    
@@ -97,75 +110,46 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return this;
    }
    
-   public ClassModelPO filterClassmodel()
+   public ClassModelPO createClassmodelPO()
    {
       ClassModelPO result = new ClassModelPO(new ClassModel[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Feature.PROPERTY_CLASSMODEL, result);
+      super.hasLink(Method.PROPERTY_CLASSMODEL, result);
       
       return result;
    }
 
-   public ClassModelPO createClassmodel()
+   public ClassModelPO createClassmodelPO(String modifier)
    {
-      return this.startCreate().filterClassmodel().endCreate();
+      ClassModelPO result = new ClassModelPO(new ClassModel[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Method.PROPERTY_CLASSMODEL, result);
+      
+      return result;
    }
 
-   public MethodPO filterClassmodel(ClassModelPO tgt)
+   public MethodPO createClassmodelLink(ClassModelPO tgt)
    {
-      return hasLinkConstraint(tgt, Feature.PROPERTY_CLASSMODEL);
+      return hasLinkConstraint(tgt, Method.PROPERTY_CLASSMODEL);
    }
 
-   public MethodPO createClassmodel(ClassModelPO tgt)
+   public MethodPO createClassmodelLink(ClassModelPO tgt, String modifier)
    {
-      return this.startCreate().filterClassmodel(tgt).endCreate();
+      return hasLinkConstraint(tgt, Method.PROPERTY_CLASSMODEL, modifier);
    }
 
    public ClassModel getClassmodel()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Feature) this.getCurrentMatch()).getClassmodel();
+         return ((Method) this.getCurrentMatch()).getClassmodel();
       }
       return null;
    }
 
-   public ClassPO filterIsEncapsulatedBy()
-   {
-      ClassPO result = new ClassPO(new Class[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Feature.PROPERTY_ISENCAPSULATEDBY, result);
-      
-      return result;
-   }
-
-   public ClassPO createIsEncapsulatedBy()
-   {
-      return this.startCreate().filterIsEncapsulatedBy().endCreate();
-   }
-
-   public MethodPO filterIsEncapsulatedBy(ClassPO tgt)
-   {
-      return hasLinkConstraint(tgt, Feature.PROPERTY_ISENCAPSULATEDBY);
-   }
-
-   public MethodPO createIsEncapsulatedBy(ClassPO tgt)
-   {
-      return this.startCreate().filterIsEncapsulatedBy(tgt).endCreate();
-   }
-
-   public Class getIsEncapsulatedBy()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Feature) this.getCurrentMatch()).getIsEncapsulatedBy();
-      }
-      return null;
-   }
-
-   public AttributePO filterDataDependency()
+   public AttributePO createDataDependencyPO()
    {
       AttributePO result = new AttributePO(new Attribute[]{});
       
@@ -175,19 +159,24 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return result;
    }
 
-   public AttributePO createDataDependency()
+   public AttributePO createDataDependencyPO(String modifier)
    {
-      return this.startCreate().filterDataDependency().endCreate();
+      AttributePO result = new AttributePO(new Attribute[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Method.PROPERTY_DATADEPENDENCY, result);
+      
+      return result;
    }
 
-   public MethodPO filterDataDependency(AttributePO tgt)
+   public MethodPO createDataDependencyLink(AttributePO tgt)
    {
       return hasLinkConstraint(tgt, Method.PROPERTY_DATADEPENDENCY);
    }
 
-   public MethodPO createDataDependency(AttributePO tgt)
+   public MethodPO createDataDependencyLink(AttributePO tgt, String modifier)
    {
-      return this.startCreate().filterDataDependency(tgt).endCreate();
+      return hasLinkConstraint(tgt, Method.PROPERTY_DATADEPENDENCY, modifier);
    }
 
    public AttributeSet getDataDependency()
@@ -199,7 +188,46 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return null;
    }
 
-   public MethodPO filterUsedByMethods()
+   public ClassPO createIsEncapsulatedByPO()
+   {
+      ClassPO result = new ClassPO(new Class[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Method.PROPERTY_ISENCAPSULATEDBY, result);
+      
+      return result;
+   }
+
+   public ClassPO createIsEncapsulatedByPO(String modifier)
+   {
+      ClassPO result = new ClassPO(new Class[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Method.PROPERTY_ISENCAPSULATEDBY, result);
+      
+      return result;
+   }
+
+   public MethodPO createIsEncapsulatedByLink(ClassPO tgt)
+   {
+      return hasLinkConstraint(tgt, Method.PROPERTY_ISENCAPSULATEDBY);
+   }
+
+   public MethodPO createIsEncapsulatedByLink(ClassPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Method.PROPERTY_ISENCAPSULATEDBY, modifier);
+   }
+
+   public Class getIsEncapsulatedBy()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Method) this.getCurrentMatch()).getIsEncapsulatedBy();
+      }
+      return null;
+   }
+
+   public MethodPO createUsedByMethodsPO()
    {
       MethodPO result = new MethodPO(new Method[]{});
       
@@ -209,19 +237,24 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return result;
    }
 
-   public MethodPO createUsedByMethods()
+   public MethodPO createUsedByMethodsPO(String modifier)
    {
-      return this.startCreate().filterUsedByMethods().endCreate();
+      MethodPO result = new MethodPO(new Method[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Method.PROPERTY_USEDBYMETHODS, result);
+      
+      return result;
    }
 
-   public MethodPO filterUsedByMethods(MethodPO tgt)
+   public MethodPO createUsedByMethodsLink(MethodPO tgt)
    {
       return hasLinkConstraint(tgt, Method.PROPERTY_USEDBYMETHODS);
    }
 
-   public MethodPO createUsedByMethods(MethodPO tgt)
+   public MethodPO createUsedByMethodsLink(MethodPO tgt, String modifier)
    {
-      return this.startCreate().filterUsedByMethods(tgt).endCreate();
+      return hasLinkConstraint(tgt, Method.PROPERTY_USEDBYMETHODS, modifier);
    }
 
    public MethodSet getUsedByMethods()
@@ -233,7 +266,7 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return null;
    }
 
-   public MethodPO filterFunctionalDependency()
+   public MethodPO createFunctionalDependencyPO()
    {
       MethodPO result = new MethodPO(new Method[]{});
       
@@ -243,19 +276,24 @@ public class MethodPO extends PatternObject<MethodPO, Method>
       return result;
    }
 
-   public MethodPO createFunctionalDependency()
+   public MethodPO createFunctionalDependencyPO(String modifier)
    {
-      return this.startCreate().filterFunctionalDependency().endCreate();
+      MethodPO result = new MethodPO(new Method[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Method.PROPERTY_FUNCTIONALDEPENDENCY, result);
+      
+      return result;
    }
 
-   public MethodPO filterFunctionalDependency(MethodPO tgt)
+   public MethodPO createFunctionalDependencyLink(MethodPO tgt)
    {
       return hasLinkConstraint(tgt, Method.PROPERTY_FUNCTIONALDEPENDENCY);
    }
 
-   public MethodPO createFunctionalDependency(MethodPO tgt)
+   public MethodPO createFunctionalDependencyLink(MethodPO tgt, String modifier)
    {
-      return this.startCreate().filterFunctionalDependency(tgt).endCreate();
+      return hasLinkConstraint(tgt, Method.PROPERTY_FUNCTIONALDEPENDENCY, modifier);
    }
 
    public MethodSet getFunctionalDependency()

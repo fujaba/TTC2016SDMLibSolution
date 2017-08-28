@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,24 +21,48 @@
    
 package de.unikassel.ttc2016.model.util;
 
-import org.sdmlib.models.modelsets.SDMSet;
+import de.uniks.networkparser.list.SimpleSet;
 import de.unikassel.ttc2016.model.Feature;
-import java.util.Collection;
 import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.models.modelsets.StringList;
-import org.sdmlib.models.modelsets.ObjectSet;
+import de.unikassel.ttc2016.model.Attribute;
+import de.unikassel.ttc2016.model.util.AttributeSet;
+import de.unikassel.ttc2016.model.Method;
+import de.unikassel.ttc2016.model.util.MethodSet;
+import java.util.Collection;
+import de.uniks.networkparser.list.ObjectSet;
 import de.unikassel.ttc2016.model.util.ClassModelSet;
 import de.unikassel.ttc2016.model.ClassModel;
 import de.unikassel.ttc2016.model.util.ClassSet;
 import de.unikassel.ttc2016.model.Class;
 
-public class FeatureSet extends SDMSet<Feature>
+public class FeatureSet extends SimpleSet<Feature>
 {
+	public java.lang.Class<?> getTypClass() {
+		return Feature.class;
+	}
+
+   public FeatureSet()
+   {
+      // empty
+   }
+
+   public FeatureSet(Feature... objects)
+   {
+      for (Feature obj : objects)
+      {
+         this.add(obj);
+      }
+   }
+
+   public FeatureSet(Collection<Feature> objects)
+   {
+      this.addAll(objects);
+   }
 
    public static final FeatureSet EMPTY_SET = new FeatureSet().withFlag(FeatureSet.READONLY);
 
 
-   public FeaturePO filterFeaturePO()
+   public FeaturePO createFeaturePO()
    {
       return new FeaturePO(this.toArray(new Feature[this.size()]));
    }
@@ -49,6 +73,49 @@ public class FeatureSet extends SDMSet<Feature>
       return "de.unikassel.ttc2016.model.Feature";
    }
 
+
+   @Override
+   public FeatureSet getNewList(boolean keyValue)
+   {
+      return new FeatureSet();
+   }
+
+
+   public FeatureSet filter(Condition<Feature> condition) {
+      FeatureSet filterList = new FeatureSet();
+      filterItems(filterList, condition);
+      return filterList;
+   }
+
+   public AttributeSet instanceOfAttribute()
+   {
+      AttributeSet result = new AttributeSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Attribute)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
+
+   public MethodSet instanceOfMethod()
+   {
+      MethodSet result = new MethodSet();
+      
+      for(Object obj : this)
+      {
+         if (obj instanceof Method)
+         {
+            result.with(obj);
+         }
+      }
+      
+      return result;
+   }
 
    @SuppressWarnings("unchecked")
    public FeatureSet with(Object value)
@@ -75,21 +142,15 @@ public class FeatureSet extends SDMSet<Feature>
       return this;
    }
 
-   @Override
-   public FeatureSet filter(Condition<Feature> newValue) {
-      FeatureSet filterList = new FeatureSet();
-      filterItems(filterList, newValue);
-      return filterList;
-   }
 
    /**
     * Loop through the current set of Feature objects and collect a list of the name attribute values. 
     * 
     * @return List of String objects reachable via name attribute
     */
-   public StringList getName()
+   public ObjectSet getName()
    {
-      StringList result = new StringList();
+      ObjectSet result = new ObjectSet();
       
       for (Feature obj : this)
       {
@@ -107,7 +168,7 @@ public class FeatureSet extends SDMSet<Feature>
     * 
     * @return Subset of Feature objects that match the parameter
     */
-   public FeatureSet filterName(String value)
+   public FeatureSet createNameCondition(String value)
    {
       FeatureSet result = new FeatureSet();
       
@@ -131,7 +192,7 @@ public class FeatureSet extends SDMSet<Feature>
     * 
     * @return Subset of Feature objects that match the parameter
     */
-   public FeatureSet filterName(String lower, String upper)
+   public FeatureSet createNameCondition(String lower, String upper)
    {
       FeatureSet result = new FeatureSet();
       

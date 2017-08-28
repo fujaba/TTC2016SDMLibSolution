@@ -4,176 +4,29 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="includes/dagre.min.js"></script>
 <script src="includes/drawer.js"></script>
 <script src="includes/graph.js"></script>
-</head><body>
+<style>
+    canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+</head>
+<body>
 <p>Storyboard <a href='.././src/de/unikassel/ttc2016/classmodel/GenClassesFromEcore.java' type='text/x-java'>GenClassesFromEcore</a></p>
 <p>Start: Derive Class Model from ECORE</p>
 <script>
    var json = {
    "typ":"class",
-   "nodes":[
-      {
-         "typ":"node",
-         "id":"ClassModel"
-      },
-      {
-         "typ":"node",
-         "id":"Class"
-      },
-      {
-         "typ":"node",
-         "id":"Attribute"
-      },
-      {
-         "typ":"node",
-         "id":"Method"
-      },
-      {
-         "typ":"node",
-         "id":"Feature"
-      },
-      {
-         "typ":"node",
-         "id":"NamedElement",
-         "attributes":[
-            "name : String"
-         ]
-      }
-   ],
-   "edges":[
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         },
-         "target":{
-            "id":"NamedElement",
-            "cardinality":"one",
-            "property":"namedelement"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "id":"Class",
-            "cardinality":"many",
-            "property":"classes"
-         },
-         "target":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "id":"Feature",
-            "cardinality":"many",
-            "property":"features"
-         },
-         "target":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Class",
-            "cardinality":"one",
-            "property":"class"
-         },
-         "target":{
-            "id":"NamedElement",
-            "cardinality":"one",
-            "property":"namedelement"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Class",
-            "cardinality":"one",
-            "property":"isEncapsulatedBy"
-         },
-         "target":{
-            "id":"Feature",
-            "cardinality":"many",
-            "property":"encapsulates"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Attribute",
-            "cardinality":"one",
-            "property":"attribute"
-         },
-         "target":{
-            "id":"Feature",
-            "cardinality":"one",
-            "property":"feature"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "id":"Attribute",
-            "cardinality":"many",
-            "property":"dataDependency"
-         },
-         "target":{
-            "id":"Method",
-            "cardinality":"one",
-            "property":"method"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Method",
-            "cardinality":"one",
-            "property":"method"
-         },
-         "target":{
-            "id":"Feature",
-            "cardinality":"one",
-            "property":"feature"
-         }
-      },
-      {
-         "typ":"UNDIRECTIONAL",
-         "source":{
-            "id":"Method",
-            "cardinality":"many",
-            "property":"functionalDependency"
-         },
-         "target":{
-            "id":"Method",
-            "cardinality":"one",
-            "property":"method"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Feature",
-            "cardinality":"one",
-            "property":"feature"
-         },
-         "target":{
-            "id":"NamedElement",
-            "cardinality":"one",
-            "property":"namedelement"
-         }
-      }
-   ]
+   "nodes":[],
+   "edges":[]
 }   ;
    new Graph(json, {"canvasid":"canvasGenClassesFromEcoreClassDiagram1", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
 </script>
@@ -183,14 +36,7 @@
    "nodes":[
       {
          "typ":"node",
-         "id":"NamedElement",
-         "attributes":[
-            "name : String"
-         ]
-      },
-      {
-         "typ":"node",
-         "id":"ClassModel"
+         "id":"Attribute"
       },
       {
          "typ":"node",
@@ -198,124 +44,27 @@
       },
       {
          "typ":"node",
+         "id":"ClassModel"
+      },
+      {
+         "typ":"node",
          "id":"Feature"
       },
       {
          "typ":"node",
-         "id":"Attribute"
+         "id":"Method"
       },
       {
          "typ":"node",
-         "id":"Method"
+         "id":"NamedElement",
+         "attributes":[
+            "name : String"
+         ]
       }
    ],
    "edges":[
       {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         },
-         "target":{
-            "id":"NamedElement",
-            "cardinality":"one",
-            "property":"namedelement"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Class",
-            "cardinality":"one",
-            "property":"class"
-         },
-         "target":{
-            "id":"NamedElement",
-            "cardinality":"one",
-            "property":"namedelement"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Feature",
-            "cardinality":"one",
-            "property":"feature"
-         },
-         "target":{
-            "id":"NamedElement",
-            "cardinality":"one",
-            "property":"namedelement"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         },
-         "target":{
-            "id":"Class",
-            "cardinality":"many",
-            "property":"classes"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"ClassModel",
-            "cardinality":"one",
-            "property":"classmodel"
-         },
-         "target":{
-            "id":"Feature",
-            "cardinality":"many",
-            "property":"features"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
-         "source":{
-            "id":"Class",
-            "cardinality":"one",
-            "property":"isEncapsulatedBy"
-         },
-         "target":{
-            "id":"Feature",
-            "cardinality":"many",
-            "property":"encapsulates"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Attribute",
-            "cardinality":"one",
-            "property":"attribute"
-         },
-         "target":{
-            "id":"Feature",
-            "cardinality":"one",
-            "property":"feature"
-         }
-      },
-      {
-         "typ":"GENERALISATION",
-         "source":{
-            "id":"Method",
-            "cardinality":"one",
-            "property":"method"
-         },
-         "target":{
-            "id":"Feature",
-            "cardinality":"one",
-            "property":"feature"
-         }
-      },
-      {
-         "typ":"ASSOCIATION",
+         "typ":"assoc",
          "source":{
             "id":"Attribute",
             "cardinality":"many",
@@ -328,7 +77,163 @@
          }
       },
       {
-         "typ":"ASSOCIATION",
+         "typ":"generalisation",
+         "source":{
+            "id":"Attribute",
+            "cardinality":"one",
+            "property":"attribute"
+         },
+         "target":{
+            "id":"Feature",
+            "cardinality":"one",
+            "property":"feature"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Class",
+            "cardinality":"many",
+            "property":"classes"
+         },
+         "target":{
+            "id":"ClassModel",
+            "cardinality":"one",
+            "property":"classmodel"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Class",
+            "cardinality":"one",
+            "property":"isEncapsulatedBy"
+         },
+         "target":{
+            "id":"Feature",
+            "cardinality":"many",
+            "property":"encapsulates"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Class",
+            "cardinality":"one",
+            "property":"class"
+         },
+         "target":{
+            "id":"NamedElement",
+            "cardinality":"one",
+            "property":"namedelement"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ClassModel",
+            "cardinality":"one",
+            "property":"classmodel"
+         },
+         "target":{
+            "id":"Class",
+            "cardinality":"many",
+            "property":"classes"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"ClassModel",
+            "cardinality":"one",
+            "property":"classmodel"
+         },
+         "target":{
+            "id":"Feature",
+            "cardinality":"many",
+            "property":"features"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"ClassModel",
+            "cardinality":"one",
+            "property":"classmodel"
+         },
+         "target":{
+            "id":"NamedElement",
+            "cardinality":"one",
+            "property":"namedelement"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Feature",
+            "cardinality":"many",
+            "property":"encapsulates"
+         },
+         "target":{
+            "id":"Class",
+            "cardinality":"one",
+            "property":"isEncapsulatedBy"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Feature",
+            "cardinality":"many",
+            "property":"features"
+         },
+         "target":{
+            "id":"ClassModel",
+            "cardinality":"one",
+            "property":"classmodel"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Feature",
+            "cardinality":"one",
+            "property":"feature"
+         },
+         "target":{
+            "id":"NamedElement",
+            "cardinality":"one",
+            "property":"namedelement"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Attribute",
+            "cardinality":"one",
+            "property":"attribute"
+         },
+         "target":{
+            "id":"Feature",
+            "cardinality":"one",
+            "property":"feature"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Method",
+            "cardinality":"one",
+            "property":"method"
+         },
+         "target":{
+            "id":"Feature",
+            "cardinality":"one",
+            "property":"feature"
+         }
+      },
+      {
+         "typ":"assoc",
          "source":{
             "id":"Method",
             "cardinality":"many",
@@ -338,6 +243,71 @@
             "id":"Method",
             "cardinality":"many",
             "property":"usedByMethods"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Method",
+            "cardinality":"many",
+            "property":"methods"
+         },
+         "target":{
+            "id":"Attribute",
+            "cardinality":"many",
+            "property":"dataDependency"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Method",
+            "cardinality":"one",
+            "property":"method"
+         },
+         "target":{
+            "id":"Feature",
+            "cardinality":"one",
+            "property":"feature"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"ClassModel",
+            "cardinality":"one",
+            "property":"classmodel"
+         },
+         "target":{
+            "id":"NamedElement",
+            "cardinality":"one",
+            "property":"namedelement"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Class",
+            "cardinality":"one",
+            "property":"class"
+         },
+         "target":{
+            "id":"NamedElement",
+            "cardinality":"one",
+            "property":"namedelement"
+         }
+      },
+      {
+         "typ":"generalisation",
+         "source":{
+            "id":"Feature",
+            "cardinality":"one",
+            "property":"feature"
+         },
+         "target":{
+            "id":"NamedElement",
+            "cardinality":"one",
+            "property":"namedelement"
          }
       }
    ]

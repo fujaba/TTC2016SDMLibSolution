@@ -14,7 +14,7 @@ import java.util.Date;
 import org.junit.Test;
 import org.sdmlib.CGUtil;
 import org.sdmlib.models.SDMLibIdMap;
-import org.sdmlib.models.modelsets.ObjectSet;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachabilityGraph.Searchmode;
 import org.sdmlib.models.pattern.ReachableState;
@@ -36,6 +36,7 @@ import de.unikassel.ttc2016.model.util.FeaturePO;
 import de.unikassel.ttc2016.model.util.MethodPO;
 import de.unikassel.ttc2016.model.util.MethodSet;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.list.ObjectSet;
 
 public class RunTestCases
 {
@@ -417,7 +418,7 @@ public class RunTestCases
 
       best = reachabilityGraph.getStates().getMetricValue().max();
 
-      bestState = reachabilityGraph.getStates().filterMetricValue(best).first();
+      bestState = reachabilityGraph.getStates().createMetricValueCondition(best).first();
       
       int i = 1;
       for (Class c : ((ClassModel) bestState.getGraphRoot()).getClasses())
@@ -465,7 +466,7 @@ public class RunTestCases
    private ClassModelPO mergePathRule()
    {
       ClassModelPO classModelPO = new ClassModelPO();
-      ClassPO c1PO = classModelPO.filterClasses();
+      ClassPO c1PO = classModelPO.createClassesPO();
       
       ClassPO c2PO = c1PO.createPath(
          c -> {
@@ -479,12 +480,12 @@ public class RunTestCases
          new ClassPO());
       
       c2PO.hasMatchOtherThen(c1PO);
-      c2PO.filterClassmodel(classModelPO);
+      c2PO.createClassmodelLink(classModelPO);
       c2PO.getPattern().clone(reachabilityGraph);
       c2PO.startSubPattern();
-      FeaturePO f3 = c2PO.filterEncapsulates();
+      FeaturePO f3 = c2PO.createEncapsulatesPO();
       f3.startCreate();
-      f3.filterIsEncapsulatedBy(c1PO);
+      f3.createIsEncapsulatedByLink(c1PO, Pattern.CREATE);
       f3.doAllMatches();
       f3.endCreate();
       c2PO.endSubPattern();
@@ -498,18 +499,18 @@ public class RunTestCases
    private ClassModelPO mergeDataDependencyRule()
    {
       ClassModelPO classModelPO = new ClassModelPO();
-      ClassPO c1PO = classModelPO.filterClasses();
-      FeaturePO f1PO = c1PO.filterEncapsulates();
+      ClassPO c1PO = classModelPO.createClassesPO();
+      FeaturePO f1PO = c1PO.createEncapsulatesPO();
       MethodPO m1PO = f1PO.instanceOf(new MethodPO());
-      AttributePO a2PO = m1PO.filterDataDependency();
-      ClassPO c2PO = a2PO.filterIsEncapsulatedBy();
+      AttributePO a2PO = m1PO.createDataDependencyPO();
+      ClassPO c2PO = a2PO.createIsEncapsulatedByPO();
       c2PO.hasMatchOtherThen(c1PO);
-      c2PO.filterClassmodel(classModelPO);
+      c2PO.createClassmodelLink(classModelPO);
       c2PO.getPattern().clone(reachabilityGraph);
       c2PO.startSubPattern();
-      FeaturePO f3 = c2PO.filterEncapsulates();
+      FeaturePO f3 = c2PO.createEncapsulatesPO();
       f3.startCreate();
-      f3.filterIsEncapsulatedBy(c1PO);
+      f3.createIsEncapsulatedByLink(c1PO, Pattern.CREATE);
       f3.doAllMatches();
       f3.endCreate();
       c2PO.endSubPattern();
@@ -520,18 +521,18 @@ public class RunTestCases
    private ClassModelPO mergeMethodDependencyRule()
    {
       ClassModelPO classModelPO = new ClassModelPO();
-      ClassPO c1PO = classModelPO.filterClasses();
-      FeaturePO f1PO = c1PO.filterEncapsulates();
+      ClassPO c1PO = classModelPO.createClassesPO();
+      FeaturePO f1PO = c1PO.createEncapsulatesPO();
       MethodPO m1PO = f1PO.instanceOf(new MethodPO());
-      MethodPO m2PO = m1PO.filterFunctionalDependency();
-      ClassPO c2PO = m2PO.filterIsEncapsulatedBy();
+      MethodPO m2PO = m1PO.createFunctionalDependencyPO();
+      ClassPO c2PO = m2PO.createIsEncapsulatedByPO();
       c2PO.hasMatchOtherThen(c1PO);
-      c2PO.filterClassmodel(classModelPO);
+      c2PO.createClassmodelLink(classModelPO);
       c2PO.getPattern().clone(reachabilityGraph);
       c2PO.startSubPattern();
-      FeaturePO f3 = c2PO.filterEncapsulates();
+      FeaturePO f3 = c2PO.createEncapsulatesPO();
       f3.startCreate();
-      f3.filterIsEncapsulatedBy(c1PO);
+      f3.createIsEncapsulatedByLink(c1PO, Pattern.CREATE);
       f3.doAllMatches();
       f3.endCreate();
       c2PO.endSubPattern();
@@ -555,12 +556,12 @@ public class RunTestCases
    {
       ClassModelPO classModelPO = new ClassModelPO(model);
 
-      FeaturePO featurePO = classModelPO.filterFeatures();
+      FeaturePO featurePO = classModelPO.createFeaturesPO();
 
       featurePO.startCreate();
 
-      ClassPO newClassPO = classModelPO.filterClasses();
-      newClassPO.filterEncapsulates(featurePO);
+      ClassPO newClassPO = classModelPO.createClassesPO();
+      newClassPO.createEncapsulatesLink(featurePO);
       
       // add name after state space expansion to make C1 depend on 2 and vice versa cases handled only once.
       // requires post processing

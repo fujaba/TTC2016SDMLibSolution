@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,22 +22,22 @@
 package de.unikassel.ttc2016.model.util;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import de.unikassel.ttc2016.model.Attribute;
+import de.uniks.networkparser.IdMap;
 import de.unikassel.ttc2016.model.NamedElement;
 import de.unikassel.ttc2016.model.ClassModel;
-import de.unikassel.ttc2016.model.Feature;
-import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.Method;
+import de.unikassel.ttc2016.model.Class;
+import de.unikassel.ttc2016.model.Feature;
 
 public class AttributeCreator implements SendableEntityCreator
 {
    private final String[] properties = new String[]
    {
       NamedElement.PROPERTY_NAME,
-      Feature.PROPERTY_CLASSMODEL,
-      Feature.PROPERTY_ISENCAPSULATEDBY,
+      Attribute.PROPERTY_CLASSMODEL,
       Attribute.PROPERTY_METHODS,
+      Attribute.PROPERTY_ISENCAPSULATEDBY,
    };
    
    @Override
@@ -73,14 +73,14 @@ public class AttributeCreator implements SendableEntityCreator
          return ((Attribute) target).getClassmodel();
       }
 
-      if (Attribute.PROPERTY_ISENCAPSULATEDBY.equalsIgnoreCase(attribute))
-      {
-         return ((Attribute) target).getIsEncapsulatedBy();
-      }
-
       if (Attribute.PROPERTY_METHODS.equalsIgnoreCase(attribute))
       {
          return ((Attribute) target).getMethods();
+      }
+
+      if (Attribute.PROPERTY_ISENCAPSULATEDBY.equalsIgnoreCase(attribute))
+      {
+         return ((Attribute) target).getIsEncapsulatedBy();
       }
       
       return null;
@@ -91,11 +91,15 @@ public class AttributeCreator implements SendableEntityCreator
    {
       if (NamedElement.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((NamedElement) target).withName((String) value);
+         ((NamedElement) target).setName((String) value);
          return true;
       }
 
-      if (IdMap.REMOVE.equals(type) && value != null)
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((Attribute)target).removeYou();
+           return true;
+      }
+      if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
@@ -106,21 +110,21 @@ public class AttributeCreator implements SendableEntityCreator
          return true;
       }
 
-      if (Attribute.PROPERTY_ISENCAPSULATEDBY.equalsIgnoreCase(attrName))
-      {
-         ((Attribute) target).setIsEncapsulatedBy((Class) value);
-         return true;
-      }
-
       if (Attribute.PROPERTY_METHODS.equalsIgnoreCase(attrName))
       {
          ((Attribute) target).withMethods((Method) value);
          return true;
       }
       
-      if ((Attribute.PROPERTY_METHODS + IdMap.REMOVE).equalsIgnoreCase(attrName))
+      if ((Attribute.PROPERTY_METHODS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Attribute) target).withoutMethods((Method) value);
+         return true;
+      }
+
+      if (Attribute.PROPERTY_ISENCAPSULATEDBY.equalsIgnoreCase(attrName))
+      {
+         ((Attribute) target).setIsEncapsulatedBy((Class) value);
          return true;
       }
       

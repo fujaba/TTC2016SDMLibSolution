@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -24,35 +24,58 @@ package de.unikassel.ttc2016.model;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.StrUtil;
-
-public  class NamedElement implements SendableEntity
+import de.uniks.networkparser.EntityUtil;
+   /**
+    * 
+    * @see <a href='../../../../../src/de/unikassel/ttc2016/classmodel/GenClassesFromEcore.java'>GenClassesFromEcore.java</a>
+ */
+   public  class NamedElement implements SendableEntity
 {
 
    
    //==========================================================================
    
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+   protected PropertyChangeSupport listeners = null;
    
-   public PropertyChangeSupport getPropertyChangeSupport()
+   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
-      return listeners;
+      if (listeners != null) {
+   		listeners.firePropertyChange(propertyName, oldValue, newValue);
+   		return true;
+   	}
+   	return false;
    }
    
    public boolean addPropertyChangeListener(PropertyChangeListener listener) 
    {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(listener);
+   	return true;
    }
    
    public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
+   	if (listeners == null) {
+   		listeners = new PropertyChangeSupport(this);
+   	}
+   	listeners.addPropertyChangeListener(propertyName, listener);
+   	return true;
    }
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-      getPropertyChangeSupport().removePropertyChangeListener(listener);
-      return true;
+   	if (listeners == null) {
+   		listeners.removePropertyChangeListener(listener);
+   	}
+   	listeners.removePropertyChangeListener(listener);
+   	return true;
+   }
+
+   public boolean removePropertyChangeListener(String propertyName,PropertyChangeListener listener) {
+   	if (listeners != null) {
+   		listeners.removePropertyChangeListener(propertyName, listener);
+   	}
+   	return true;
    }
 
    
@@ -61,8 +84,7 @@ public  class NamedElement implements SendableEntity
    
    public void removeYou()
    {
-   
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
    
@@ -79,11 +101,11 @@ public  class NamedElement implements SendableEntity
    
    public void setName(String value)
    {
-      if ( ! StrUtil.stringEquals(this.name, value)) {
+      if ( ! EntityUtil.stringEquals(this.name, value)) {
       
          String oldValue = this.name;
          this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
    

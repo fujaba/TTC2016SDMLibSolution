@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -30,7 +30,7 @@ import de.unikassel.ttc2016.model.util.FeatureSet;
 import de.unikassel.ttc2016.model.Feature;
    /**
     * 
-    * @see <a href='../../../../../src/de/unikassel/ttc2016/RunTestCases.java'>RunTestCases.java</a>
+    * @see <a href='../../../../../src/de/unikassel/ttc2016/classmodel/GenClassesFromEcore.java'>GenClassesFromEcore.java</a>
  */
    public  class ClassModel extends NamedElement
 {
@@ -41,12 +41,9 @@ import de.unikassel.ttc2016.model.Feature;
    @Override
    public void removeYou()
    {
-   
-      super.removeYou();
-
       withoutClasses(this.getClasses().toArray(new Class[this.getClasses().size()]));
       withoutFeatures(this.getFeatures().toArray(new Feature[this.getFeatures().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
 
@@ -102,7 +99,7 @@ import de.unikassel.ttc2016.model.Feature;
             if (changed)
             {
                item.withClassmodel(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, null, item);
+               firePropertyChange(PROPERTY_CLASSES, null, item);
             }
          }
       }
@@ -118,7 +115,7 @@ import de.unikassel.ttc2016.model.Feature;
             if (this.classes.remove(item))
             {
                item.setClassmodel(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_CLASSES, item, null);
+               firePropertyChange(PROPERTY_CLASSES, item, null);
             }
          }
       }
@@ -174,7 +171,7 @@ import de.unikassel.ttc2016.model.Feature;
             if (changed)
             {
                item.withClassmodel(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURES, null, item);
+               firePropertyChange(PROPERTY_FEATURES, null, item);
             }
          }
       }
@@ -190,7 +187,7 @@ import de.unikassel.ttc2016.model.Feature;
             if (this.features.remove(item))
             {
                item.setClassmodel(null);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURES, item, null);
+               firePropertyChange(PROPERTY_FEATURES, item, null);
             }
          }
       }

@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 lra
+   Copyright (c) 2017 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -23,11 +23,14 @@ package de.unikassel.ttc2016.model;
 
 import de.unikassel.ttc2016.model.Feature;
 import de.unikassel.ttc2016.model.ClassModel;
-import de.unikassel.ttc2016.model.Class;
 import de.unikassel.ttc2016.model.util.MethodSet;
 import de.unikassel.ttc2016.model.Method;
-
-public  class Attribute extends Feature
+import de.unikassel.ttc2016.model.Class;
+   /**
+    * 
+    * @see <a href='../../../../../src/de/unikassel/ttc2016/classmodel/GenClassesFromEcore.java'>GenClassesFromEcore.java</a>
+ */
+   public  class Attribute extends Feature
 {
 
    
@@ -36,13 +39,10 @@ public  class Attribute extends Feature
    @Override
    public void removeYou()
    {
-   
-      super.removeYou();
-
       setClassmodel(null);
-      setIsEncapsulatedBy(null);
       withoutMethods(this.getMethods().toArray(new Method[this.getMethods().size()]));
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+      setIsEncapsulatedBy(null);
+      firePropertyChange("REMOVE_YOU", this, null);
    }
 
 
@@ -98,7 +98,7 @@ public  class Attribute extends Feature
             if (changed)
             {
                item.withDataDependency(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, null, item);
+               firePropertyChange(PROPERTY_METHODS, null, item);
             }
          }
       }
@@ -114,7 +114,7 @@ public  class Attribute extends Feature
             if (this.methods.remove(item))
             {
                item.withoutDataDependency(this);
-               getPropertyChangeSupport().firePropertyChange(PROPERTY_METHODS, item, null);
+               firePropertyChange(PROPERTY_METHODS, item, null);
             }
          }
       }

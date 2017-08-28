@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.storyboards.Storyboard;
 
 import de.unikassel.ttc2016.model.Class;
@@ -86,14 +88,12 @@ public class GraphTransformationExecutor {
 		{
 			ClassModelPO classModelPO = new ClassModelPO(model);
 
-			FeaturePO featurePO = classModelPO.filterFeatures();
+			FeaturePO featurePO = classModelPO.createFeaturesPO();
 
-			featurePO.startCreate();
-
-			ClassPO newClassPO = classModelPO.filterClasses();
-			newClassPO.filterEncapsulates(featurePO);
+			ClassPO newClassPO = classModelPO.createClassesPO(Pattern.CREATE);
+			newClassPO.createEncapsulatesLink(featurePO, Pattern.CREATE);
 			newClassPO.createCondition(c -> c.withName("Class4"+featurePO.getName()) != null);
-			featurePO.endCreate();
+
 			featurePO.allMatches();
 
 			return classModelPO;
